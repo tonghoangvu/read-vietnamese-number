@@ -1,0 +1,16 @@
+{
+    "name": "read-vietnamese-number",
+    "version": "1.0.0",
+    "description": "Thư viện đọc số thành chữ trong Tiếng Việt",
+    "main": "src/index.ts",
+    "repository": "https://github.com/tonghoangvu/read-vietnamese-number.git",
+    "author": "tonghoangvu <tonghoangvu@outlook.com>",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "typescript": "^4.1.5"
+    }
+}

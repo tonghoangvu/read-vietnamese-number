@@ -5,13 +5,17 @@ module.exports = {
         'es6': true,
         'node': true
     },
-    'extends': 'eslint:recommended',
+    'extends': [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended'
+    ],
+    "parser": "@typescript-eslint/parser",
+    'parserOptions': {
+        'ecmaVersion': 2020
+    },
     'globals': {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly'
-    },
-    'parserOptions': {
-        'ecmaVersion': 2020
     },
     'rules': {
         'no-console': [

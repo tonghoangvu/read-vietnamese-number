@@ -2,14 +2,16 @@
     "name": "read-vietnamese-number",
     "version": "1.0.0",
     "description": "Thư viện đọc số thành chữ trong Tiếng Việt",
-    "main": "src/index.ts",
+    "main": "out/index.js",
+    "types": "out/index.d.js",
     "repository": "https://github.com/tonghoangvu/read-vietnamese-number.git",
     "author": "tonghoangvu <tonghoangvu@outlook.com>",
+    "keywords": ["Vietnamese", "Number"],
     "license": "MIT",
     "private": false,
     "scripts": {
         "build": "tsc",
-        "lint": "eslint src/**"
+        "lint": "eslint src"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.15.1",
@@ -17,5 +19,6 @@
         "eslint": "^7.20.0",
         "typescript": "^4.1.5"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "files": ["dist/**/*"]
 }

@@ -1,0 +1,10 @@
+# Never exclude:
+#   README.md, LICENSE, package.json, node_modules, .npmignore
+
+src
+.editorconfig
+.eslintrc.js
+.gitignore
+tsconfig.json
+package-lock.json
+yarn.lock

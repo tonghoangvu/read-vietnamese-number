@@ -1,7 +1,7 @@
-function readNumber(num: number): string {
-    return num.toString();
-}
+import NumberData from './NumberData';
+import ReadingConfig from './ReadingConfig';
+import Reader from './Reader';
 
 export {
-    readNumber
+    NumberData, ReadingConfig, Reader
 };

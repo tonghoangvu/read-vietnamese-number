@@ -1,41 +1,33 @@
 import NumberData from './NumberData';
 import ReadingConfig from './ReadingConfig';
+import Utils from './Utils';
 
 function readTwoDigits(config: ReadingConfig,
         b: number, c: number, hasHundred: boolean): string[] {
     const output: string[] = [];
 
-    switch (b) {
-        case 0: {
-            if (hasHundred && c === 0)
-                break;
+    if (b === 0) {
+        if (!hasHundred || c !== 0) {
             if (hasHundred)
                 output.push(config.oddText);
             output.push(config.digits[c]);
-            break;
         }
-
-        case 1: {
-            output.push(config.tenText);
-            if (c === 5)
-                output.push(config.fiveToneText);
-            else if (c !== 0)
-                output.push(config.digits[c]);
-            break;
-        }
-
-        default: {
-            output.push(config.digits[b], config.tenToneText);
-            if (c === 1)
-                output.push(config.oneToneText);
-            else if (c === 4 && b !== 4)
-                output.push(config.fourToneText);
-            else if (c === 5)
-                output.push(config.fiveToneText);
-            else if (c !== 0)
-                output.push(config.digits[c]);
-            break;
-        }
+    } else if (b === 1) {
+        output.push(config.tenText);
+        if (c === 5)
+            output.push(config.fiveToneText);
+        else if (c !== 0)
+            output.push(config.digits[c]);
+    } else {
+        output.push(config.digits[b], config.tenToneText);
+        if (c === 1)
+            output.push(config.oneToneText);
+        else if (c === 4 && b !== 4)
+            output.push(config.fourToneText);
+        else if (c === 5)
+            output.push(config.fiveToneText);
+        else if (c !== 0)
+            output.push(config.digits[c]);
     }
 
     return output;
@@ -48,114 +40,108 @@ function readThreeDigits(config: ReadingConfig,
     // Read hundred even zero, apply for all parts, except the first part (on the left)
     if (a !== 0 || readZeroHundred)
         output.push(config.digits[a], config.hundredText);
-
     output.push(...readTwoDigits(config, b, c, a !== 0 || readZeroHundred));
 
     return output;
 }
 
-function parseNumberData(config: ReadingConfig, number: string): NumberData {
-    // Remove negative sign
+function parseNumberData(config: ReadingConfig, number: string): NumberData | null {
+    // Check & remove negative sign
     const isNegative: boolean = number[0] === config.negativeSign;
-    let rawStr: string = (isNegative) ? number.substring(1) : number;
-    let pointPos: number = rawStr.indexOf(config.pointSign);
+    number = isNegative ? number.substring(1) : number;
 
-    // Remove leading 0s
-    let pos = 0;
-    while (rawStr[pos] === config.filledDigit)
-        pos++;
-    rawStr = rawStr.substring(pos);
+    // Trim leading & trailing zeros (if exist)
+    number = Utils.trimLeadingChars(number, config.filledDigit);
+    let pointPos: number = number.indexOf(config.pointSign);
+    if (pointPos !== -1)
+        number = Utils.trimTrailingChars(number, config.filledDigit);
 
-    // Remove trailing 0s (if has point)
-    if (pointPos !== -1) {
-        let lastPos: number = rawStr.length - 1;
-        while (rawStr[lastPos] === config.filledDigit)
-            lastPos--;
-        rawStr = rawStr.substring(0, lastPos + 1);
-    }
+    // Fit number length in 3 digits group
+    pointPos = number.indexOf(config.pointSign);  // Recalc
+    const integerLength = pointPos === -1 ? number.length : pointPos;
+    const needLeadingZeros = Utils.countNeedToFitLength(integerLength, config.digitsPerPart);
+    number = Utils.addLeadingCharsToFitLength(number, config.filledDigit, needLeadingZeros);
 
-    // Count 0s to add
-    pointPos = rawStr.indexOf(config.pointSign);
-    const beforePointLength: number = (pointPos === -1)
-        ? rawStr.length : pointPos;
-    let needZeroCount = 0;
-    const modZeroCount: number = beforePointLength % config.digitsPerPart;
-    if (modZeroCount !== 0)
-        needZeroCount = config.digitsPerPart - modZeroCount;
-
-    // Add leading 0s to fit parts
-    let fullStr = '';
-    for (let i = 0; i < needZeroCount; i++)
-        fullStr += config.filledDigit;
-    fullStr += rawStr;
-
-    // Parse digits
+    // Parse digits (strict)
     const digits: number[] = [];
     const digitsAfterPoint: number[] = [];
 
-    pointPos = fullStr.indexOf(config.pointSign);
-    for (let i = 0; i < fullStr.length; i++)
-        if (i !== pointPos) {
-            const digit: number = parseInt(fullStr[i]);
-            if (isNaN(digit))
-                throw new Error('Số không hợp lệ');
-            if (pointPos === -1 || i < pointPos)
-                digits.push(digit);
-            else
-                digitsAfterPoint.push(digit);
-        }
+    pointPos = number.indexOf(config.pointSign);  // Recalc
+    for (let i = 0; i < number.length; i++) {
+        // Skip point sign
+        if (i === pointPos)
+            continue;
+
+        // Get digit
+        const digit: number = parseInt(number[i]);
+        if (isNaN(digit))
+            return null;  // Parsing error
+
+        // Push to before or after point array
+        if (pointPos === -1 || i < pointPos)
+            digits.push(digit);
+        else
+            digitsAfterPoint.push(digit);
+    }
 
     // Building result
     const result: NumberData = { isNegative, digits, digitsAfterPoint };
     return result;
 }
 
-function readNumber(config: ReadingConfig, numberData: NumberData): string {
+function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];
-    const partCount: number = Math.round(numberData.digits.length / config.digitsPerPart);
 
-    // Read before point digits
+    const partCount: number = Math.round(digits.length / config.digitsPerPart);
     for (let i = 0; i < partCount; i++) {
-        const a: number = numberData.digits[i * config.digitsPerPart];
-        const b: number = numberData.digits[i * config.digitsPerPart + 1];
-        const c: number = numberData.digits[i * config.digitsPerPart + 2];
-
+        const [a, b, c] = digits.slice(i * config.digitsPerPart);
         const isFirstPart: boolean = i === 0;
         const isSinglePart: boolean = partCount === 1;
         if (a !== 0 || b !== 0 || c !== 0 || isSinglePart)
             output.push(
                 ...readThreeDigits(config, a, b, c, !isFirstPart),
-                ...config.units[partCount - i - 1]);
+                ...config.units[partCount - 1 - i]);
     }
 
-    // Read after point digits
-    if (numberData.digitsAfterPoint.length !== 0)
-        output.push(config.pointText);
-    switch (numberData.digitsAfterPoint.length) {
+    return output;
+}
+
+function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
+    const output: string[] = [];
+
+    switch (digits.length) {
         case 0:
-            // Don't read
             break;
         case 1: case 2: {
             // Read in group 2 digits
-            const b: number = numberData.digitsAfterPoint[0];
-            const c: number = numberData.digitsAfterPoint[1];
+            const [b, c] = digits;
             output.push(...readTwoDigits(config, b, c, true));
             break;
         }
         case 3: {
             // Read in group 3 digits
-            const a: number = numberData.digitsAfterPoint[0];
-            const b: number = numberData.digitsAfterPoint[1];
-            const c: number = numberData.digitsAfterPoint[2];
+            const [a, b, c] = digits;
             output.push(...readThreeDigits(config, a, b, c, true));
             break;
         }
         default: {
             // Read each digits sequential
-            for (let i = 0; i < numberData.digitsAfterPoint.length; i++)
-                output.push(config.digits[numberData.digitsAfterPoint[i]]);
+            for (const digit of digits)
+                output.push(config.digits[digit]);
+            break;
         }
     }
+
+    return output;
+}
+
+function readNumber(config: ReadingConfig, numberData: NumberData): string {
+    const output: string[] = [];
+
+    // Read digits before & after point
+    output.push(...readBeforePoint(config, numberData.digits));
+    if (numberData.digitsAfterPoint.length !== 0)
+        output.push(config.pointText, ...readAfterPoint(config, numberData.digitsAfterPoint));
 
     // Add sign and units
     if (numberData.isNegative)
@@ -167,5 +153,5 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 }
 
 export default {
-    readTwoDigits, readThreeDigits, parseNumberData, readNumber
+    readTwoDigits, readThreeDigits, parseNumberData, readBeforePoint, readAfterPoint, readNumber
 };

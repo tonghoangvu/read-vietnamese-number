@@ -8,11 +8,14 @@ config.unit = ['đồng'];
 
 // List number to read
 const numbers: string[] = [
-    '3.14'
+    '-3.14'
 ];
 
 // Start reading
 for (const number of numbers) {
-    const numberData: NumberData = Reader.parseNumberData(config, number);
-    console.log(number, '=', Reader.readNumber(config, numberData));
+    const numberData: NumberData | null = Reader.parseNumberData(config, number);
+    if (numberData == null)
+        console.error(number, '=', 'Number is invalid');
+    else
+        console.log(number, '=', Reader.readNumber(config, numberData));
 }

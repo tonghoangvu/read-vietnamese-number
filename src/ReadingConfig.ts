@@ -1,3 +1,8 @@
+/**
+ * Class dùng tạo các object cấu hình để đọc số.
+ * Khi tạo ra thì object cấu hình sẽ có các giá trị mặc định.
+ * Có thể thay đổi các thuộc tính tùy theo nhu cầu.
+ */
 class ReadingConfig {
     public separator = ' ';
     public unit = ['đơn', 'vị'];

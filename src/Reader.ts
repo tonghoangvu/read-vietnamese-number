@@ -1,10 +1,20 @@
 import NumberData from './NumberData';
 import ReadingConfig from './ReadingConfig';
+import Utils from './Utils';
 
+/**
+ * Đọc hai chữ số cuối trong nhóm ba số.
+ * Trả về mảng các từ riêng rẽ.
+ * @param config Object cấu hình
+ * @param b Chữ số hàng chục
+ * @param c Chữ số hàng đơn vị
+ * @param hasHundred Có đọc chữ số hàng trăm không
+ */
 function readTwoDigits(config: ReadingConfig,
         b: number, c: number, hasHundred: boolean): string[] {
     const output: string[] = [];
 
+    // Đọc hai chữ số cuối & xử lý các trường hợp ngoại lệ
     switch (b) {
         case 0: {
             if (hasHundred && c === 0)
@@ -14,7 +24,6 @@ function readTwoDigits(config: ReadingConfig,
             output.push(config.digits[c]);
             break;
         }
-
         case 1: {
             output.push(config.tenText);
             if (c === 5)
@@ -23,7 +32,6 @@ function readTwoDigits(config: ReadingConfig,
                 output.push(config.digits[c]);
             break;
         }
-
         default: {
             output.push(config.digits[b], config.tenToneText);
             if (c === 1)
@@ -41,131 +49,165 @@ function readTwoDigits(config: ReadingConfig,
     return output;
 }
 
+/**
+ * Đọc nhóm gồm ba chữ số.
+ * Trả về mảng các từ riêng rẽ.
+ * @param config Object cấu hình
+ * @param a Chữ số hàng trăm
+ * @param b Chữ số hàng chục
+ * @param c Chữ số hàng đơn vị
+ * @param readZeroHundred Có luôn đọc không trăm hay không
+ */
 function readThreeDigits(config: ReadingConfig,
         a: number, b: number, c: number, readZeroHundred: boolean): string[] {
     const output: string[] = [];
 
-    // Read hundred even zero, apply for all parts, except the first part (on the left)
+    // Đọc chữ số hàng trăm
     if (a !== 0 || readZeroHundred)
         output.push(config.digits[a], config.hundredText);
 
+    // Đọc thêm hai số hàng chục & hàng đơn vị
     output.push(...readTwoDigits(config, b, c, a !== 0 || readZeroHundred));
 
     return output;
 }
 
-function parseNumberData(config: ReadingConfig, number: string): NumberData {
-    // Remove negative sign
-    const isNegative: boolean = number[0] === config.negativeSign;
-    let rawStr: string = (isNegative) ? number.substring(1) : number;
-    let pointPos: number = rawStr.indexOf(config.pointSign);
+/**
+ * Phân tích chuỗi số thành dạng `NumberData` có thể đọc được.
+ * Trả về `null` nếu phân tích lỗi, số không hợp lệ.
+ * @param config Object cấu hình
+ * @param number Số cần đọc
+ */
+function parseNumberData(config: ReadingConfig, number: string): NumberData | null {
+    // Ghi nhận & loại bỏ dấu âm
+    const isNegative = number[0] === config.negativeSign;
+    number = isNegative ? number.substring(1) : number;
 
-    // Remove leading 0s
-    let pos = 0;
-    while (rawStr[pos] === config.filledDigit)
-        pos++;
-    rawStr = rawStr.substring(pos);
+    // Loại bỏ các số 0 ở đầu phần nguyên & cuối phần thập phân (nếu có)
+    number = Utils.trimLeadingChars(number, config.filledDigit);
+    let pointPos = number.indexOf(config.pointSign);
+    if (pointPos !== -1)
+        number = Utils.trimTrailingChars(number, config.filledDigit);
 
-    // Remove trailing 0s (if has point)
-    if (pointPos !== -1) {
-        let lastPos: number = rawStr.length - 1;
-        while (rawStr[lastPos] === config.filledDigit)
-            lastPos--;
-        rawStr = rawStr.substring(0, lastPos + 1);
-    }
+    // Tính & thêm các số 0 ở đầu cho độ dài phần nguyên chia hết cho 3 (để đọc theo từng nhóm)
+    pointPos = number.indexOf(config.pointSign);  // Tính lại
+    const integerLength = pointPos === -1 ? number.length : pointPos;
+    const needLeadingZeros = Utils.countNeedToFitLength(integerLength, config.digitsPerPart);
+    number = Utils.addLeadingCharsToFitLength(number, config.filledDigit, needLeadingZeros);
 
-    // Count 0s to add
-    pointPos = rawStr.indexOf(config.pointSign);
-    const beforePointLength: number = (pointPos === -1)
-        ? rawStr.length : pointPos;
-    let needZeroCount = 0;
-    const modZeroCount: number = beforePointLength % config.digitsPerPart;
-    if (modZeroCount !== 0)
-        needZeroCount = config.digitsPerPart - modZeroCount;
-
-    // Add leading 0s to fit parts
-    let fullStr = '';
-    for (let i = 0; i < needZeroCount; i++)
-        fullStr += config.filledDigit;
-    fullStr += rawStr;
-
-    // Parse digits
+    // Phân tích lần lượt từng chữ số thành data
     const digits: number[] = [];
     const digitsAfterPoint: number[] = [];
+    pointPos = number.indexOf(config.pointSign);  // Tính lại
+    for (let i = 0; i < number.length; i++) {
+        // Bỏ qua dấu chấm thập phân
+        if (i === pointPos)
+            continue;
 
-    pointPos = fullStr.indexOf(config.pointSign);
-    for (let i = 0; i < fullStr.length; i++)
-        if (i !== pointPos) {
-            const digit: number = parseInt(fullStr[i]);
-            if (isNaN(digit))
-                throw new Error('Số không hợp lệ');
-            if (pointPos === -1 || i < pointPos)
-                digits.push(digit);
-            else
-                digitsAfterPoint.push(digit);
-        }
+        // Thử parse chữ số, return null nếu không phải chữ số hợp lệ
+        const digit = parseInt(number[i]);
+        if (isNaN(digit))
+            return null;
 
-    // Building result
+        // Thêm chữ số vào mảng data phần nguyên hoặc phần thập phân
+        if (pointPos === -1 || i < pointPos)
+            digits.push(digit);
+        else
+            digitsAfterPoint.push(digit);
+    }
+
+    // Trả về data hoàn chỉnh
     const result: NumberData = { isNegative, digits, digitsAfterPoint };
     return result;
 }
 
-function readNumber(config: ReadingConfig, numberData: NumberData): string {
+/**
+ * Đọc các chữ số phần nguyên (trước dấu chấm thập phân).
+ * Trả về mảng các từ riêng rẽ.
+ * @param config Object cấu hình
+ * @param digits Mảng các chữ số (phần nguyên)
+ */
+function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];
-    const partCount: number = Math.round(numberData.digits.length / config.digitsPerPart);
 
-    // Read before point digits
+    // Đọc theo từng nhóm
+    const partCount = Math.round(digits.length / config.digitsPerPart);
     for (let i = 0; i < partCount; i++) {
-        const a: number = numberData.digits[i * config.digitsPerPart];
-        const b: number = numberData.digits[i * config.digitsPerPart + 1];
-        const c: number = numberData.digits[i * config.digitsPerPart + 2];
+        // Lấy 3 chữ số của nhóm
+        const [a, b, c] = digits.slice(i * config.digitsPerPart);
+        const isFirstPart = i === 0;
+        const isSinglePart = partCount === 1;
 
-        const isFirstPart: boolean = i === 0;
-        const isSinglePart: boolean = partCount === 1;
+        // Nếu nhóm không rỗng thì đọc số & phần đơn vị
         if (a !== 0 || b !== 0 || c !== 0 || isSinglePart)
             output.push(
                 ...readThreeDigits(config, a, b, c, !isFirstPart),
-                ...config.units[partCount - i - 1]);
+                ...config.units[partCount - 1 - i]);
     }
 
-    // Read after point digits
-    if (numberData.digitsAfterPoint.length !== 0)
-        output.push(config.pointText);
-    switch (numberData.digitsAfterPoint.length) {
+    return output;
+}
+
+/**
+ * Đọc các chữ số phần thập phân (sau dấu chấm thập phân).
+ * Trả về mảng các từ riêng rẽ.
+ * @param config Object cấu hình
+ * @param digits Mảng các chữ số (phần thập phân)
+ */
+function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
+    const output: string[] = [];
+
+    // Dựa vào độ dài phần thập phân mà đọc cho phù hợp
+    switch (digits.length) {
         case 0:
-            // Don't read
+            // Không đọc
             break;
-        case 1: case 2: {
-            // Read in group 2 digits
-            const b: number = numberData.digitsAfterPoint[0];
-            const c: number = numberData.digitsAfterPoint[1];
+        case 2: {
+            // Đọc nhóm 2 chữ số
+            const [b, c] = digits;
             output.push(...readTwoDigits(config, b, c, true));
             break;
         }
         case 3: {
-            // Read in group 3 digits
-            const a: number = numberData.digitsAfterPoint[0];
-            const b: number = numberData.digitsAfterPoint[1];
-            const c: number = numberData.digitsAfterPoint[2];
+            // Đọc nhóm 3 chữ số
+            const [a, b, c] = digits;
             output.push(...readThreeDigits(config, a, b, c, true));
             break;
         }
         default: {
-            // Read each digits sequential
-            for (let i = 0; i < numberData.digitsAfterPoint.length; i++)
-                output.push(config.digits[numberData.digitsAfterPoint[i]]);
+            // Đọc lần lượt từng chữ số riêng rẽ
+            for (const digit of digits)
+                output.push(config.digits[digit]);
+            break;
         }
     }
 
-    // Add sign and units
+    return output;
+}
+
+/**
+ * Đọc bất kì chuỗi số nào đã được phân tích thành `NumberData`.
+ * Trả về chuỗi đọc số hoàn chỉnh, gồm cả dấu âm & dấu thập phân.
+ * @param config Object cấu hình
+ * @param numberData Số đã phân tích thành `NumberData`
+ */
+function readNumber(config: ReadingConfig, numberData: NumberData): string {
+    const output: string[] = [];
+
+    // Đọc các chữ số phần nguyên & phần thập phân
+    output.push(...readBeforePoint(config, numberData.digits));
+    if (numberData.digitsAfterPoint.length !== 0)
+        output.push(config.pointText, ...readAfterPoint(config, numberData.digitsAfterPoint));
+
+    // Thêm dấu & đơn vị tính
     if (numberData.isNegative)
         output.unshift(config.negativeText);
     output.push(...config.unit);
 
-    // Return joined result
+    // Nối các từ lại thành chuỗi hoàn chỉnh
     return output.join(config.separator);
 }
 
 export default {
-    readTwoDigits, readThreeDigits, parseNumberData, readNumber
+    readTwoDigits, readThreeDigits, parseNumberData, readBeforePoint, readAfterPoint, readNumber
 };

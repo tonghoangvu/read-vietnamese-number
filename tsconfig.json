@@ -2,10 +2,16 @@
     "compilerOptions": {
         "target": "ES6",
         "module": "CommonJS",
+        "moduleResolution": "Node",
+        "sourceMap": true,
         "declaration": true,
         "outDir": "./dist",
-        "strict": true
+        "alwaysStrict": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true
     },
-    "include": ["src"],
+    "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
 }

@@ -52,3 +52,15 @@ console.log(Reader.readNumber(number));
 ```
 
 Đối với TypeScript, vui lòng tham khảo ví dụ trong file `node_modules/read-vietnamese-number/test.ts`.
+
+## How to publish a new version to NPM?
+
+Thực hiện theo các bước sau để update phiên bản mới lên NPM:
+
+1. Chạy `npm lint` hoặc `yarn lint` và sửa các code sai coding style
+2. Commit code và đẩy lên GitHub
+3. Chạy `npm build` hoặc `yarn build` để build thành JavaScript
+4. Tăng version cho NPM package bằng `npm version xxx` (`xxx` một trong ba giá trị `patch`, `minor`, `major`)
+5. Chạy `npm publish` để đẩy lên NPM repository
+
+Nếu thấy thư viện hữu ích, đừng quên cho tôi một sao trên GitHub nhé ❤.

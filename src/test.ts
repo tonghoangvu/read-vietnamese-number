@@ -2,20 +2,23 @@
 
 import { NumberData, ReadingConfig, Reader } from './index';
 
-// Create & modify reading config
+// Tạo & điều chỉnh cấu hình phù hợp
 const config = new ReadingConfig();
-config.unit = ['đồng'];
+config.unit = ['đơn', 'vị'];
 
-// List number to read
+// Danh sách số cần đọc
 const numbers: string[] = [
-    '-3.14'
+    '-3.14', '44.32.33', '2.1'
 ];
 
-// Start reading
+// Đọc lần lượt từng số trong danh sách
 for (const number of numbers) {
+    // Phân tích số thành dạng NumberData
     const numberData: NumberData | null = Reader.parseNumberData(config, number);
+
+    // Nếu phân tích không được thì báo lỗi, ngược lại đọc số
     if (numberData == null)
-        console.error(number, '=', 'Number is invalid');
+        console.error(number, '=', 'số không hợp lệ');
     else
         console.log(number, '=', Reader.readNumber(config, numberData));
 }

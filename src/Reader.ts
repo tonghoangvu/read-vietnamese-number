@@ -15,28 +15,35 @@ function readTwoDigits(config: ReadingConfig,
     const output: string[] = [];
 
     // Đọc hai chữ số cuối & xử lý các trường hợp ngoại lệ
-    if (b === 0) {
-        if (!hasHundred || c !== 0) {
+    switch (b) {
+        case 0: {
+            if (hasHundred && c === 0)
+                break;
             if (hasHundred)
                 output.push(config.oddText);
             output.push(config.digits[c]);
+            break;
         }
-    } else if (b === 1) {
-        output.push(config.tenText);
-        if (c === 5)
-            output.push(config.fiveToneText);
-        else if (c !== 0)
-            output.push(config.digits[c]);
-    } else {
-        output.push(config.digits[b], config.tenToneText);
-        if (c === 1)
-            output.push(config.oneToneText);
-        else if (c === 4 && b !== 4)
-            output.push(config.fourToneText);
-        else if (c === 5)
-            output.push(config.fiveToneText);
-        else if (c !== 0)
-            output.push(config.digits[c]);
+        case 1: {
+            output.push(config.tenText);
+            if (c === 5)
+                output.push(config.fiveToneText);
+            else if (c !== 0)
+                output.push(config.digits[c]);
+            break;
+        }
+        default: {
+            output.push(config.digits[b], config.tenToneText);
+            if (c === 1)
+                output.push(config.oneToneText);
+            else if (c === 4 && b !== 4)
+                output.push(config.fourToneText);
+            else if (c === 5)
+                output.push(config.fiveToneText);
+            else if (c !== 0)
+                output.push(config.digits[c]);
+            break;
+        }
     }
 
     return output;
@@ -73,12 +80,12 @@ function readThreeDigits(config: ReadingConfig,
  */
 function parseNumberData(config: ReadingConfig, number: string): NumberData | null {
     // Ghi nhận & loại bỏ dấu âm
-    const isNegative: boolean = number[0] === config.negativeSign;
+    const isNegative = number[0] === config.negativeSign;
     number = isNegative ? number.substring(1) : number;
 
     // Loại bỏ các số 0 ở đầu phần nguyên & cuối phần thập phân (nếu có)
     number = Utils.trimLeadingChars(number, config.filledDigit);
-    let pointPos: number = number.indexOf(config.pointSign);
+    let pointPos = number.indexOf(config.pointSign);
     if (pointPos !== -1)
         number = Utils.trimTrailingChars(number, config.filledDigit);
 
@@ -98,7 +105,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
             continue;
 
         // Thử parse chữ số, return null nếu không phải chữ số hợp lệ
-        const digit: number = parseInt(number[i]);
+        const digit = parseInt(number[i]);
         if (isNaN(digit))
             return null;
 
@@ -124,12 +131,12 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];
 
     // Đọc theo từng nhóm
-    const partCount: number = Math.round(digits.length / config.digitsPerPart);
+    const partCount = Math.round(digits.length / config.digitsPerPart);
     for (let i = 0; i < partCount; i++) {
         // Lấy 3 chữ số của nhóm
         const [a, b, c] = digits.slice(i * config.digitsPerPart);
-        const isFirstPart: boolean = i === 0;
-        const isSinglePart: boolean = partCount === 1;
+        const isFirstPart = i === 0;
+        const isSinglePart = partCount === 1;
 
         // Nếu nhóm không rỗng thì đọc số & phần đơn vị
         if (a !== 0 || b !== 0 || c !== 0 || isSinglePart)

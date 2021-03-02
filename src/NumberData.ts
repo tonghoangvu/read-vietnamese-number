@@ -4,8 +4,8 @@
  */
 interface NumberData {
     isNegative: boolean;
-    digits: number[];
-    digitsAfterPoint: number[];
+    digits: number[];  // Độ dài luôn chia hết cho 3
+    digitsAfterPoint: number[];  // Độ dài bất kì
 }
 
 export default NumberData;

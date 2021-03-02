@@ -116,6 +116,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
             digitsAfterPoint.push(digit);
     }
 
+    // Nếu phần nguyên rỗng thì thêm 0
+    if (digits.length === 0)
+        digits.push(0, 0, 0);
+
     // Trả về data hoàn chỉnh
     const result: NumberData = { isNegative, digits, digitsAfterPoint };
     return result;
@@ -125,13 +129,13 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
  * Đọc các chữ số phần nguyên (trước dấu chấm thập phân).
  * Trả về mảng các từ riêng rẽ.
  * @param config Object cấu hình
- * @param digits Mảng các chữ số (phần nguyên)
+ * @param digits Mảng các chữ số (phần nguyên), đã loại bỏ dư thừa, độ dài luôn chia hết cho 3
  */
 function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];
 
     // Đọc theo từng nhóm
-    const partCount = Math.round(digits.length / config.digitsPerPart);
+    const partCount = Math.ceil(digits.length / config.digitsPerPart);
     for (let i = 0; i < partCount; i++) {
         // Lấy 3 chữ số của nhóm
         const [a, b, c] = digits.slice(i * config.digitsPerPart);
@@ -152,7 +156,7 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
  * Đọc các chữ số phần thập phân (sau dấu chấm thập phân).
  * Trả về mảng các từ riêng rẽ.
  * @param config Object cấu hình
- * @param digits Mảng các chữ số (phần thập phân)
+ * @param digits Mảng các chữ số (phần thập phân), đã loại bỏ dư thừa
  */
 function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];

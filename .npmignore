@@ -2,6 +2,8 @@
 #   README.md, LICENSE, package.json, node_modules, .npmignore
 
 src
+test
+coverage
 .editorconfig
 .eslintrc.js
 .gitignore

@@ -28,7 +28,7 @@ function trimTrailingChars(str: string, char: string): string {
  * @param groupSize Độ dài mỗi nhóm
  */
 function countNeedToFitLength(length: number, groupSize: number): number {
-    const mod = length % groupSize;
+    const mod = groupSize === 0 ? 0 : length % groupSize;
     return mod === 0 ? 0 : groupSize - mod;
 }
 
@@ -39,7 +39,7 @@ function countNeedToFitLength(length: number, groupSize: number): number {
  * @param count Số lượng kí tự cần thêm
  */
 function addLeadingCharsToFitLength(str: string, char: string, count: number): string {
-    return char.repeat(count).concat(str);
+    return char[0].repeat(count).concat(str);
 }
 
 export default {

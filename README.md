@@ -58,9 +58,10 @@ console.log(Reader.readNumber(number));
 Thực hiện theo các bước sau để update phiên bản mới lên NPM:
 
 1. Chạy `npm lint` hoặc `yarn lint` và sửa các code sai coding style
-2. Commit code và đẩy lên GitHub
-3. Chạy `npm build` hoặc `yarn build` để build thành JavaScript
-4. Tăng version cho NPM package bằng `npm version xxx` (`xxx` một trong ba giá trị `patch`, `minor`, `major`)
-5. Chạy `npm publish` để đẩy lên NPM repository
+2. Chạy `npm test` hoặc `yarn test` để đảm bảo pass hết các test case
+3. Commit code và đẩy lên GitHub
+4. Chạy `npm build` hoặc `yarn build` để build thành JavaScript
+5. Tăng version cho NPM package bằng `npm version xxx` (`xxx` một trong ba giá trị `patch`, `minor`, `major`)
+6. Chạy `npm publish` để đẩy lên NPM repository
 
 Nếu thấy thư viện hữu ích, đừng quên cho tôi một sao trên GitHub nhé ❤.

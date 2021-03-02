@@ -16,8 +16,8 @@
         "build": "tsc",
         "lint": "eslint src test",
         "demo": "ts-node src/demo.ts",
-        "test": "jest --silent",
-        "test-coverage": "jest --coverage --silent"
+        "test": "jest",
+        "test-coverage": "jest --coverage"
     },
     "devDependencies": {
         "@types/jest": "^26.0.20",

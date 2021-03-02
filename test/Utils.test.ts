@@ -11,7 +11,7 @@ describe('Test Utils functions', () => {
         expect(func('aaaabaac', 'a')).toBe('baac');
         expect(func('aaaabaac', 'ab')).toBe('baac');
         expect(func('aabc', '')).toBe('aabc');
-    }, 1000);
+    });
 
     test('Trim trailing chars', () => {
         // Setup
@@ -23,7 +23,7 @@ describe('Test Utils functions', () => {
         expect(func('aabcccc', 'c')).toBe('aab');
         expect(func('aabcccc', 'cb')).toBe('aab');
         expect(func('abcc', '')).toBe('abcc');
-    }, 1000);
+    });
 
     test('Count need to fit length', () => {
         // Setup
@@ -36,7 +36,7 @@ describe('Test Utils functions', () => {
         expect(func(5, 3)).toBe(1);
         expect(func(6, 3)).toBe(0);
         expect(func(10, 0)).toBe(0);
-    }, 1000);
+    });
 
     test('Add leading chars to fit length', () => {
         // Setup
@@ -46,5 +46,5 @@ describe('Test Utils functions', () => {
         expect(func('', 'ab', 3)).toBe('aaa');
         expect(func('abc', 'x', 2)).toBe('xxabc');
         expect(func('abc', 'x', 0)).toBe('abc');
-    }, 1000);
+    });
 });

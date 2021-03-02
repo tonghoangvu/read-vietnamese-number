@@ -129,7 +129,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
  * Đọc các chữ số phần nguyên (trước dấu chấm thập phân).
  * Trả về mảng các từ riêng rẽ.
  * @param config Object cấu hình
- * @param digits Mảng các chữ số (phần nguyên) luôn chia hết cho 3
+ * @param digits Mảng các chữ số (phần nguyên), đã loại bỏ dư thừa, độ dài luôn chia hết cho 3
  */
 function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];
@@ -156,7 +156,7 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
  * Đọc các chữ số phần thập phân (sau dấu chấm thập phân).
  * Trả về mảng các từ riêng rẽ.
  * @param config Object cấu hình
- * @param digits Mảng các chữ số (phần thập phân)
+ * @param digits Mảng các chữ số (phần thập phân), đã loại bỏ dư thừa
  */
 function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = [];

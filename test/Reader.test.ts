@@ -5,31 +5,28 @@ import Reader from '../src/Reader';
 describe('Test Reader functions', () => {
     // Global setup
     const config = new ReadingConfig();
-    config.unit = [];
+    config.unit = [];  // Bỏ phần đơn vị để test gọn hơn
 
     test('Read two digits', () => {
         // Setup
         const func = Reader.readTwoDigits;
 
         // Assert
-        expect(func(config, 0, 0, false)).toStrictEqual(['không']);
-        expect(func(config, 0, 0, true)).toStrictEqual([]);
-        expect(func(config, 0, 3, false)).toStrictEqual(['ba']);
-        expect(func(config, 0, 3, true)).toStrictEqual(['lẻ', 'ba']);
-        expect(func(config, 1, 0, false)).toStrictEqual(['mười']);
-        expect(func(config, 1, 0, true)).toStrictEqual(['mười']);
-        expect(func(config, 1, 4, false)).toStrictEqual(['mười', 'bốn']);
-        expect(func(config, 1, 4, true)).toStrictEqual(['mười', 'bốn']);
-        expect(func(config, 3, 0, false)).toStrictEqual(['ba', 'mươi']);
-        expect(func(config, 3, 0, true)).toStrictEqual(['ba', 'mươi']);
-        expect(func(config, 3, 5, false)).toStrictEqual(['ba', 'mươi', 'lăm']);
-        expect(func(config, 3, 5, true)).toStrictEqual(['ba', 'mươi', 'lăm']);
-        expect(func(config, 4, 1, false)).toStrictEqual(['bốn', 'mươi', 'mốt']);
-        expect(func(config, 4, 1, true)).toStrictEqual(['bốn', 'mươi', 'mốt']);
-        expect(func(config, 9, 4, false)).toStrictEqual(['chín', 'mươi', 'tư']);
-        expect(func(config, 9, 4, true)).toStrictEqual(['chín', 'mươi', 'tư']);
-        expect(func(config, 9, 8, false)).toStrictEqual(['chín', 'mươi', 'tám']);
-        expect(func(config, 9, 8, true)).toStrictEqual(['chín', 'mươi', 'tám']);
+        expect(func(config, 0, 0, true)).toEqual([]);
+        expect(func(config, 0, 0, false)).toEqual(['không']);
+        expect(func(config, 0, 3, true)).toEqual(['lẻ', 'ba']);
+        expect(func(config, 0, 3, false)).toEqual(['ba']);
+
+        expect(func(config, 1, 5, false)).toEqual(['mười', 'lăm']);
+        expect(func(config, 1, 6, false)).toEqual(['mười', 'sáu']);
+        expect(func(config, 1, 0, false)).toEqual(['mười']);
+
+        expect(func(config, 5, 1, false)).toEqual(['năm', 'mươi', 'mốt']);
+        expect(func(config, 5, 4, false)).toEqual(['năm', 'mươi', 'tư']);
+        expect(func(config, 4, 4, false)).toEqual(['bốn', 'mươi', 'bốn']);
+        expect(func(config, 8, 5, false)).toEqual(['tám', 'mươi', 'lăm']);
+        expect(func(config, 8, 2, false)).toEqual(['tám', 'mươi', 'hai']);
+        expect(func(config, 8, 0, false)).toEqual(['tám', 'mươi']);
     });
 
     test('Read three digits', () => {
@@ -37,16 +34,15 @@ describe('Test Reader functions', () => {
         const func = Reader.readThreeDigits;
 
         // Assert
-        expect(func(config, 0, 0, 0, false)).toStrictEqual(['không']);
-        expect(func(config, 0, 0, 0, true)).toStrictEqual(['không', 'trăm']);
-        expect(func(config, 0, 0, 1, false)).toStrictEqual(['một']);
-        expect(func(config, 0, 0, 1, true)).toStrictEqual(['không', 'trăm', 'lẻ', 'một']);
-        expect(func(config, 0, 2, 3, false)).toStrictEqual(['hai', 'mươi', 'ba']);
-        expect(func(config, 0, 2, 3, true)).toStrictEqual(['không', 'trăm', 'hai', 'mươi', 'ba']);
-        expect(func(config, 1, 0, 4, false)).toStrictEqual(['một', 'trăm', 'lẻ', 'bốn']);
-        expect(func(config, 1, 0, 4, true)).toStrictEqual(['một', 'trăm', 'lẻ', 'bốn']);
-        expect(func(config, 9, 1, 0, false)).toStrictEqual(['chín', 'trăm', 'mười']);
-        expect(func(config, 9, 1, 0, true)).toStrictEqual(['chín', 'trăm', 'mười']);
+        expect(func(config, 3, 0, 0, true)).toEqual(['ba', 'trăm']);
+        expect(func(config, 3, 0, 0, false)).toEqual(['ba', 'trăm']);
+        expect(func(config, 0, 0, 0, true)).toEqual(['không', 'trăm']);
+        expect(func(config, 0, 0, 0, false)).toEqual(['không']);
+
+        expect(func(config, 3, 0, 5, true)).toEqual(['ba', 'trăm', 'lẻ', 'năm']);
+        expect(func(config, 3, 0, 5, false)).toEqual(['ba', 'trăm', 'lẻ', 'năm']);
+        expect(func(config, 0, 0, 5, true)).toEqual(['không', 'trăm', 'lẻ', 'năm']);
+        expect(func(config, 0, 0, 5, false)).toEqual(['năm']);
     });
 
     test('Parse string number', () => {
@@ -58,27 +54,27 @@ describe('Test Reader functions', () => {
         expect(func(config, '-12..3')).toBeNull();
         expect(func(config, '--12.34')).toBeNull();
 
-        expect(func(config, '')).toStrictEqual({
+        expect(func(config, '')).toEqual({
             isNegative: false,
             digits: [0, 0, 0],
             digitsAfterPoint: []
         } as NumberData);
-        expect(func(config, '123')).toStrictEqual({
+        expect(func(config, '123')).toEqual({
             isNegative: false,
             digits: [1, 2, 3],
             digitsAfterPoint: []
         } as NumberData);
-        expect(func(config, '-12.3')).toStrictEqual({
+        expect(func(config, '-12.3')).toEqual({
             isNegative: true,
             digits: [0, 1, 2],
             digitsAfterPoint: [3]
         } as NumberData);
-        expect(func(config, '0031.141590000')).toStrictEqual({
+        expect(func(config, '0031.141590000')).toEqual({
             isNegative: false,
             digits: [0, 3, 1],
             digitsAfterPoint: [1, 4, 1, 5, 9]
         } as NumberData);
-        expect(func(config, '-0031.141590000')).toStrictEqual({
+        expect(func(config, '-0031.141590000')).toEqual({
             isNegative: true,
             digits: [0, 3, 1],
             digitsAfterPoint: [1, 4, 1, 5, 9]
@@ -90,14 +86,14 @@ describe('Test Reader functions', () => {
         const func = Reader.readBeforePoint;
 
         // Assert
-        expect(func(config, [])).toStrictEqual([]);
-        expect(func(config, [0, 0, 0])).toStrictEqual(['không']);
-        expect(func(config, [1, 0, 3])).toStrictEqual(['một', 'trăm', 'lẻ', 'ba']);
+        expect(func(config, [])).toEqual([]);
+        expect(func(config, [0, 0, 0])).toEqual(['không']);
+        expect(func(config, [1, 0, 3])).toEqual(['một', 'trăm', 'lẻ', 'ba']);
         expect(func(config, [6, 2, 3, 0, 0, 0]))
-            .toStrictEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn']);
+            .toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn']);
         expect(func(config, [0, 1, 5, 7, 2, 5]))
-            .toStrictEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm']);
-        expect(func(config, [])).toStrictEqual([]);
+            .toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm']);
+        expect(func(config, [])).toEqual([]);
     });
 
     test('Read after point', () => {
@@ -105,12 +101,12 @@ describe('Test Reader functions', () => {
         const func = Reader.readAfterPoint;
 
         // Assert
-        expect(func(config, [])).toStrictEqual([]);
-        expect(func(config, [1])).toStrictEqual(['một']);
-        expect(func(config, [2, 4])).toStrictEqual(['hai', 'mươi', 'tư']);
-        expect(func(config, [3, 0, 9])).toStrictEqual(['ba', 'trăm', 'lẻ', 'chín']);
-        expect(func(config, [0, 0, 0, 7])).toStrictEqual(['không', 'không', 'không', 'bảy']);
-        expect(func(config, [1, 2, 3, 4, 5])).toStrictEqual(['một', 'hai', 'ba', 'bốn', 'năm']);
+        expect(func(config, [])).toEqual([]);
+        expect(func(config, [2, 4])).toEqual(['hai', 'mươi', 'tư']);
+        expect(func(config, [3, 0, 9])).toEqual(['ba', 'trăm', 'lẻ', 'chín']);
+        expect(func(config, [1])).toEqual(['một']);
+        expect(func(config, [0, 0, 0, 7])).toEqual(['không', 'không', 'không', 'bảy']);
+        expect(func(config, [1, 2, 3, 4, 5])).toEqual(['một', 'hai', 'ba', 'bốn', 'năm']);
     });
 
     test('Read number generally', () => {

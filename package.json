@@ -4,8 +4,15 @@
     "description": "Thư viện đọc số thành chữ trong Tiếng Việt",
     "main": "dist/index.js",
     "types": "dist/index.d.js",
-    "repository": "https://github.com/tonghoangvu/read-vietnamese-number.git",
-    "author": "tonghoangvu <tonghoangvu@outlook.com>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
+    },
+    "author": {
+        "name": "Tong Hoang Vu",
+        "email": "tonghoangvu@outlook.com",
+        "url": "https://github.com/tonghoangvu"
+    },
     "keywords": [
         "Vietnamese",
         "Number"

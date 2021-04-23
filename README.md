@@ -7,10 +7,9 @@ Thư viện đọc số thành chữ trong Tiếng Việt. Có thể đọc đư
 * Độ dài không giới hạn, chỉ cần thêm danh sách đơn vị đủ là được
 * Hỗ trợ nhiều tùy chọn như đơn vị tính, dấu phân tách,...
 
-Ngôn ngữ hỗ trợ JavaScript và TypeScript.
+Hỗ trợ hai ngôn ngữ JavaScript và TypeScript.
 
-Thư viện đã được public dưới dạng NPM package tại https://www.npmjs.com/package/read-vietnamese-number.
-
+Thư viện đã được publish thành NPM package tại https://www.npmjs.com/package/read-vietnamese-number.
 ## Installation
 
 Cài đặt thư viện qua NPM.
@@ -34,7 +33,7 @@ Cách sử dụng đơn giản gồm 4 bước:
 * Phân tích chuỗi số thành đối tượng dạng `NumberData`.
 * Đọc data đã phân tích ở dạng `NumberData` bằng hàm `Reader.readNumber()`.
 
-Code ví dụ đọc số.
+Dưới đây là ví dụ về cách sử dụng thư viện.
 
 ```js
 // Bước 1

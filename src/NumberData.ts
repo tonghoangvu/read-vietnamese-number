@@ -1,6 +1,6 @@
 /**
- * Interface chứa data của số đã phân tích.
- * Dùng interface này để thực hiện đọc số.
+ * Interface chứa dữ liệu số đã phân tích.
+ * Thực hiện đọc số là đọc trên interface này.
  */
 interface NumberData {
     isNegative: boolean;

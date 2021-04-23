@@ -1,7 +1,7 @@
 /**
  * Class dùng tạo các object cấu hình để đọc số.
- * Khi tạo ra thì object cấu hình sẽ có các giá trị mặc định.
- * Có thể thay đổi các thuộc tính tùy theo nhu cầu.
+ * Các cấu hình mặc định như bên dưới.
+ * Có thể thay đổi tùy theo nhu cầu sử dụng.
  */
 class ReadingConfig {
     public separator = ' ';

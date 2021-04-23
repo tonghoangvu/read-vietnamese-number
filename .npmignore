@@ -1,5 +1,4 @@
-# Never exclude:
-#   README.md, LICENSE, package.json, node_modules, .npmignore
+# Never exclude: README.md, LICENSE, package.json, node_modules, .npmignore
 
 src
 test

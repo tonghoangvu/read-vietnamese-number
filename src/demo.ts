@@ -2,21 +2,21 @@
 
 import { ReadingConfig, Reader } from './index';
 
-// Tạo & điều chỉnh cấu hình phù hợp
+// Cấu hình đọc số
 const config = new ReadingConfig();
 config.unit = ['đơn', 'vị'];
 
-// Danh sách số cần đọc
+// Các số cần đọc
 const numbers: string[] = [
     '-3.14', '44.32.33', '2.1'
 ];
 
-// Đọc lần lượt từng số trong danh sách
+// Đọc lần lượt từng số
 for (const number of numbers) {
-    // Phân tích số thành dạng NumberData
+    // Phân tích số thành dạng đọc được
     const numberData = Reader.parseNumberData(config, number);
 
-    // Nếu phân tích không được thì báo lỗi, ngược lại đọc số
+    // Thực hiện đọc số
     if (numberData === null)
         console.error(number, '=', 'số không hợp lệ');
     else

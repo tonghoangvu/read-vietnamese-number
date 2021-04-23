@@ -9,7 +9,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended'
     ],
-    "parser": "@typescript-eslint/parser",
+    'parser': '@typescript-eslint/parser',
     'parserOptions': {
         'ecmaVersion': 2020
     },

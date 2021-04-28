@@ -5,10 +5,10 @@
  * @param char Kí tự cần loại bỏ.
  */
 function trimLeadingChars(str: string, char: string): string {
-    let pos = 0;
+    let pos = 0
     while (str[pos] === char[0])
-        pos++;
-    return str.substring(pos);
+        pos++
+    return str.substring(pos)
 }
 
 /**
@@ -18,10 +18,10 @@ function trimLeadingChars(str: string, char: string): string {
  * @param char Kí tự cần loại bỏ.
  */
 function trimTrailingChars(str: string, char: string): string {
-    let lastPos = str.length - 1;
+    let lastPos = str.length - 1
     while (str[lastPos] === char[0])
-        lastPos--;
-    return str.substring(0, lastPos + 1);
+        lastPos--
+    return str.substring(0, lastPos + 1)
 }
 
 /**
@@ -31,8 +31,8 @@ function trimTrailingChars(str: string, char: string): string {
  * @param groupSize Độ dài mỗi nhóm.
  */
 function countNeedToFitLength(length: number, groupSize: number): number {
-    const mod = groupSize === 0 ? 0 : length % groupSize;
-    return mod === 0 ? 0 : groupSize - mod;
+    const mod = groupSize === 0 ? 0 : length % groupSize
+    return mod === 0 ? 0 : groupSize - mod
 }
 
 /**
@@ -43,9 +43,9 @@ function countNeedToFitLength(length: number, groupSize: number): number {
  * @param count Số lượng kí tự cần thêm.
  */
 function addLeadingCharsToFitLength(str: string, char: string, count: number): string {
-    return char[0].repeat(count).concat(str);
+    return char[0].repeat(count).concat(str)
 }
 
 export default {
     trimLeadingChars, trimTrailingChars, countNeedToFitLength, addLeadingCharsToFitLength
-};
+}

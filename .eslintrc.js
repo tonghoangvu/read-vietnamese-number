@@ -45,7 +45,7 @@ module.exports = {
         ],
         'semi': [
             'warn',
-            'always'
+            'never'
         ],
         'max-len': [
             'warn',
@@ -88,4 +88,4 @@ module.exports = {
             'warn'
         ]
     }
-};
+}

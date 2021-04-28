@@ -3,9 +3,9 @@
  * Thực hiện đọc số là đọc trên interface này.
  */
 interface NumberData {
-    isNegative: boolean;
-    digits: number[];  // Độ dài luôn chia hết cho 3
-    digitsAfterPoint: number[];  // Độ dài bất kì
+    isNegative: boolean
+    digits: number[]  // Độ dài luôn chia hết cho 3
+    digitsAfterPoint: number[]  // Độ dài bất kì
 }
 
-export default NumberData;
+export default NumberData

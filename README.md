@@ -37,17 +37,17 @@ Dưới đây là ví dụ về cách sử dụng thư viện.
 
 ```js
 // Bước 1
-import { NumberData, ReadingConfig, Reader } from 'read-vietnamese-number';
+import { NumberData, ReadingConfig, Reader } from 'read-vietnamese-number'
 
 // Bước 2
-const config = new ReadingConfig();
-config.unit = ['đồng'];  // Thiết lập tùy chọn
+const config = new ReadingConfig()
+config.unit = ['đồng']  // Thiết lập tùy chọn
 
 // Bước 3
-const number = Reader.parseNumberData('12345.6789');
+const number = Reader.parseNumberData('12345.6789')
 
 // Bước 4
-console.log(Reader.readNumber(number));
+console.log(Reader.readNumber(number))
 ```
 
 Với TypeScript, vui lòng tham khảo ví dụ trong file `node_modules/read-vietnamese-number/demo.ts`.

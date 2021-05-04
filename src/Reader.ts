@@ -90,8 +90,8 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
     // Thêm các số 0 ở đầu, cho độ phần nguyên chia hết cho 3 (đọc theo từng nhóm)
     pointPos = number.indexOf(config.pointSign)
     const integerLength = pointPos === -1 ? number.length : pointPos
-    const needLeadingZeros = Utils.countNeedToFitLength(integerLength, config.digitsPerPart)
-    number = Utils.addLeadingCharsToFitLength(number, config.filledDigit, needLeadingZeros)
+    const newIntegerLength = Math.ceil(integerLength / config.digitsPerPart) * config.digitsPerPart
+    number = number.padStart(number.length + newIntegerLength - integerLength, config.filledDigit)
 
     // Phân tích từng chữ số
     const digits: number[] = []

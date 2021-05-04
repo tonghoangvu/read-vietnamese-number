@@ -1,32 +1,30 @@
 module.exports = {
-    'env': {
-        'browser': true,
-        'commonjs': true,
-        'es6': true,
-        'node': true
+    env: {
+        browser: true,
+        node: true,
+        es6: true,
+        commonjs: true
     },
-    'extends': [
+    extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended'
     ],
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-        'ecmaVersion': 2020
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 2020
     },
-    'globals': {
-        'Atomics': 'readonly',
-        'SharedArrayBuffer': 'readonly'
+    globals: {
+        Atomics: 'readonly',
+        SharedArrayBuffer: 'readonly'
     },
-    'rules': {
-        'no-console': [
-            'warn'
-        ],
-        'no-debugger': [
-            'warn'
-        ],
+    rules: {
+        'no-console': 'warn',
+        'no-debugger': 'warn',
+        'no-trailing-spaces': 'error',
+        'no-multiple-empty-lines': 'error',
+
         'indent': [
-            'warn',
-            4,
+            'error', 4,
             {
                 'SwitchCase': 1,
                 'FunctionDeclaration': {
@@ -35,18 +33,12 @@ module.exports = {
                 }
             }
         ],
-        'linebreak-style': [
-            'warn',
-            'unix'
-        ],
-        'quotes': [
-            'warn',
-            'single'
-        ],
-        'semi': [
-            'warn',
-            'never'
-        ],
+        'linebreak-style': ['error', 'unix'],
+        'quotes': ['error', 'single'],
+        'semi': ['error', 'never'],
+        'eol-last': ['error', 'always'],
+        'comma-dangle': ['error', 'never'],
+
         'max-len': [
             'warn',
             {
@@ -54,38 +46,11 @@ module.exports = {
                 'ignoreUrls': true
             }
         ],
-        'no-trailing-spaces': [
-            'warn'
-        ],
-        'eol-last': [
-            'warn',
-            'always'
-        ],
-        'no-multiple-empty-lines': [
-            'warn'
-        ],
         'brace-style': [
-            'warn',
-            '1tbs',
+            'warn', '1tbs',
             {
                 'allowSingleLine': true
             }
-        ],
-        'comma-dangle': [
-            'warn',
-            'never'
-        ],
-        'no-var': [
-            'warn'
-        ],
-        'prefer-const': [
-            'warn'
-        ],
-        'space-in-parens': [
-            'warn'
-        ],
-        'no-use-before-define': [
-            'warn'
         ]
     }
 }

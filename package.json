@@ -21,7 +21,7 @@
     "private": false,
     "scripts": {
         "build": "tsc",
-        "lint": "eslint src test",
+        "lint": "eslint . --fix",
         "demo": "ts-node src/demo.ts",
         "test": "jest",
         "test-coverage": "jest --coverage"

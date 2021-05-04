@@ -5,6 +5,8 @@
  * @param char Kí tự cần loại bỏ.
  */
 function trimLeadingChars(str: string, char: string): string {
+    if (str === '')
+        return ''
     let pos = 0
     while (str[pos] === char[0])
         pos++
@@ -18,6 +20,8 @@ function trimLeadingChars(str: string, char: string): string {
  * @param char Kí tự cần loại bỏ.
  */
 function trimTrailingChars(str: string, char: string): string {
+    if (str === '')
+        return ''
     let lastPos = str.length - 1
     while (str[lastPos] === char[0])
         lastPos--

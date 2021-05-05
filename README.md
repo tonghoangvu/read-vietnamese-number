@@ -56,11 +56,10 @@ Với TypeScript, vui lòng tham khảo ví dụ trong file `node_modules/read-v
 
 Thực hiện theo các bước sau để update phiên bản mới lên NPM:
 
-1. Chạy `npm lint` hoặc `yarn lint` và sửa các code sai coding style.
-2. Chạy `npm test` hoặc `yarn test` để đảm bảo pass hết các test case.
-3. Commit code và đẩy lên GitHub.
-4. Chạy `npm build` hoặc `yarn build` để build thành JavaScript.
-5. Tăng version cho NPM package bằng `npm version xxx` (`xxx` một trong ba giá trị `patch`, `minor`, `major`).
-6. Chạy `npm publish` để đẩy lên NPM repository.
+1. Commit lại code hiện tại
+2. Chạy `npm pre-deploy` hoặc `yarn pre-deploy` để check coding style và pass các unit test
+3. Chạy `npm deploy-xxx` hoặc `yarn deploy-xxx`, trong đó `xxx` là `patch`, `minor` hoặc `major`
+    tương ứng từng mức độ upgrade
+4. Push các commit lên GitHub
 
 Nếu thấy thư viện hữu ích, đừng quên cho tôi một sao trên GitHub nhé ❤

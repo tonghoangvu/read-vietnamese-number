@@ -8,11 +8,7 @@
         "type": "git",
         "url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
     },
-    "author": {
-        "name": "Tong Hoang Vu",
-        "email": "tonghoangvu@outlook.com",
-        "url": "https://github.com/tonghoangvu"
-    },
+    "author": "tonghoangvu <tonghoangvu@outlook.com",
     "keywords": [
         "Vietnamese",
         "Number"

@@ -24,7 +24,11 @@
         "lint": "eslint . --fix",
         "demo": "ts-node src/demo.ts",
         "test": "jest",
-        "test-coverage": "jest --coverage"
+        "test-coverage": "jest --coverage",
+        "prev-deploy": "yarn lint && yarn test",
+        "deploy-patch": "yarn build && npm version patch && npm publish",
+        "deploy-minor": "yarn build && npm version minor && npm publish",
+        "deploy-major": "yarn build && npm version major && npm publish"
     },
     "devDependencies": {
         "@types/jest": "^26.0.20",

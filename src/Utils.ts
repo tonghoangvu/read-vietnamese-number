@@ -1,8 +1,8 @@
 /**
  * Loại bỏ các kí tự `char` bên trái chuỗi `str`.
- * @returns Chuỗi đã thực hiện loại bỏ.
  * @param str Chuỗi bất kì.
  * @param char Kí tự cần loại bỏ.
+ * @returns Chuỗi đã thực hiện loại bỏ.
  */
 function trimLeft(str: string, char: string): string {
     if (str === '')
@@ -15,9 +15,9 @@ function trimLeft(str: string, char: string): string {
 
 /**
  * Loại bỏ các kí tự `char` bên phải chuỗi `str`.
- * @returns Chuỗi đã thực hiện loại bỏ.
  * @param str Chuỗi bất kì.
  * @param char Kí tự cần loại bỏ.
+ * @returns Chuỗi đã thực hiện loại bỏ.
  */
 function trimRight(str: string, char: string): string {
     if (str === '')

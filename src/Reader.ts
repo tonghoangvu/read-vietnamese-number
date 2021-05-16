@@ -4,11 +4,11 @@ import Utils from './Utils'
 
 /**
  * Đọc hai chữ số cuối trong nhóm 3 số.
- * @returns Array các từ đã đọc.
  * @param config Cấu hình đọc số.
  * @param b Chữ số hàng chục.
  * @param c Chữ số hàng đơn vị.
  * @param hasHundred Có đọc chữ số hàng trăm không.
+ * @returns Array các từ đã đọc.
  */
 function readTwoDigits(config: ReadingConfig, b: number, c: number, hasHundred: boolean): string[] {
     const output: string[] = []
@@ -49,12 +49,12 @@ function readTwoDigits(config: ReadingConfig, b: number, c: number, hasHundred: 
 
 /**
  * Đọc nhóm 3 chữ số.
- * @returns Array các từ đã đọc.
  * @param config Cấu hình đọc số.
  * @param a Chữ số hàng trăm.
  * @param b Chữ số hàng chục.
  * @param c Chữ số hàng đơn vị.
  * @param readZeroHundred Có luôn đọc "không trăm" không.
+ * @returns Array các từ đã đọc.
  */
 function readThreeDigits(config: ReadingConfig,
         a: number, b: number, c: number, readZeroHundred: boolean): string[] {
@@ -72,9 +72,9 @@ function readThreeDigits(config: ReadingConfig,
 
 /**
  * Phân tích chuỗi số thành dạng `NumberData`.
- * @returns Dữ liệu số đã phân tích, `null` nếu số không hợp lệ.
  * @param config Cấu hình đọc số.
  * @param number Số cần đọc.
+ * @returns Dữ liệu số đã phân tích, `null` nếu số không hợp lệ.
  */
 function parseNumberData(config: ReadingConfig, number: string): NumberData | null {
     // Lưu lại & xóa dấu âm
@@ -123,9 +123,9 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 
 /**
  * Đọc các chữ số phần nguyên.
- * @returns Array các từ đã đọc.
  * @param config Cấu hình đọc số.
  * @param digits Array các chữ số (không dư thừa, độ dài phải chia hết cho 3).
+ * @returns Array các từ đã đọc.
  */
 function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = []
@@ -150,9 +150,9 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
 
 /**
  * Đọc các chữ số phần thập phân.
- * @returns Array các từ đã đọc.
  * @param config Cấu hình đọc số.
  * @param digits Array các chữ số (không dư thừa).
+ * @returns Array các từ đã đọc.
  */
 function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
     const output: string[] = []

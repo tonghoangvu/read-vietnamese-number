@@ -10,6 +10,7 @@ Thư viện đọc số thành chữ trong Tiếng Việt. Có thể đọc đư
 Hỗ trợ hai ngôn ngữ JavaScript và TypeScript.
 
 Thư viện đã được publish thành NPM package tại https://www.npmjs.com/package/read-vietnamese-number.
+
 ## Installation
 
 Cài đặt thư viện qua NPM.

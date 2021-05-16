@@ -1,10 +1,12 @@
 # Never exclude: README.md, LICENSE, package.json, node_modules, .npmignore
-
-src
-test
-coverage
+.vscode/
+src/
+__test__/
+test/
+coverage/
 .editorconfig
 .eslintrc.js
+.eslintignore
 .gitignore
 tsconfig.json
 package-lock.json

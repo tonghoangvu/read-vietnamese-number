@@ -82,10 +82,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
     number = isNegative ? number.substring(1) : number
 
     // Loại bỏ các số 0 thừa (đầu phần nguyên & sau phần thập phân)
-    number = Utils.trimLeadingChars(number, config.filledDigit)
+    number = Utils.trimLeft(number, config.filledDigit)
     let pointPos = number.indexOf(config.pointSign)
     if (pointPos !== -1)
-        number = Utils.trimTrailingChars(number, config.filledDigit)
+        number = Utils.trimRight(number, config.filledDigit)
 
     // Thêm các số 0 ở đầu, cho độ phần nguyên chia hết cho 3 (đọc theo từng nhóm)
     pointPos = number.indexOf(config.pointSign)

@@ -1,7 +1,7 @@
 import Utils from '../src/Utils'
 
-describe('Trim leading chars function', () => {
-    const func = Utils.trimLeadingChars
+describe('Trim left function', () => {
+    const func = Utils.trimLeft
 
     it('Should return empty', () => {
         expect(func('', '')).toBe('')
@@ -22,8 +22,8 @@ describe('Trim leading chars function', () => {
     })
 })
 
-describe('Trim trailing chars function', () => {
-    const func = Utils.trimTrailingChars
+describe('Trim right function', () => {
+    const func = Utils.trimRight
 
     it('Should return empty', () => {
         expect(func('', '')).toBe('')

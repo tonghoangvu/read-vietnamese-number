@@ -1,10 +1,10 @@
 /**
- * Loại bỏ kí tự `char` đầu chuỗi `str`.
+ * Loại bỏ các kí tự `char` bên trái chuỗi `str`.
  * @returns Chuỗi đã thực hiện loại bỏ.
  * @param str Chuỗi bất kì.
  * @param char Kí tự cần loại bỏ.
  */
-function trimLeadingChars(str: string, char: string): string {
+function trimLeft(str: string, char: string): string {
     if (str === '')
         return ''
     let pos = 0
@@ -14,12 +14,12 @@ function trimLeadingChars(str: string, char: string): string {
 }
 
 /**
- * Loại bỏ kí tự `char` ở cuối chuỗi `str`.
+ * Loại bỏ các kí tự `char` bên phải chuỗi `str`.
  * @returns Chuỗi đã thực hiện loại bỏ.
  * @param str Chuỗi bất kì.
  * @param char Kí tự cần loại bỏ.
  */
-function trimTrailingChars(str: string, char: string): string {
+function trimRight(str: string, char: string): string {
     if (str === '')
         return ''
     let lastPos = str.length - 1
@@ -29,5 +29,5 @@ function trimTrailingChars(str: string, char: string): string {
 }
 
 export default {
-    trimLeadingChars, trimTrailingChars
+    trimLeft, trimRight
 }

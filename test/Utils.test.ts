@@ -1,46 +1,42 @@
-import Utils from '../src/Utils'
+import { trimLeft, trimRight } from '../src/Utils'
 
 describe('Trim left function', () => {
-    const func = Utils.trimLeft
-
     it('Should return empty', () => {
-        expect(func('', '')).toBe('')
-        expect(func('', 'x')).toBe('')
-        expect(func('', 'xy')).toBe('')
+        expect(trimLeft('', '')).toBe('')
+        expect(trimLeft('', 'x')).toBe('')
+        expect(trimLeft('', 'xy')).toBe('')
     })
 
     it('Should return itself', () => {
-        expect(func('abc', '')).toBe('abc')
-        expect(func('abc', 'x')).toBe('abc')
-        expect(func('abc', 'xy')).toBe('abc')
+        expect(trimLeft('abc', '')).toBe('abc')
+        expect(trimLeft('abc', 'x')).toBe('abc')
+        expect(trimLeft('abc', 'xy')).toBe('abc')
     })
 
     it('Should trim all leading specified characters', () => {
-        expect(func('abc', 'a')).toBe('bc')
-        expect(func('abc', 'ab')).toBe('bc')
-        expect(func('aaababc', 'a')).toBe('babc')
+        expect(trimLeft('abc', 'a')).toBe('bc')
+        expect(trimLeft('abc', 'ab')).toBe('bc')
+        expect(trimLeft('aaababc', 'a')).toBe('babc')
     })
 })
 
 describe('Trim right function', () => {
-    const func = Utils.trimRight
-
     it('Should return empty', () => {
-        expect(func('', '')).toBe('')
-        expect(func('', 'x')).toBe('')
-        expect(func('', 'xy')).toBe('')
+        expect(trimRight('', '')).toBe('')
+        expect(trimRight('', 'x')).toBe('')
+        expect(trimRight('', 'xy')).toBe('')
     })
 
     it('Should return itself', () => {
-        expect(func('abc', '')).toBe('abc')
-        expect(func('abc', 'x')).toBe('abc')
-        expect(func('abc', 'xy')).toBe('abc')
-        expect(func('abc', 'bc')).toBe('abc')
+        expect(trimRight('abc', '')).toBe('abc')
+        expect(trimRight('abc', 'x')).toBe('abc')
+        expect(trimRight('abc', 'xy')).toBe('abc')
+        expect(trimRight('abc', 'bc')).toBe('abc')
     })
 
     it('Should trim all trailing specified characters', () => {
-        expect(func('abc', 'c')).toBe('ab')
-        expect(func('abc', 'cb')).toBe('ab')
-        expect(func('abccccc', 'c')).toBe('ab')
+        expect(trimRight('abc', 'c')).toBe('ab')
+        expect(trimRight('abc', 'cb')).toBe('ab')
+        expect(trimRight('abccccc', 'c')).toBe('ab')
     })
 })

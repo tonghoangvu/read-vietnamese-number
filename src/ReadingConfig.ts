@@ -3,7 +3,7 @@
  * Các cấu hình mặc định như bên dưới.
  * Có thể thay đổi tùy theo nhu cầu sử dụng.
  */
-class ReadingConfig {
+export class ReadingConfig {
     public separator = ' '
     public unit = ['đơn', 'vị']
     public negativeSign = '-'
@@ -31,5 +31,3 @@ class ReadingConfig {
     public fiveToneText = 'lăm'
     public tenToneText = 'mươi'
 }
-
-export default ReadingConfig

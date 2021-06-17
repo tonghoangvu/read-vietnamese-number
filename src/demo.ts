@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { ReadingConfig, Reader } from './index'
+import { ReadingConfig, parseNumberData, readNumber } from './index'
 
 // Cấu hình đọc số
 const config = new ReadingConfig()
@@ -14,11 +14,11 @@ const numbers: string[] = [
 // Đọc lần lượt từng số
 for (const number of numbers) {
     // Phân tích số thành dạng đọc được
-    const numberData = Reader.parseNumberData(config, number)
+    const numberData = parseNumberData(config, number)
 
     // Thực hiện đọc số
     if (numberData === null)
         console.error(number, '=', 'số không hợp lệ')
     else
-        console.log(number, '=', Reader.readNumber(config, numberData))
+        console.log(number, '=', readNumber(config, numberData))
 }

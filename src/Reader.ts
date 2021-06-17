@@ -1,6 +1,6 @@
-import NumberData from './NumberData'
-import ReadingConfig from './ReadingConfig'
-import Utils from './Utils'
+import { NumberData } from './NumberData'
+import { ReadingConfig } from './ReadingConfig'
+import { trimLeft, trimRight } from './Utils'
 
 /**
  * Đọc hai chữ số cuối trong nhóm 3 số.
@@ -82,10 +82,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
     number = isNegative ? number.substring(1) : number
 
     // Loại bỏ các số 0 thừa (đầu phần nguyên & sau phần thập phân)
-    number = Utils.trimLeft(number, config.filledDigit)
+    number = trimLeft(number, config.filledDigit)
     let pointPos = number.indexOf(config.pointSign)
     if (pointPos !== -1)
-        number = Utils.trimRight(number, config.filledDigit)
+        number = trimRight(number, config.filledDigit)
 
     // Thêm các số 0 ở đầu, cho độ phần nguyên chia hết cho 3 (đọc theo từng nhóm)
     pointPos = number.indexOf(config.pointSign)
@@ -206,6 +206,7 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
     return output.join(config.separator)
 }
 
-export default {
-    readTwoDigits, readThreeDigits, parseNumberData, readBeforePoint, readAfterPoint, readNumber
+export {
+    readTwoDigits, readThreeDigits, readBeforePoint, readAfterPoint,
+    parseNumberData, readNumber
 }

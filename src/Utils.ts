@@ -28,6 +28,6 @@ function trimRight(str: string, char: string): string {
     return str.substring(0, lastPos + 1)
 }
 
-export default {
+export {
     trimLeft, trimRight
 }

@@ -1,8 +1,8 @@
-import NumberData from './NumberData'
-import ReadingConfig from './ReadingConfig'
-import Reader from './Reader'
-import Utils from './Utils'
+import { NumberData } from './NumberData'
+import { ReadingConfig } from './ReadingConfig'
+import { parseNumberData, readNumber } from './Reader'
 
 export {
-    NumberData, ReadingConfig, Reader, Utils
+    NumberData, ReadingConfig,
+    parseNumberData, readNumber
 }

@@ -71,6 +71,33 @@ function readThreeDigits(config: ReadingConfig,
 }
 
 /**
+ * Loại bỏ các số 0 thừa ở đầu và cuối chuỗi số.
+ * @param config Cấu hình đọc số.
+ * @param number Chuỗi số đầu vào.
+ * @returns Chuỗi số đã loại bỏ các số 0 thừa.
+ */
+function trimRedundantZeros(config: ReadingConfig, number: string): string {
+    number = trimLeft(number, config.filledDigit)
+    if (number.includes(config.pointSign))
+        number = trimRight(number, config.filledDigit)
+    return number
+}
+
+/**
+ * Thêm các chữ số 0 vào đầu chuỗi số.
+ * Sao cho độ dài phần nguyên luôn chia hết cho 3.
+ * @param config Cấu hình đọc số.
+ * @param number Chuỗi số đầu vào.
+ * @returns Chuỗi số đã thêm các số 0 ở đầu.
+ */
+function addLeadingZerosToFitGroup(config: ReadingConfig, number: string): string {
+    const pointPos = number.indexOf(config.pointSign)
+    const integerLength = pointPos === -1 ? number.length : pointPos
+    const newIntegerLength = Math.ceil(integerLength / config.digitsPerPart) * config.digitsPerPart
+    return number.padStart(number.length + newIntegerLength - integerLength, config.filledDigit)
+}
+
+/**
  * Phân tích chuỗi số thành dạng `NumberData`.
  * @param config Cấu hình đọc số.
  * @param number Số cần đọc.
@@ -81,44 +108,28 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
     const isNegative = number[0] === config.negativeSign
     number = isNegative ? number.substring(1) : number
 
-    // Loại bỏ các số 0 thừa (đầu phần nguyên & sau phần thập phân)
-    number = trimLeft(number, config.filledDigit)
-    let pointPos = number.indexOf(config.pointSign)
-    if (pointPos !== -1)
-        number = trimRight(number, config.filledDigit)
+    // Chuẩn hóa chuỗi số
+    number = trimRedundantZeros(config, number)
+    number = addLeadingZerosToFitGroup(config, number)
 
-    // Thêm các số 0 ở đầu, cho độ dài phần nguyên chia hết cho 3 (đọc theo từng nhóm)
-    pointPos = number.indexOf(config.pointSign)
-    const integerLength = pointPos === -1 ? number.length : pointPos
-    const newIntegerLength = Math.ceil(integerLength / config.digitsPerPart) * config.digitsPerPart
-    number = number.padStart(number.length + newIntegerLength - integerLength, config.filledDigit)
+    // Cắt chuỗi
+    const pointPos = number.indexOf(config.pointSign)
+    const beforePoint = pointPos === -1 ? number : number.substring(0, pointPos)
+    const afterPoint = pointPos === -1 ? '' : number.substring(pointPos + 1)
 
     // Phân tích từng chữ số
-    const digits: number[] = []
-    const digitsAfterPoint: number[] = []
-    pointPos = number.indexOf(config.pointSign)
-    for (let i = 0; i < number.length; i++) {
-        if (i === pointPos)
-            continue
+    const digits = beforePoint.split('').map(digit => parseInt(digit))
+    const digitsAfterPoint = afterPoint.split('').map(digit => parseInt(digit))
 
-        // Check chữ số hợp lệ
-        const digit = parseInt(number[i])
-        if (isNaN(digit))
-            return null
-
-        // Thêm chữ số vào phần tương ứng
-        if (pointPos === -1 || i < pointPos)
-            digits.push(digit)
-        else
-            digitsAfterPoint.push(digit)
-    }
+    // Check quá trình parse có lỗi không
+    if (digits.includes(NaN) || digitsAfterPoint.includes(NaN))
+        return null
 
     // Nếu phần nguyên rỗng thì thêm 0
     if (digits.length === 0)
         digits.push(0, 0, 0)
 
-    const result: NumberData = { isNegative, digits, digitsAfterPoint }
-    return result
+    return { isNegative, digits, digitsAfterPoint }
 }
 
 /**
@@ -132,11 +143,11 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
 
     // Đọc từng nhóm 3 chữ số
     const partCount = Math.ceil(digits.length / config.digitsPerPart)
+    const isSinglePart = partCount === 1
     for (let i = 0; i < partCount; i++) {
         // Lấy ra nhóm 3 chữ số
         const [a, b, c] = digits.slice(i * config.digitsPerPart)
         const isFirstPart = i === 0
-        const isSinglePart = partCount === 1
 
         // Đọc số & đơn vị của nhóm
         if (a !== 0 || b !== 0 || c !== 0 || isSinglePart)
@@ -207,6 +218,7 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 }
 
 export {
-    readTwoDigits, readThreeDigits, readBeforePoint, readAfterPoint,
-    parseNumberData, readNumber
+    readTwoDigits, readThreeDigits,
+    trimRedundantZeros, addLeadingZerosToFitGroup, parseNumberData,
+    readBeforePoint, readAfterPoint, readNumber
 }

@@ -3,6 +3,8 @@ import { ReadingConfig } from '../src/ReadingConfig'
 import {
     readTwoDigits,
     readThreeDigits,
+    trimRedundantZeros,
+    addLeadingZerosToFitGroup,
     parseNumberData,
     readBeforePoint,
     readAfterPoint,
@@ -48,6 +50,45 @@ describe('Read three digits function', () => {
         expect(readThreeDigits(config, 3, 0, 0, true)).toEqual(['ba', 'trăm'])
         expect(readThreeDigits(config, 0, 0, 5, true)).toEqual(['không', 'trăm', 'lẻ', 'năm'])
         expect(readThreeDigits(config, 3, 0, 5, true)).toEqual(['ba', 'trăm', 'lẻ', 'năm'])
+    })
+})
+
+describe('Trim redundant zeros function', () => {
+    const config = new ReadingConfig()
+    config.unit = []
+
+    it('Should not trim', () => {
+        expect(trimRedundantZeros(config, '')).toBe('')
+    })
+
+    it('Should only trim left', () => {
+        expect(trimRedundantZeros(config, '0')).toBe('')
+        expect(trimRedundantZeros(config, '000123')).toBe('123')
+        expect(trimRedundantZeros(config, '00012300')).toBe('12300')
+    })
+
+    it('Should trim both left and right', () => {
+        expect(trimRedundantZeros(config, '123.4')).toBe('123.4')
+        expect(trimRedundantZeros(config, '0123.0004')).toBe('123.0004')
+        expect(trimRedundantZeros(config, '001230.004500')).toBe('1230.0045')
+    })
+})
+
+describe('Add leading zeros to fit group function', () => {
+    const config = new ReadingConfig()
+    config.unit = []
+
+    it('Should not change', () => {
+        expect(addLeadingZerosToFitGroup(config, '')).toBe('')
+        expect(addLeadingZerosToFitGroup(config, '257')).toBe('257')
+        expect(addLeadingZerosToFitGroup(config, '123456')).toBe('123456')
+    })
+
+    it('Should have the length divisible by 3', () => {
+        expect(addLeadingZerosToFitGroup(config, '1')).toBe('001')
+        expect(addLeadingZerosToFitGroup(config, '23')).toBe('023')
+        expect(addLeadingZerosToFitGroup(config, '1234')).toBe('001234')
+        expect(addLeadingZerosToFitGroup(config, '12345')).toBe('012345')
     })
 })
 

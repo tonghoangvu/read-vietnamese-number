@@ -2,7 +2,12 @@
 node_modules/
 dist/
 coverage/
+.vscode/
 
 # Files
 .env
 yarn-error.log
+
+# System files
+.DS_Store
+Thumbs.db

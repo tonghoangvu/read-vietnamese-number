@@ -1,9 +1,15 @@
-# Never exclude: README.md, LICENSE, package.json, node_modules, .npmignore
-.vscode/
+# Never exlude
+# - node_modules, dist
+# - package.json, .npmignore, README.md, LICENSE
+
+# Excluded project folders
 src/
-__test__/
 test/
+__test__/
 coverage/
+.vscode/
+
+# Excluded project files
 .editorconfig
 .eslintrc.js
 .eslintignore
@@ -11,3 +17,7 @@ coverage/
 tsconfig.json
 package-lock.json
 yarn.lock
+
+# Exclude system files
+.DS_Store
+Thumbs.db

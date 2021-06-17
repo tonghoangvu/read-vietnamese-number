@@ -87,7 +87,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
     if (pointPos !== -1)
         number = trimRight(number, config.filledDigit)
 
-    // Thêm các số 0 ở đầu, cho độ phần nguyên chia hết cho 3 (đọc theo từng nhóm)
+    // Thêm các số 0 ở đầu, cho độ dài phần nguyên chia hết cho 3 (đọc theo từng nhóm)
     pointPos = number.indexOf(config.pointSign)
     const integerLength = pointPos === -1 ? number.length : pointPos
     const newIntegerLength = Math.ceil(integerLength / config.digitsPerPart) * config.digitsPerPart

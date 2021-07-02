@@ -20,9 +20,32 @@ module.exports = {
     rules: {
         'no-console': 'warn',
         'no-debugger': 'warn',
+        'prefer-const': 'warn',
+        'eqeqeq': 'warn',
+
+        'key-spacing': 'error',
+        'no-multi-spaces': 'error',
         'no-trailing-spaces': 'error',
         'no-multiple-empty-lines': 'error',
 
+        'quotes': ['error', 'single'],
+        'brace-style': ['error', '1tbs'],
+        'linebreak-style': ['error', 'unix'],
+
+        'semi': ['error', 'never'],
+        'comma-dangle': ['error', 'never'],
+        'eol-last': ['error', 'always'],
+        'array-bracket-spacing': ['error', 'never'],
+        'object-curly-spacing': ['error', 'always'],
+
+        'max-len': [
+            'warn',
+            {
+                'code': 100,
+                'ignoreUrls': true,
+                'ignoreTrailingComments': true
+            }
+        ],
         'indent': [
             'error', 4,
             {
@@ -31,25 +54,6 @@ module.exports = {
                     'body': 1,
                     'parameters': 2
                 }
-            }
-        ],
-        'linebreak-style': ['error', 'unix'],
-        'quotes': ['error', 'single'],
-        'semi': ['error', 'never'],
-        'eol-last': ['error', 'always'],
-        'comma-dangle': ['error', 'never'],
-
-        'max-len': [
-            'warn',
-            {
-                'code': 100,
-                'ignoreUrls': true
-            }
-        ],
-        'brace-style': [
-            'warn', '1tbs',
-            {
-                'allowSingleLine': true
             }
         ]
     }

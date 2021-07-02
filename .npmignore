@@ -1,6 +1,7 @@
 # Never exlude
 # - node_modules, dist
-# - package.json, .npmignore, README.md, LICENSE
+# - package.json, .npmignore
+# - README.md, CONTRIBUTING.md, LICENSE
 
 # Excluded project folders
 src/
@@ -15,6 +16,7 @@ coverage/
 .eslintignore
 .gitignore
 tsconfig.json
+jest.config.js
 package-lock.json
 yarn.lock
 

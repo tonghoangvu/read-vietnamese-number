@@ -52,7 +52,7 @@ const number = parseNumberData(config, '12345.6789')
 
 // Bước 4
 if (number === null)
-    console.log('Số không hợp lệ');
+    console.log('Số không hợp lệ')
 else
     console.log(readNumber(config, number))
 ```

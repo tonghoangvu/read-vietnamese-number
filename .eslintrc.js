@@ -1,9 +1,8 @@
 module.exports = {
     env: {
         browser: true,
-        node: true,
-        es6: true,
-        commonjs: true
+        es2021: true,
+        node: true
     },
     extends: [
         'eslint:recommended',
@@ -11,41 +10,18 @@ module.exports = {
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2020
+        ecmaVersion: 12,
+        sourceType: 'module'
     },
-    globals: {
-        Atomics: 'readonly',
-        SharedArrayBuffer: 'readonly'
-    },
+    plugins: [
+        '@typescript-eslint'
+    ],
     rules: {
         'no-console': 'warn',
         'no-debugger': 'warn',
-        'prefer-const': 'warn',
-        'eqeqeq': 'warn',
-
-        'key-spacing': 'error',
-        'no-multi-spaces': 'error',
+        'no-multi-spaces': 'warn',
+        'no-multiple-empty-lines': 'warn',
         'no-trailing-spaces': 'error',
-        'no-multiple-empty-lines': 'error',
-
-        'quotes': ['error', 'single'],
-        'brace-style': ['error', '1tbs'],
-        'linebreak-style': ['error', 'unix'],
-
-        'semi': ['error', 'never'],
-        'comma-dangle': ['error', 'never'],
-        'eol-last': ['error', 'always'],
-        'array-bracket-spacing': ['error', 'never'],
-        'object-curly-spacing': ['error', 'always'],
-
-        'max-len': [
-            'warn',
-            {
-                'code': 100,
-                'ignoreUrls': true,
-                'ignoreTrailingComments': true
-            }
-        ],
         'indent': [
             'error', 4,
             {
@@ -55,6 +31,14 @@ module.exports = {
                     'parameters': 2
                 }
             }
-        ]
+        ],
+        'semi': ['error', 'never'],
+        'quotes': ['error', 'single'],
+        'linebreak-style': ['error', 'unix'],
+        'brace-style': ['error', '1tbs'],
+        'eol-last': ['error', 'always'],
+        'comma-dangle': ['warn', 'never'],
+        'array-bracket-spacing': ['warn', 'never'],
+        'object-curly-spacing': ['warn', 'always']
     }
 }

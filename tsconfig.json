@@ -1,16 +1,16 @@
 {
     "compilerOptions": {
-        "target": "ES6",
-        "module": "CommonJS",
-        "moduleResolution": "Node",
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "strict": true,
+        "strictNullChecks": true,
+        "alwaysStrict": true,
         "sourceMap": true,
         "declaration": true,
         "outDir": "./dist",
-        "alwaysStrict": true,
-        "strict": true,
-        "strictNullChecks": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true
+        "skipLibCheck": true,
+        "importHelpers": true
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]

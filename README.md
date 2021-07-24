@@ -39,8 +39,8 @@ Ví dụ cách sử dụng thư viện trong JavaScript.
 ```js
 // Bước 1
 import {
-    ReadingConfig,
-    parseNumberData, readNumber
+	ReadingConfig,
+	parseNumberData, readNumber
 } from 'read-vietnamese-number'
 
 // Bước 2
@@ -52,9 +52,9 @@ const number = parseNumberData(config, '12345.6789')
 
 // Bước 4
 if (number === null)
-    console.log('Số không hợp lệ')
+	console.log('Số không hợp lệ')
 else
-    console.log(readNumber(config, number))
+	console.log(readNumber(config, number))
 ```
 
 Với TypeScript, vui lòng tham khảo ví dụ trong file `node_modules/read-vietnamese-number/demo.ts`.

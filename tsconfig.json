@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "strict": true,
-        "strictNullChecks": true,
-        "alwaysStrict": true,
-        "sourceMap": true,
-        "declaration": true,
-        "outDir": "./dist",
-        "skipLibCheck": true,
-        "importHelpers": true
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"strict": true,
+		"strictNullChecks": true,
+		"alwaysStrict": true,
+		"sourceMap": true,
+		"declaration": true,
+		"outDir": "./dist",
+		"skipLibCheck": true,
+		"importHelpers": true
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
 }

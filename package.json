@@ -1,39 +1,39 @@
 {
-    "name": "read-vietnamese-number",
-    "version": "1.5.3",
-    "description": "Thư viện đọc số thành chữ trong Tiếng Việt",
-    "main": "dist/index.js",
-    "types": "dist/index.d.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
-    },
-    "author": "tonghoangvu <tonghoangvu@outlook.com>",
-    "keywords": [
-        "Vietnamese",
-        "Number"
-    ],
-    "license": "MIT",
-    "private": false,
-    "scripts": {
-        "build": "tsc",
-        "lint": "eslint . --fix",
-        "demo": "ts-node src/demo.ts",
-        "test": "jest",
-        "test-coverage": "jest --coverage",
-        "prev-deploy": "yarn lint && yarn test",
-        "deploy-patch": "yarn build && npm version patch && npm publish",
-        "deploy-minor": "yarn build && npm version minor && npm publish",
-        "deploy-major": "yarn build && npm version major && npm publish"
-    },
-    "devDependencies": {
-        "@types/jest": "^26.0.20",
-        "@typescript-eslint/eslint-plugin": "^4.28.2",
-        "@typescript-eslint/parser": "^4.28.2",
-        "eslint": "^7.20.0",
-        "jest": "^27.0.6",
-        "ts-jest": "^27.0.3",
-        "ts-node": "^10.0.0",
-        "typescript": "^4.1.5"
-    }
+	"name": "read-vietnamese-number",
+	"version": "1.5.3",
+	"description": "Thư viện đọc số thành chữ trong Tiếng Việt",
+	"main": "dist/index.js",
+	"types": "dist/index.d.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
+	},
+	"author": "tonghoangvu <tonghoangvu@outlook.com>",
+	"keywords": [
+		"Vietnamese",
+		"Number"
+	],
+	"license": "MIT",
+	"private": false,
+	"scripts": {
+		"build": "tsc",
+		"lint": "eslint . --fix",
+		"demo": "ts-node src/demo.ts",
+		"test": "jest",
+		"test-coverage": "jest --coverage",
+		"prev-deploy": "yarn lint && yarn test",
+		"deploy-patch": "yarn build && npm version patch && npm publish",
+		"deploy-minor": "yarn build && npm version minor && npm publish",
+		"deploy-major": "yarn build && npm version major && npm publish"
+	},
+	"devDependencies": {
+		"@types/jest": "^26.0.20",
+		"@typescript-eslint/eslint-plugin": "^4.28.2",
+		"@typescript-eslint/parser": "^4.28.2",
+		"eslint": "^7.20.0",
+		"jest": "^27.0.6",
+		"ts-jest": "^27.0.3",
+		"ts-node": "^10.0.0",
+		"typescript": "^4.1.5"
+	}
 }

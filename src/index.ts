@@ -3,6 +3,6 @@ import { ReadingConfig } from './ReadingConfig'
 import { parseNumberData, readNumber } from './Reader'
 
 export {
-    NumberData, ReadingConfig,
-    parseNumberData, readNumber
+	NumberData, ReadingConfig,
+	parseNumberData, readNumber
 }

@@ -6,7 +6,6 @@
 # Excluded project folders
 src/
 test/
-__test__/
 coverage/
 .vscode/
 

@@ -3,5 +3,5 @@ module.exports = {
 	testEnvironment: 'node',
 	moduleFileExtensions: ['js', 'ts'],
 	testRegex: ['.test.js$', '.test.ts$'],
-	roots: ['<rootDir>/__test__', '<rootDir>/test']
+	roots: ['<rootDir>/test']
 }

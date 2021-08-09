@@ -5,6 +5,7 @@ coverage/
 .vscode/
 
 # Files
+TODO
 .env
 yarn-error.log
 

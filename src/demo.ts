@@ -7,7 +7,7 @@ const config = new ReadingConfig()
 config.unit = ['đơn', 'vị']
 
 // Các số cần đọc
-const numbers: string[] = [
+const numbers = [
 	'-3.14', '44.32.33', '2.1'
 ]
 
@@ -18,7 +18,7 @@ for (const number of numbers) {
 
 	// Thực hiện đọc số
 	if (numberData === null)
-		console.error(number, '=', 'số không hợp lệ')
+		console.error(`Số ${ number }: không hợp lệ`)
 	else
-		console.log(number, '=', readNumber(config, numberData))
+		console.log(`Số ${ number }: ${ readNumber(config, numberData) }`)
 }

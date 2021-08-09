@@ -170,8 +170,6 @@ function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
 
 	// Cách đọc dựa theo độ dài phần thập phân
 	switch (digits.length) {
-		case 0:
-			break
 		case 2: {
 			// Đọc nhóm 2 chữ số
 			const [b, c] = digits

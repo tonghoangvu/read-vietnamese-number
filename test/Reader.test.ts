@@ -16,21 +16,19 @@ describe('Read the last two digits function', () => {
 	config.unit = []
 
 	it('Should return value', () => {
-		expect(readTwoDigits(config, 0, 0, true)).toEqual([])
-		expect(readTwoDigits(config, 0, 0, false)).toEqual(['không'])
-		expect(readTwoDigits(config, 0, 3, true)).toEqual(['lẻ', 'ba'])
-		expect(readTwoDigits(config, 0, 3, false)).toEqual(['ba'])
+		expect(readTwoDigits(config, 0, 0)).toEqual(['không'])
+		expect(readTwoDigits(config, 0, 3)).toEqual(['ba'])
 
-		expect(readTwoDigits(config, 1, 5, false)).toEqual(['mười', 'lăm'])
-		expect(readTwoDigits(config, 1, 6, false)).toEqual(['mười', 'sáu'])
-		expect(readTwoDigits(config, 1, 0, false)).toEqual(['mười'])
+		expect(readTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
+		expect(readTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
+		expect(readTwoDigits(config, 1, 0)).toEqual(['mười'])
 
-		expect(readTwoDigits(config, 5, 1, false)).toEqual(['năm', 'mươi', 'mốt'])
-		expect(readTwoDigits(config, 5, 4, false)).toEqual(['năm', 'mươi', 'tư'])
-		expect(readTwoDigits(config, 4, 4, false)).toEqual(['bốn', 'mươi', 'bốn'])
-		expect(readTwoDigits(config, 8, 5, false)).toEqual(['tám', 'mươi', 'lăm'])
-		expect(readTwoDigits(config, 8, 2, false)).toEqual(['tám', 'mươi', 'hai'])
-		expect(readTwoDigits(config, 8, 0, false)).toEqual(['tám', 'mươi'])
+		expect(readTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
+		expect(readTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
+		expect(readTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'bốn'])
+		expect(readTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
+		expect(readTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
+		expect(readTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
 	})
 })
 

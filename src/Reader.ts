@@ -10,15 +10,11 @@ import { trimLeft, trimRight } from './Utils'
  * @param hasHundred Có đọc chữ số hàng trăm không.
  * @returns Array các từ đã đọc.
  */
-function readTwoDigits(config: ReadingConfig, b: number, c: number, hasHundred: boolean): string[] {
+function readTwoDigits(config: ReadingConfig, b: number, c: number): string[] {
 	const output: string[] = []
 
 	switch (b) {
 		case 0: {
-			if (hasHundred && c === 0)
-				break
-			if (hasHundred)
-				output.push(config.oddText)
 			output.push(config.digits[c])
 			break
 		}
@@ -59,13 +55,21 @@ function readTwoDigits(config: ReadingConfig, b: number, c: number, hasHundred: 
 function readThreeDigits(config: ReadingConfig,
 		a: number, b: number, c: number, readZeroHundred: boolean): string[] {
 	const output: string[] = []
+	const hasHundred = a !== 0 || readZeroHundred
 
 	// Đọc hàng trăm
-	if (a !== 0 || readZeroHundred)
+	if (hasHundred)
 		output.push(config.digits[a], config.hundredText)
 
-	// Đọc hàng chục & đơn vị
-	output.push(...readTwoDigits(config, b, c, a !== 0 || readZeroHundred))
+	// Đọc phần lẻ trăm
+	if (hasHundred && b === 0) {
+		if (c === 0)
+			return output
+		output.push(config.oddText)
+	}
+
+	// Đọc phần đơn vị
+	output.push(...readTwoDigits(config, b, c))
 
 	return output
 }
@@ -173,7 +177,7 @@ function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
 		case 2: {
 			// Đọc nhóm 2 chữ số
 			const [b, c] = digits
-			output.push(...readTwoDigits(config, b, c, true))
+			output.push(...readTwoDigits(config, b, c))
 			break
 		}
 		case 3: {

@@ -96,9 +96,9 @@ function trimRedundantZeros(config: ReadingConfig, number: string): string {
  */
 function addLeadingZerosToFitGroup(config: ReadingConfig, number: string): string {
 	const pointPos = number.indexOf(config.pointSign)
-	const integerLength = pointPos === -1 ? number.length : pointPos
-	const newIntegerLength = Math.ceil(integerLength / config.digitsPerPart) * config.digitsPerPart
-	return number.padStart(number.length + newIntegerLength - integerLength, config.filledDigit)
+	const integralLength = pointPos === -1 ? number.length : pointPos
+	const newIntegralLength = Math.ceil(integralLength / config.periodSize) * config.periodSize
+	return number.padStart(number.length + newIntegralLength - integralLength, config.filledDigit)
 }
 
 /**
@@ -118,22 +118,22 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 
 	// Cắt chuỗi
 	const pointPos = number.indexOf(config.pointSign)
-	const beforePoint = pointPos === -1 ? number : number.substring(0, pointPos)
-	const afterPoint = pointPos === -1 ? '' : number.substring(pointPos + 1)
+	const integralString = pointPos === -1 ? number : number.substring(0, pointPos)
+	const fractionalString = pointPos === -1 ? '' : number.substring(pointPos + 1)
 
 	// Phân tích từng chữ số
-	const digits = beforePoint.split('').map(digit => parseInt(digit))
-	const digitsAfterPoint = afterPoint.split('').map(digit => parseInt(digit))
+	const integralPart = integralString.split('').map(digit => parseInt(digit))
+	const fractionalPart = fractionalString.split('').map(digit => parseInt(digit))
 
 	// Check quá trình parse có lỗi không
-	if (digits.includes(NaN) || digitsAfterPoint.includes(NaN))
+	if (integralPart.includes(NaN) || fractionalPart.includes(NaN))
 		return null
 
 	// Nếu phần nguyên rỗng thì thêm 0
-	if (digits.length === 0)
-		digits.push(0, 0, 0)
+	if (integralPart.length === 0)
+		integralPart.push(0, 0, 0)
 
-	return { isNegative, digits, digitsAfterPoint }
+	return { isNegative, integralPart, fractionalPart }
 }
 
 /**
@@ -142,22 +142,22 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
  * @param digits Array các chữ số (không dư thừa, độ dài phải chia hết cho 3).
  * @returns Array các từ đã đọc.
  */
-function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
+function readIntegralPart(config: ReadingConfig, digits: number[]): string[] {
 	const output: string[] = []
 
 	// Đọc từng nhóm 3 chữ số
-	const partCount = Math.ceil(digits.length / config.digitsPerPart)
-	const isSinglePart = partCount === 1
-	for (let i = 0; i < partCount; i++) {
+	const periodCount = Math.ceil(digits.length / config.periodSize)
+	const isSinglePeriod = periodCount === 1
+	for (let i = 0; i < periodCount; i++) {
 		// Lấy ra nhóm 3 chữ số
-		const [a, b, c] = digits.slice(i * config.digitsPerPart)
-		const isFirstPart = i === 0
+		const [a, b, c] = digits.slice(i * config.periodSize)
+		const isFirstPeriod = i === 0
 
 		// Đọc số & đơn vị của nhóm
-		if (a !== 0 || b !== 0 || c !== 0 || isSinglePart)
+		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod)
 			output.push(
-				...readThreeDigits(config, a, b, c, !isFirstPart),
-				...config.units[partCount - 1 - i])
+				...readThreeDigits(config, a, b, c, !isFirstPeriod),
+				...config.units[periodCount - 1 - i])
 	}
 
 	return output
@@ -169,7 +169,7 @@ function readBeforePoint(config: ReadingConfig, digits: number[]): string[] {
  * @param digits Array các chữ số (không dư thừa).
  * @returns Array các từ đã đọc.
  */
-function readAfterPoint(config: ReadingConfig, digits: number[]): string[] {
+function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
 	const output: string[] = []
 
 	// Cách đọc dựa theo độ dài phần thập phân
@@ -207,9 +207,9 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	const output: string[] = []
 
 	// Đọc các chữ số
-	output.push(...readBeforePoint(config, numberData.digits))
-	if (numberData.digitsAfterPoint.length !== 0)
-		output.push(config.pointText, ...readAfterPoint(config, numberData.digitsAfterPoint))
+	output.push(...readIntegralPart(config, numberData.integralPart))
+	if (numberData.fractionalPart.length !== 0)
+		output.push(config.pointText, ...readFractionalPart(config, numberData.fractionalPart))
 
 	// Thêm dấu & đơn vị
 	if (numberData.isNegative)
@@ -222,5 +222,5 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 export {
 	readTwoDigits, readThreeDigits,
 	trimRedundantZeros, addLeadingZerosToFitGroup, parseNumberData,
-	readBeforePoint, readAfterPoint, readNumber
+	readIntegralPart, readFractionalPart, readNumber
 }

@@ -6,8 +6,8 @@ import {
 	trimRedundantZeros,
 	addLeadingZerosToFitGroup,
 	parseNumberData,
-	readBeforePoint,
-	readAfterPoint,
+	readIntegralPart,
+	readFractionalPart,
 	readNumber
 } from '../src/Reader'
 
@@ -103,67 +103,67 @@ describe('Parse string number function', () => {
 	it('Should return empty data', () => {
 		expect(parseNumberData(config, '')).toEqual({
 			isNegative: false,
-			digits: [0, 0, 0],
-			digitsAfterPoint: []
+			integralPart: [0, 0, 0],
+			fractionalPart: []
 		} as NumberData)
 	})
 
 	it('Should return value', () => {
 		expect(parseNumberData(config, '123')).toEqual({
 			isNegative: false,
-			digits: [1, 2, 3],
-			digitsAfterPoint: []
+			integralPart: [1, 2, 3],
+			fractionalPart: []
 		} as NumberData)
 		expect(parseNumberData(config, '-12.3')).toEqual({
 			isNegative: true,
-			digits: [0, 1, 2],
-			digitsAfterPoint: [3]
+			integralPart: [0, 1, 2],
+			fractionalPart: [3]
 		} as NumberData)
 		expect(parseNumberData(config, '0031.141590000')).toEqual({
 			isNegative: false,
-			digits: [0, 3, 1],
-			digitsAfterPoint: [1, 4, 1, 5, 9]
+			integralPart: [0, 3, 1],
+			fractionalPart: [1, 4, 1, 5, 9]
 		} as NumberData)
 		expect(parseNumberData(config, '-0031.141590000')).toEqual({
 			isNegative: true,
-			digits: [0, 3, 1],
-			digitsAfterPoint: [1, 4, 1, 5, 9]
+			integralPart: [0, 3, 1],
+			fractionalPart: [1, 4, 1, 5, 9]
 		} as NumberData)
 	})
 })
 
-describe('Read before point function', () => {
+describe('Read integral part function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should return empty', () => {
-		expect(readBeforePoint(config, [])).toEqual([])
+		expect(readIntegralPart(config, [])).toEqual([])
 	})
 
 	it('Should return value', () => {
-		expect(readBeforePoint(config, [0, 0, 0])).toEqual(['không'])
-		expect(readBeforePoint(config, [1, 0, 3])).toEqual(['một', 'trăm', 'lẻ', 'ba'])
-		expect(readBeforePoint(config, [0, 1, 5, 7, 2, 5]))
+		expect(readIntegralPart(config, [0, 0, 0])).toEqual(['không'])
+		expect(readIntegralPart(config, [1, 0, 3])).toEqual(['một', 'trăm', 'lẻ', 'ba'])
+		expect(readIntegralPart(config, [0, 1, 5, 7, 2, 5]))
 			.toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm'])
-		expect(readBeforePoint(config, [6, 2, 3, 0, 0, 0]))
+		expect(readIntegralPart(config, [6, 2, 3, 0, 0, 0]))
 			.toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn'])
 	})
 })
 
-describe('Read after point function', () => {
+describe('Read fractional part function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should return empty value', () => {
-		expect(readAfterPoint(config, [])).toEqual([])
+		expect(readFractionalPart(config, [])).toEqual([])
 	})
 
 	it('Should return value', () => {
-		expect(readAfterPoint(config, [1])).toEqual(['một'])
-		expect(readAfterPoint(config, [2, 4])).toEqual(['hai', 'mươi', 'tư'])
-		expect(readAfterPoint(config, [3, 0, 9])).toEqual(['ba', 'trăm', 'lẻ', 'chín'])
-		expect(readAfterPoint(config, [0, 0, 0, 7])).toEqual(['không', 'không', 'không', 'bảy'])
-		expect(readAfterPoint(config, [1, 2, 3, 4, 5])).toEqual(['một', 'hai', 'ba', 'bốn', 'năm'])
+		expect(readFractionalPart(config, [1])).toEqual(['một'])
+		expect(readFractionalPart(config, [2, 4])).toEqual(['hai', 'mươi', 'tư'])
+		expect(readFractionalPart(config, [3, 0, 9])).toEqual(['ba', 'trăm', 'lẻ', 'chín'])
+		expect(readFractionalPart(config, [0, 0, 0, 7])).toEqual(['không', 'không', 'không', 'bảy'])
+		expect(readFractionalPart(config, [1, 2, 3, 4, 5])).toEqual(['một', 'hai', 'ba', 'bốn', 'năm'])
 	})
 })
 

@@ -168,14 +168,13 @@ function readIntegralPart(config: ReadingConfig, integralPart: Period[]): string
 
 	// Đọc từng nhóm 3 chữ số
 	const isSinglePeriod = integralPart.length === 1
-	for (let i = 0; i < integralPart.length; i++) {
-		const isFirstPeriod = i === 0
-		const period = integralPart[i]
+	for (const [index, period] of integralPart.entries()) {
+		const isFirstPeriod = index === 0
 		const [a, b, c] = period
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod)
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[integralPart.length - 1 - i])
+				...config.units[integralPart.length - 1 - index])
 	}
 
 	return output

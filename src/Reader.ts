@@ -90,16 +90,14 @@ function trimRedundantZeros(config: ReadingConfig, number: string): string {
 
 /**
  * Thêm các chữ số 0 vào đầu chuỗi số.
- * Sao cho độ dài phần nguyên luôn chia hết cho 3.
+ * Sao cho độ dài chuỗi số luôn chia hết cho 3.
  * @param config Cấu hình đọc số.
  * @param number Chuỗi số đầu vào.
  * @returns Chuỗi số đã thêm các số 0 ở đầu.
  */
-function addLeadingZerosToFitGroup(config: ReadingConfig, number: string): string {
-	const pointPos = number.indexOf(config.pointSign)
-	const integralLength = pointPos === -1 ? number.length : pointPos
-	const newIntegralLength = Math.ceil(integralLength / config.periodSize) * config.periodSize
-	return number.padStart(number.length + newIntegralLength - integralLength, config.filledDigit)
+function addLeadingZeroToFitPeriod(config: ReadingConfig, number: string): string {
+	const correctLength = Math.ceil(number.length / config.periodSize) * config.periodSize
+	return number.padStart(correctLength, config.filledDigit)
 }
 
 /**
@@ -129,14 +127,16 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 	const isNegative = number[0] === config.negativeSign
 	number = isNegative ? number.substring(1) : number
 
-	// Chuẩn hóa chuỗi số
+	// Xóa các số 0 thừa
 	number = trimRedundantZeros(config, number)
-	number = addLeadingZerosToFitGroup(config, number)
 
-	// Cắt chuỗi
+	// Chia phần nguyên và phần thập phân
 	const pointPos = number.indexOf(config.pointSign)
-	const integralString = pointPos === -1 ? number : number.substring(0, pointPos)
+	let integralString = pointPos === -1 ? number : number.substring(0, pointPos)
 	const fractionalString = pointPos === -1 ? '' : number.substring(pointPos + 1)
+
+	// Chuẩn hóa chuỗi số
+	integralString = addLeadingZeroToFitPeriod(config, integralString)
 
 	// Phân tích từng chữ số
 	const integralDigits = integralString.split('').map(digit => parseInt(digit))
@@ -239,6 +239,6 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 
 export {
 	readTwoDigits, readThreeDigits,
-	trimRedundantZeros, addLeadingZerosToFitGroup, zipIntegralDigits,
+	trimRedundantZeros, addLeadingZeroToFitPeriod, zipIntegralDigits,
 	parseNumberData, readIntegralPart, readFractionalPart, readNumber
 }

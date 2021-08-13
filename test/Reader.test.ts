@@ -4,7 +4,7 @@ import {
 	readTwoDigits,
 	readThreeDigits,
 	trimRedundantZeros,
-	addLeadingZerosToFitGroup,
+	addLeadingZeroToFitPeriod,
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
@@ -72,21 +72,21 @@ describe('Trim redundant zeros function', () => {
 	})
 })
 
-describe('Add leading zeros to fit group function', () => {
+describe('Add leading zeros to fit period function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should not change', () => {
-		expect(addLeadingZerosToFitGroup(config, '')).toBe('')
-		expect(addLeadingZerosToFitGroup(config, '257')).toBe('257')
-		expect(addLeadingZerosToFitGroup(config, '123456')).toBe('123456')
+		expect(addLeadingZeroToFitPeriod(config, '')).toBe('')
+		expect(addLeadingZeroToFitPeriod(config, '257')).toBe('257')
+		expect(addLeadingZeroToFitPeriod(config, '123456')).toBe('123456')
 	})
 
 	it('Should have the length divisible by 3', () => {
-		expect(addLeadingZerosToFitGroup(config, '1')).toBe('001')
-		expect(addLeadingZerosToFitGroup(config, '23')).toBe('023')
-		expect(addLeadingZerosToFitGroup(config, '1234')).toBe('001234')
-		expect(addLeadingZerosToFitGroup(config, '12345')).toBe('012345')
+		expect(addLeadingZeroToFitPeriod(config, '1')).toBe('001')
+		expect(addLeadingZeroToFitPeriod(config, '23')).toBe('023')
+		expect(addLeadingZeroToFitPeriod(config, '1234')).toBe('001234')
+		expect(addLeadingZeroToFitPeriod(config, '12345')).toBe('012345')
 	})
 })
 

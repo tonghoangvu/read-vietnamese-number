@@ -1,5 +1,6 @@
 import { NumberData } from './NumberData'
 import { ReadingConfig } from './ReadingConfig'
+import { Period } from './types'
 import { trimLeft, trimRight } from './Utils'
 
 /**
@@ -102,6 +103,22 @@ function addLeadingZerosToFitGroup(config: ReadingConfig, number: string): strin
 }
 
 /**
+ * Gom dãy các chữ số thành từng nhóm 3 chữ số.
+ * @param config Cấu hình đọc số.
+ * @param digits Array các chữ số.
+ * @returns Array các nhóm 3 chữ số
+ */
+function zipIntegralDigits(config: ReadingConfig, digits: number[]): Period[] {
+	const output: Period[] = []
+	const periodCount = Math.ceil(digits.length / config.periodSize)
+	for (let i = 0; i < periodCount; i++) {
+		const [a, b, c] = digits.slice(i * config.periodSize)
+		output.push([a, b, c])
+	}
+	return output
+}
+
+/**
  * Phân tích chuỗi số thành dạng `NumberData`.
  * @param config Cấu hình đọc số.
  * @param number Số cần đọc.
@@ -122,16 +139,20 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 	const fractionalString = pointPos === -1 ? '' : number.substring(pointPos + 1)
 
 	// Phân tích từng chữ số
-	const integralPart = integralString.split('').map(digit => parseInt(digit))
-	const fractionalPart = fractionalString.split('').map(digit => parseInt(digit))
+	const integralDigits = integralString.split('').map(digit => parseInt(digit))
+	const fractionalDigits = fractionalString.split('').map(digit => parseInt(digit))
 
 	// Check quá trình parse có lỗi không
-	if (integralPart.includes(NaN) || fractionalPart.includes(NaN))
+	if (integralDigits.includes(NaN) || fractionalDigits.includes(NaN))
 		return null
+
+	// Gom nhóm chữ số & chuẩn hóa
+	const integralPart = zipIntegralDigits(config, integralDigits)
+	const fractionalPart = fractionalDigits
 
 	// Nếu phần nguyên rỗng thì thêm 0
 	if (integralPart.length === 0)
-		integralPart.push(0, 0, 0)
+		integralPart.push([0, 0, 0])
 
 	return { isNegative, integralPart, fractionalPart }
 }
@@ -142,22 +163,19 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
  * @param digits Array các chữ số (không dư thừa, độ dài phải chia hết cho 3).
  * @returns Array các từ đã đọc.
  */
-function readIntegralPart(config: ReadingConfig, digits: number[]): string[] {
+function readIntegralPart(config: ReadingConfig, integralPart: Period[]): string[] {
 	const output: string[] = []
 
 	// Đọc từng nhóm 3 chữ số
-	const periodCount = Math.ceil(digits.length / config.periodSize)
-	const isSinglePeriod = periodCount === 1
-	for (let i = 0; i < periodCount; i++) {
-		// Lấy ra nhóm 3 chữ số
-		const [a, b, c] = digits.slice(i * config.periodSize)
+	const isSinglePeriod = integralPart.length === 1
+	for (let i = 0; i < integralPart.length; i++) {
 		const isFirstPeriod = i === 0
-
-		// Đọc số & đơn vị của nhóm
+		const period = integralPart[i]
+		const [a, b, c] = period
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod)
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[periodCount - 1 - i])
+				...config.units[integralPart.length - 1 - i])
 	}
 
 	return output
@@ -221,6 +239,6 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 
 export {
 	readTwoDigits, readThreeDigits,
-	trimRedundantZeros, addLeadingZerosToFitGroup, parseNumberData,
-	readIntegralPart, readFractionalPart, readNumber
+	trimRedundantZeros, addLeadingZerosToFitGroup, zipIntegralDigits,
+	parseNumberData, readIntegralPart, readFractionalPart, readNumber
 }

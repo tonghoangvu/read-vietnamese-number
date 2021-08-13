@@ -103,7 +103,9 @@ describe('Parse string number function', () => {
 	it('Should return empty data', () => {
 		expect(parseNumberData(config, '')).toEqual({
 			isNegative: false,
-			integralPart: [0, 0, 0],
+			integralPart: [
+				[0, 0, 0]
+			],
 			fractionalPart: []
 		} as NumberData)
 	})
@@ -111,22 +113,30 @@ describe('Parse string number function', () => {
 	it('Should return value', () => {
 		expect(parseNumberData(config, '123')).toEqual({
 			isNegative: false,
-			integralPart: [1, 2, 3],
+			integralPart: [
+				[1, 2, 3]
+			],
 			fractionalPart: []
 		} as NumberData)
 		expect(parseNumberData(config, '-12.3')).toEqual({
 			isNegative: true,
-			integralPart: [0, 1, 2],
+			integralPart: [
+				[0, 1, 2]
+			],
 			fractionalPart: [3]
 		} as NumberData)
 		expect(parseNumberData(config, '0031.141590000')).toEqual({
 			isNegative: false,
-			integralPart: [0, 3, 1],
+			integralPart: [
+				[0, 3, 1]
+			],
 			fractionalPart: [1, 4, 1, 5, 9]
 		} as NumberData)
 		expect(parseNumberData(config, '-0031.141590000')).toEqual({
 			isNegative: true,
-			integralPart: [0, 3, 1],
+			integralPart: [
+				[0, 3, 1]
+			],
 			fractionalPart: [1, 4, 1, 5, 9]
 		} as NumberData)
 	})
@@ -141,11 +151,11 @@ describe('Read integral part function', () => {
 	})
 
 	it('Should return value', () => {
-		expect(readIntegralPart(config, [0, 0, 0])).toEqual(['không'])
-		expect(readIntegralPart(config, [1, 0, 3])).toEqual(['một', 'trăm', 'lẻ', 'ba'])
-		expect(readIntegralPart(config, [0, 1, 5, 7, 2, 5]))
+		expect(readIntegralPart(config, [[0, 0, 0]])).toEqual(['không'])
+		expect(readIntegralPart(config, [[1, 0, 3]])).toEqual(['một', 'trăm', 'lẻ', 'ba'])
+		expect(readIntegralPart(config, [[0, 1, 5], [7, 2, 5]]))
 			.toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm'])
-		expect(readIntegralPart(config, [6, 2, 3, 0, 0, 0]))
+		expect(readIntegralPart(config, [[6, 2, 3], [0, 0, 0]]))
 			.toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn'])
 	})
 })

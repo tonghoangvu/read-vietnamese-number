@@ -112,7 +112,7 @@ function zipIntegralDigits(config: ReadingConfig, digits: number[]): Period[] {
 	const output: Period[] = []
 	const periodCount = Math.ceil(digits.length / config.periodSize)
 	for (let i = 0; i < periodCount; i++) {
-		const [a, b, c] = digits.slice(i * config.periodSize)
+		const [a, b, c] = digits.slice(i * config.periodSize, (i + 1) * config.periodSize)
 		output.push([a, b, c])
 	}
 	return output

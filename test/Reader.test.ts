@@ -5,6 +5,7 @@ import {
 	readThreeDigits,
 	trimRedundantZeros,
 	addLeadingZeroToFitPeriod,
+	zipIntegralDigits,
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
@@ -90,7 +91,25 @@ describe('Add leading zeros to fit period function', () => {
 	})
 })
 
-describe('Parse string number function', () => {
+describe('Zip integral digits function', () => {
+	const config = new ReadingConfig()
+	config.unit = []
+
+	it('Should return no period', () => {
+		expect(zipIntegralDigits(config, [])).toEqual([])
+	})
+
+	it('Should return one period with zeros', () => {
+		expect(zipIntegralDigits(config, [1, 2, 3])).toEqual([
+			[1, 2, 3]
+		])
+		expect(zipIntegralDigits(config, [1, 2, 3, 4, 5, 6])).toEqual([
+			[1, 2, 3], [4, 5, 6]
+		])
+	})
+})
+
+describe('Parse number data function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 

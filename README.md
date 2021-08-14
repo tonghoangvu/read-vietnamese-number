@@ -9,7 +9,7 @@ Có các tính năng như:
 
 Hỗ trợ ngôn ngữ JavaScript và TypeScript.
 
-## Installation
+## 1. Installation
 
 Thư viện đã được publish tại https://www.npmjs.com/package/read-vietnamese-number.
 
@@ -25,7 +25,7 @@ Hoặc sử dụng Yarn thay thế.
 yarn add read-vietnamese-number
 ```
 
-## How to use?
+## 2. How to use?
 
 Cách sử dụng gồm 4 bước:
 
@@ -63,6 +63,8 @@ try {
 
 Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
 
+### 2.1. Error handling
+
 Function `parseNumberData()` có thể tạo ra 2 loại Error:
 
 * InvalidNumberError: khi số không hợp lệ
@@ -70,7 +72,22 @@ Function `parseNumberData()` có thể tạo ra 2 loại Error:
 
 Do đó cần sử dụng `try catch` và xử lý thích hợp như trong ví dụ.
 
-## How to publish a new version?
+### 2.2. CommonJS
+
+Nếu bạn sử dụng CommonJS (require/export), cách sử dụng thư viện sẽ hơi khác một chút.
+
+```js
+const rvn = require('read-vietnamese-number')
+
+// Sau đó, các function, class,... của thư viện được gọi qua biến rvn
+const config = new rvn.ReadingConfig()
+const number = rvn.parseNumberData(config, '12345.6789')
+console.log(rvn.readNumber(config, number))
+
+// Viết như trên để cho đơn giản, nhưng vẫn cần kiểm tra lỗi đầy đủ
+```
+
+## 3. How to publish a new version?
 
 Các bước publish phiên bản mới lên NPM:
 

@@ -1,3 +1,4 @@
+import { InvalidNumberError, UnitNotEnoughError } from '../src/types'
 import { NumberData } from '../src/NumberData'
 import { ReadingConfig } from '../src/ReadingConfig'
 import {
@@ -113,10 +114,19 @@ describe('Parse number data function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
-	it('Should return null', () => {
-		expect(parseNumberData(config, '-1.23xy')).toBeNull()
-		expect(parseNumberData(config, '-12..3')).toBeNull()
-		expect(parseNumberData(config, '--12.34')).toBeNull()
+	it('Should throw InvalidNumberError', () => {
+		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(InvalidNumberError)
+		expect(() => parseNumberData(config, '-12..3')).toThrowError(InvalidNumberError)
+		expect(() => parseNumberData(config, '--12.34')).toThrowError(InvalidNumberError)
+	})
+
+	it('Should throw UnitNotEnoughError', () => {
+		expect(() => parseNumberData(config, '1234567890123456789012'))
+			.toThrowError(UnitNotEnoughError)
+		expect(() => parseNumberData(config, '123456789012345678901'))
+			.not.toThrowError(UnitNotEnoughError)
+		expect(() => parseNumberData(config, '123456789012345678901.123456789'))
+			.not.toThrowError(UnitNotEnoughError)
 	})
 
 	it('Should return empty data', () => {
@@ -199,16 +209,25 @@ describe('Read fractional part function', () => {
 describe('Read full string number', () => {
 	const func = (config: ReadingConfig, number: string) => {
 		const numberData = parseNumberData(config, number)
-		return numberData === null ? null : readNumber(config, numberData)
+		return readNumber(config, numberData)
 	}
 	const config = new ReadingConfig()
 	config.unit = []
 
-	it('Should return null', () => {
-		expect(func(config, '1..23')).toBeNull()
-		expect(func(config, '--1.23')).toBeNull()
-		expect(func(config, '12_3')).toBeNull()
-		expect(func(config, 'abc123')).toBeNull()
+	it('Should throw InvalidNumberError', () => {
+		expect(() => func(config, '1..23')).toThrowError(InvalidNumberError)
+		expect(() => func(config, '--1.23')).toThrowError(InvalidNumberError)
+		expect(() => func(config, '12_3')).toThrowError(InvalidNumberError)
+		expect(() => func(config, 'abc123')).toThrowError(InvalidNumberError)
+	})
+
+	it('Should throw UnitNotEnoughError', () => {
+		expect(() => func(config, '1234567890123456789012'))
+			.toThrowError(UnitNotEnoughError)
+		expect(() => func(config, '123456789012345678901'))
+			.not.toThrowError(UnitNotEnoughError)
+		expect(() => func(config, '123456789012345678901.123456789'))
+			.not.toThrowError(UnitNotEnoughError)
 	})
 
 	it('Should return zero', () => {

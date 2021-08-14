@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 
-import { ReadingConfig, parseNumberData, readNumber } from './index'
+import {
+	InvalidNumberError, UnitNotEnoughError, ReadingConfig,
+	parseNumberData, readNumber
+} from './index' // Hoặc "read-vietnamese-number"
 
 // Cấu hình đọc số
 const config = new ReadingConfig()
@@ -13,12 +16,16 @@ const numbers = [
 
 // Đọc lần lượt từng số
 for (const number of numbers) {
-	// Phân tích số thành dạng đọc được
-	const numberData = parseNumberData(config, number)
-
-	// Thực hiện đọc số
-	if (numberData === null)
-		console.error(`Số ${ number }: không hợp lệ`)
-	else
-		console.log(`Số ${ number }: ${ readNumber(config, numberData) }`)
+	try {
+		// Phân tích và đọc số đã phân tích
+		const numberData = parseNumberData(config, number)
+		const result = readNumber(config, numberData)
+		console.log(`Số ${ number }: ${ result }`)
+	} catch (e) {
+		// Xử lý từng loại lỗi
+		if (e instanceof InvalidNumberError)
+			console.error(`Số ${ number }: không hợp lệ`)
+		else if (e instanceof UnitNotEnoughError)
+			console.warn(`Số ${ number }: không đủ đơn vị`)
+	}
 }

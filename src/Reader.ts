@@ -1,6 +1,6 @@
 import { NumberData } from './NumberData'
 import { ReadingConfig } from './ReadingConfig'
-import { Period } from './types'
+import { Period, InvalidNumberError, UnitNotEnoughError } from './types'
 import { trimLeft, trimRight } from './Utils'
 
 /**
@@ -120,9 +120,11 @@ function zipIntegralDigits(config: ReadingConfig, digits: number[]): Period[] {
  * Phân tích chuỗi số thành dạng `NumberData`.
  * @param config Cấu hình đọc số.
  * @param number Số cần đọc.
- * @returns Dữ liệu số đã phân tích, `null` nếu số không hợp lệ.
+ * @returns Dữ liệu số đã phân tích.
+ * @throws InvalidNumberError nếu số không hợp lệ.
+ * @throws UnitNotEnoughError nếu không đủ số lượng đơn vị để đọc số.
  */
-function parseNumberData(config: ReadingConfig, number: string): NumberData | null {
+function parseNumberData(config: ReadingConfig, number: string): NumberData {
 	// Lưu lại & xóa dấu âm
 	const isNegative = number[0] === config.negativeSign
 	number = isNegative ? number.substring(1) : number
@@ -144,7 +146,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 
 	// Check quá trình parse có lỗi không
 	if (integralDigits.includes(NaN) || fractionalDigits.includes(NaN))
-		return null
+		throw new InvalidNumberError()
 
 	// Gom nhóm chữ số & chuẩn hóa
 	const integralPart = zipIntegralDigits(config, integralDigits)
@@ -153,6 +155,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData | nu
 	// Nếu phần nguyên rỗng thì thêm 0
 	if (integralPart.length === 0)
 		integralPart.push([0, 0, 0])
+
+	// Báo lỗi nếu phần nguyên quá dài, không đủ đơn vị để đọc số
+	if (integralPart.length > config.units.length)
+		throw new UnitNotEnoughError()
 
 	return { isNegative, integralPart, fractionalPart }
 }

@@ -39,7 +39,7 @@ Ví dụ cách sử dụng thư viện trong JavaScript.
 ```js
 // Bước 1
 import {
-	ReadingConfig,
+	InvalidNumberError, UnitNotEnoughError, ReadingConfig,
 	parseNumberData, readNumber
 } from 'read-vietnamese-number'
 
@@ -47,17 +47,28 @@ import {
 const config = new ReadingConfig()
 config.unit = ['đồng']
 
-// Bước 3
-const number = parseNumberData(config, '12345.6789')
+try {
+	// Bước 3
+	const number = parseNumberData(config, '12345.6789')
 
-// Bước 4
-if (number === null)
-	console.log('Số không hợp lệ')
-else
+	// Bước 4
 	console.log(readNumber(config, number))
+} catch (e) {
+	if (e instanceof InvalidNumberError)
+		console.log('Số không hợp lệ')
+	else if (e instanceof UnitNotEnoughError)
+		console.log('Không đủ đơn vị đọc số')
+}
 ```
 
-Với TypeScript, vui lòng tham khảo ví dụ trong file `node_modules/read-vietnamese-number/demo.ts`.
+Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
+
+Function `parseNumberData()` có thể tạo ra 2 loại Error:
+
+* InvalidNumberError: khi số không hợp lệ
+* UnitNotEnoughError: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
+
+Do đó cần sử dụng `try catch` và xử lý thích hợp như trong ví dụ.
 
 ## How to publish a new version?
 

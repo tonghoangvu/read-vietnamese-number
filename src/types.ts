@@ -1,3 +1,6 @@
 type Period = [number, number, number]
 
-export { Period }
+class InvalidNumberError extends Error {}
+class UnitNotEnoughError extends Error {}
+
+export { Period, InvalidNumberError, UnitNotEnoughError }

@@ -20,6 +20,7 @@
 		"Number"
 	],
 	"scripts": {
+		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
 		"build": "tsc",
 		"lint": "eslint . --fix",
 		"demo": "ts-node src/demo.ts",

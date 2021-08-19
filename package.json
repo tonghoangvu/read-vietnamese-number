@@ -4,21 +4,18 @@
 	"description": "Thư viện đọc số thành chữ trong Tiếng Việt",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
+	"private": false,
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
 	},
-	"author": "tonghoangvu <tonghoangvu@outlook.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/tonghoangvu/read-vietnamese-number/issues"
+	"author": {
+		"name": "Tong Hoang Vu",
+		"email": "tonghoangvu@outlook.com",
+		"url": "https://github.com/tonghoangvu"
 	},
-	"homepage": "https://github.com/tonghoangvu/read-vietnamese-number#readme",
-	"private": false,
-	"keywords": [
-		"Vietnamese",
-		"Number"
-	],
+	"keywords": ["vn", "vietnam", "vietnamese", "convert", "read", "number"],
 	"scripts": {
 		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
 		"build": "tsc",

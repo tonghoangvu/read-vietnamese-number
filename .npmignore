@@ -11,13 +11,15 @@ coverage/
 
 # Excluded project files
 .editorconfig
-.eslintrc.js
 .eslintignore
+.eslintrc.js
 .gitignore
-tsconfig.json
 jest.config.js
 package-lock.json
-yarn.lock
+TODO
+tsconfig.json
+*.env
+*.log
 
 # Exclude system files
 .DS_Store

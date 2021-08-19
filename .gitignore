@@ -6,8 +6,8 @@ coverage/
 
 # Files
 TODO
-.env
-yarn-error.log
+*.env
+*.log
 
 # System files
 .DS_Store

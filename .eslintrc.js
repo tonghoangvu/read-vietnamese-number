@@ -6,7 +6,8 @@ module.exports = {
 	},
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended'
+		'plugin:@typescript-eslint/recommended',
+		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
@@ -25,11 +26,7 @@ module.exports = {
 		'indent': [
 			'error', 'tab',
 			{
-				'SwitchCase': 1,
-				'FunctionDeclaration': {
-					'body': 1,
-					'parameters': 2
-				}
+				'SwitchCase': 1
 			}
 		],
 		'semi': ['error', 'never'],

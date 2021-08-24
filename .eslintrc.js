@@ -4,33 +4,28 @@ module.exports = {
 		node: true,
 		es2021: true
 	},
-	extends: [
-		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'prettier'
-	],
+	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 12,
 		sourceType: 'module'
 	},
-	plugins: [
-		'@typescript-eslint'
-	],
+	plugins: ['@typescript-eslint'],
 	rules: {
 		'no-console': 'warn',
 		'no-debugger': 'warn',
 		'no-multi-spaces': 'warn',
 		'no-multiple-empty-lines': 'warn',
 		'no-trailing-spaces': 'error',
-		'indent': [
-			'error', 'tab',
+		indent: [
+			'error',
+			'tab',
 			{
-				'SwitchCase': 1
+				SwitchCase: 1
 			}
 		],
-		'semi': ['error', 'never'],
-		'quotes': ['error', 'single'],
+		semi: ['error', 'never'],
+		quotes: ['error', 'single'],
 		'linebreak-style': ['error', 'unix'],
 		'brace-style': ['error', '1tbs'],
 		'eol-last': ['error', 'always'],

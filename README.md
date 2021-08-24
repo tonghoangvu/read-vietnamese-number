@@ -39,8 +39,11 @@ Ví dụ cách sử dụng thư viện trong JavaScript.
 ```js
 // Bước 1
 import {
-	InvalidNumberError, UnitNotEnoughError, ReadingConfig,
-	parseNumberData, readNumber
+	InvalidNumberError,
+	UnitNotEnoughError,
+	ReadingConfig,
+	parseNumberData,
+	readNumber
 } from 'read-vietnamese-number'
 
 // Bước 2
@@ -54,10 +57,8 @@ try {
 	// Bước 4
 	console.log(readNumber(config, number))
 } catch (e) {
-	if (e instanceof InvalidNumberError)
-		console.log('Số không hợp lệ')
-	else if (e instanceof UnitNotEnoughError)
-		console.log('Không đủ đơn vị đọc số')
+	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
+	else if (e instanceof UnitNotEnoughError) console.log('Không đủ đơn vị đọc số')
 }
 ```
 

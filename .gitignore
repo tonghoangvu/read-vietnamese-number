@@ -1,15 +1,8 @@
-# Folders
 private/
 node_modules/
 dist/
 coverage/
 .vscode/
 
-# Files
-*.env
-*.log
 *.tgz
-
-# System files
 .DS_Store
-Thumbs.db

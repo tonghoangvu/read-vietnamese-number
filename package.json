@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tonghoangvu/read-vietnamese-number.git"
+		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
 	},
 	"author": {
 		"name": "Tong Hoang Vu",

@@ -23,6 +23,9 @@
 		"read",
 		"number"
 	],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
 		"build": "tsc",

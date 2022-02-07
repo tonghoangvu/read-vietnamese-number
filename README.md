@@ -43,7 +43,7 @@ import {
 	UnitNotEnoughError,
 	ReadingConfig,
 	parseNumberData,
-	readNumber
+	readNumber,
 } from 'read-vietnamese-number'
 
 // Bước 2
@@ -58,7 +58,8 @@ try {
 	console.log(readNumber(config, number))
 } catch (e) {
 	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
-	else if (e instanceof UnitNotEnoughError) console.log('Không đủ đơn vị đọc số')
+	else if (e instanceof UnitNotEnoughError)
+		console.log('Không đủ đơn vị đọc số')
 }
 ```
 

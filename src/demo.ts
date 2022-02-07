@@ -5,7 +5,7 @@ import {
 	UnitNotEnoughError,
 	ReadingConfig,
 	parseNumberData,
-	readNumber
+	readNumber,
 } from './index' // Hoặc "read-vietnamese-number"
 
 // Cấu hình đọc số
@@ -24,7 +24,9 @@ for (const number of numbers) {
 		console.log(`Số ${number}: ${result}`)
 	} catch (e) {
 		// Xử lý từng loại lỗi
-		if (e instanceof InvalidNumberError) console.error(`Số ${number}: không hợp lệ`)
-		else if (e instanceof UnitNotEnoughError) console.warn(`Số ${number}: không đủ đơn vị`)
+		if (e instanceof InvalidNumberError)
+			console.error(`Số ${number}: không hợp lệ`)
+		else if (e instanceof UnitNotEnoughError)
+			console.warn(`Số ${number}: không đủ đơn vị`)
 	}
 }

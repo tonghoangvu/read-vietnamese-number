@@ -9,5 +9,5 @@ export {
 	NumberData,
 	ReadingConfig,
 	parseNumberData,
-	readNumber
+	readNumber,
 }

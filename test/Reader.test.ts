@@ -10,7 +10,7 @@ import {
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
-	readNumber
+	readNumber,
 } from '../src/Reader'
 
 describe('Read the last two digits function', () => {
@@ -42,14 +42,32 @@ describe('Read three digits function', () => {
 		expect(readThreeDigits(config, 0, 0, 0, false)).toEqual(['không'])
 		expect(readThreeDigits(config, 0, 0, 5, false)).toEqual(['năm'])
 		expect(readThreeDigits(config, 3, 0, 0, false)).toEqual(['ba', 'trăm'])
-		expect(readThreeDigits(config, 3, 0, 5, false)).toEqual(['ba', 'trăm', 'lẻ', 'năm'])
+		expect(readThreeDigits(config, 3, 0, 5, false)).toEqual([
+			'ba',
+			'trăm',
+			'lẻ',
+			'năm',
+		])
 	})
 
 	it('Should return with zero hundred', () => {
-		expect(readThreeDigits(config, 0, 0, 0, true)).toEqual(['không', 'trăm'])
+		expect(readThreeDigits(config, 0, 0, 0, true)).toEqual([
+			'không',
+			'trăm',
+		])
 		expect(readThreeDigits(config, 3, 0, 0, true)).toEqual(['ba', 'trăm'])
-		expect(readThreeDigits(config, 0, 0, 5, true)).toEqual(['không', 'trăm', 'lẻ', 'năm'])
-		expect(readThreeDigits(config, 3, 0, 5, true)).toEqual(['ba', 'trăm', 'lẻ', 'năm'])
+		expect(readThreeDigits(config, 0, 0, 5, true)).toEqual([
+			'không',
+			'trăm',
+			'lẻ',
+			'năm',
+		])
+		expect(readThreeDigits(config, 3, 0, 5, true)).toEqual([
+			'ba',
+			'trăm',
+			'lẻ',
+			'năm',
+		])
 	})
 })
 
@@ -104,7 +122,7 @@ describe('Zip integral digits function', () => {
 		expect(zipIntegralDigits(config, [1, 2, 3])).toEqual([[1, 2, 3]])
 		expect(zipIntegralDigits(config, [1, 2, 3, 4, 5, 6])).toEqual([
 			[1, 2, 3],
-			[4, 5, 6]
+			[4, 5, 6],
 		])
 	})
 })
@@ -114,28 +132,34 @@ describe('Parse number data function', () => {
 	config.unit = []
 
 	it('Should throw InvalidNumberError', () => {
-		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(InvalidNumberError)
-		expect(() => parseNumberData(config, '-12..3')).toThrowError(InvalidNumberError)
-		expect(() => parseNumberData(config, '--12.34')).toThrowError(InvalidNumberError)
+		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(
+			InvalidNumberError
+		)
+		expect(() => parseNumberData(config, '-12..3')).toThrowError(
+			InvalidNumberError
+		)
+		expect(() => parseNumberData(config, '--12.34')).toThrowError(
+			InvalidNumberError
+		)
 	})
 
 	it('Should throw UnitNotEnoughError', () => {
-		expect(() => parseNumberData(config, '1234567890123456789012')).toThrowError(
-			UnitNotEnoughError
-		)
-		expect(() => parseNumberData(config, '123456789012345678901')).not.toThrowError(
-			UnitNotEnoughError
-		)
-		expect(() => parseNumberData(config, '123456789012345678901.123456789')).not.toThrowError(
-			UnitNotEnoughError
-		)
+		expect(() =>
+			parseNumberData(config, '1234567890123456789012')
+		).toThrowError(UnitNotEnoughError)
+		expect(() =>
+			parseNumberData(config, '123456789012345678901')
+		).not.toThrowError(UnitNotEnoughError)
+		expect(() =>
+			parseNumberData(config, '123456789012345678901.123456789')
+		).not.toThrowError(UnitNotEnoughError)
 	})
 
 	it('Should return empty data', () => {
 		expect(parseNumberData(config, '')).toEqual({
 			isNegative: false,
 			integralPart: [[0, 0, 0]],
-			fractionalPart: []
+			fractionalPart: [],
 		} as NumberData)
 	})
 
@@ -143,22 +167,22 @@ describe('Parse number data function', () => {
 		expect(parseNumberData(config, '123')).toEqual({
 			isNegative: false,
 			integralPart: [[1, 2, 3]],
-			fractionalPart: []
+			fractionalPart: [],
 		} as NumberData)
 		expect(parseNumberData(config, '-12.3')).toEqual({
 			isNegative: true,
 			integralPart: [[0, 1, 2]],
-			fractionalPart: [3]
+			fractionalPart: [3],
 		} as NumberData)
 		expect(parseNumberData(config, '0031.141590000')).toEqual({
 			isNegative: false,
 			integralPart: [[0, 3, 1]],
-			fractionalPart: [1, 4, 1, 5, 9]
+			fractionalPart: [1, 4, 1, 5, 9],
 		} as NumberData)
 		expect(parseNumberData(config, '-0031.141590000')).toEqual({
 			isNegative: true,
 			integralPart: [[0, 3, 1]],
-			fractionalPart: [1, 4, 1, 5, 9]
+			fractionalPart: [1, 4, 1, 5, 9],
 		} as NumberData)
 	})
 })
@@ -173,17 +197,22 @@ describe('Read integral part function', () => {
 
 	it('Should return value', () => {
 		expect(readIntegralPart(config, [[0, 0, 0]])).toEqual(['không'])
-		expect(readIntegralPart(config, [[1, 0, 3]])).toEqual(['một', 'trăm', 'lẻ', 'ba'])
+		expect(readIntegralPart(config, [[1, 0, 3]])).toEqual([
+			'một',
+			'trăm',
+			'lẻ',
+			'ba',
+		])
 		expect(
 			readIntegralPart(config, [
 				[0, 1, 5],
-				[7, 2, 5]
+				[7, 2, 5],
 			])
 		).toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm'])
 		expect(
 			readIntegralPart(config, [
 				[6, 2, 3],
-				[0, 0, 0]
+				[0, 0, 0],
 			])
 		).toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn'])
 	})
@@ -199,15 +228,29 @@ describe('Read fractional part function', () => {
 
 	it('Should return value', () => {
 		expect(readFractionalPart(config, [1])).toEqual(['một'])
-		expect(readFractionalPart(config, [2, 4])).toEqual(['hai', 'mươi', 'tư'])
-		expect(readFractionalPart(config, [3, 0, 9])).toEqual(['ba', 'trăm', 'lẻ', 'chín'])
-		expect(readFractionalPart(config, [0, 0, 0, 7])).toEqual(['không', 'không', 'không', 'bảy'])
+		expect(readFractionalPart(config, [2, 4])).toEqual([
+			'hai',
+			'mươi',
+			'tư',
+		])
+		expect(readFractionalPart(config, [3, 0, 9])).toEqual([
+			'ba',
+			'trăm',
+			'lẻ',
+			'chín',
+		])
+		expect(readFractionalPart(config, [0, 0, 0, 7])).toEqual([
+			'không',
+			'không',
+			'không',
+			'bảy',
+		])
 		expect(readFractionalPart(config, [1, 2, 3, 4, 5])).toEqual([
 			'một',
 			'hai',
 			'ba',
 			'bốn',
-			'năm'
+			'năm',
 		])
 	})
 })
@@ -228,11 +271,15 @@ describe('Read full string number', () => {
 	})
 
 	it('Should throw UnitNotEnoughError', () => {
-		expect(() => func(config, '1234567890123456789012')).toThrowError(UnitNotEnoughError)
-		expect(() => func(config, '123456789012345678901')).not.toThrowError(UnitNotEnoughError)
-		expect(() => func(config, '123456789012345678901.123456789')).not.toThrowError(
+		expect(() => func(config, '1234567890123456789012')).toThrowError(
 			UnitNotEnoughError
 		)
+		expect(() => func(config, '123456789012345678901')).not.toThrowError(
+			UnitNotEnoughError
+		)
+		expect(() =>
+			func(config, '123456789012345678901.123456789')
+		).not.toThrowError(UnitNotEnoughError)
 	})
 
 	it('Should return zero', () => {
@@ -250,13 +297,19 @@ describe('Read full string number', () => {
 		expect(func(config, '4065')).toBe('bốn nghìn không trăm sáu mươi lăm')
 		expect(func(config, '06000')).toBe('sáu nghìn')
 		expect(func(config, '1000024')).toBe('một triệu không trăm hai mươi tư')
-		expect(func(config, '23010000')).toBe('hai mươi ba triệu không trăm mười nghìn')
-		expect(func(config, '2030000305')).toBe('hai tỉ không trăm ba mươi triệu ba trăm lẻ năm')
+		expect(func(config, '23010000')).toBe(
+			'hai mươi ba triệu không trăm mười nghìn'
+		)
+		expect(func(config, '2030000305')).toBe(
+			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm'
+		)
 	})
 
 	it('Should return double value', () => {
 		expect(func(config, '304.23')).toBe('ba trăm lẻ bốn chấm hai mươi ba')
 		expect(func(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
-		expect(func(config, '-0.00001')).toBe('âm không chấm không không không không một')
+		expect(func(config, '-0.00001')).toBe(
+			'âm không chấm không không không không một'
+		)
 	})
 })

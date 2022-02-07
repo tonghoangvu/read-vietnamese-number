@@ -4,14 +4,11 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"strict": true,
-		"strictNullChecks": true,
-		"alwaysStrict": true,
-		"sourceMap": true,
-		"declaration": true,
+		"sourceMap": true, // Should have sourcemaps
+		"declaration": true, // Should have to support typings
 		"outDir": "./dist",
 		"skipLibCheck": true,
 		"importHelpers": true
 	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["node_modules", "dist"]
+	"include": ["src/**/*.ts"]
 }

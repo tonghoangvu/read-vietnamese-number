@@ -21,22 +21,16 @@ function readTwoDigits(config: ReadingConfig, b: number, c: number): string[] {
 		}
 		case 1: {
 			output.push(config.tenText)
-			if (c === 5)
-				output.push(config.fiveToneText)
-			else if (c !== 0)
-				output.push(config.digits[c])
+			if (c === 5) output.push(config.fiveToneText)
+			else if (c !== 0) output.push(config.digits[c])
 			break
 		}
 		default: {
 			output.push(config.digits[b], config.tenToneText)
-			if (c === 1)
-				output.push(config.oneToneText)
-			else if (c === 4 && b !== 4)
-				output.push(config.fourToneText)
-			else if (c === 5)
-				output.push(config.fiveToneText)
-			else if (c !== 0)
-				output.push(config.digits[c])
+			if (c === 1) output.push(config.oneToneText)
+			else if (c === 4 && b !== 4) output.push(config.fourToneText)
+			else if (c === 5) output.push(config.fiveToneText)
+			else if (c !== 0) output.push(config.digits[c])
 			break
 		}
 	}
@@ -53,19 +47,22 @@ function readTwoDigits(config: ReadingConfig, b: number, c: number): string[] {
  * @param readZeroHundred Có luôn đọc "không trăm" không.
  * @returns Array các từ đã đọc.
  */
-function readThreeDigits(config: ReadingConfig,
-		a: number, b: number, c: number, readZeroHundred: boolean): string[] {
+function readThreeDigits(
+	config: ReadingConfig,
+	a: number,
+	b: number,
+	c: number,
+	readZeroHundred: boolean
+): string[] {
 	const output: string[] = []
 	const hasHundred = a !== 0 || readZeroHundred
 
 	// Đọc hàng trăm
-	if (hasHundred)
-		output.push(config.digits[a], config.hundredText)
+	if (hasHundred) output.push(config.digits[a], config.hundredText)
 
 	// Đọc phần lẻ trăm
 	if (hasHundred && b === 0) {
-		if (c === 0)
-			return output
+		if (c === 0) return output
 		output.push(config.oddText)
 	}
 
@@ -95,8 +92,12 @@ function trimRedundantZeros(config: ReadingConfig, number: string): string {
  * @param number Chuỗi số đầu vào.
  * @returns Chuỗi số đã thêm các số 0 ở đầu.
  */
-function addLeadingZeroToFitPeriod(config: ReadingConfig, number: string): string {
-	const correctLength = Math.ceil(number.length / config.periodSize) * config.periodSize
+function addLeadingZeroToFitPeriod(
+	config: ReadingConfig,
+	number: string
+): string {
+	const correctLength =
+		Math.ceil(number.length / config.periodSize) * config.periodSize
 	return number.padStart(correctLength, config.filledDigit)
 }
 
@@ -110,7 +111,10 @@ function zipIntegralDigits(config: ReadingConfig, digits: number[]): Period[] {
 	const output: Period[] = []
 	const periodCount = Math.ceil(digits.length / config.periodSize)
 	for (let i = 0; i < periodCount; i++) {
-		const [a, b, c] = digits.slice(i * config.periodSize, (i + 1) * config.periodSize)
+		const [a, b, c] = digits.slice(
+			i * config.periodSize,
+			(i + 1) * config.periodSize
+		)
 		output.push([a, b, c])
 	}
 	return output
@@ -134,15 +138,21 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData {
 
 	// Chia phần nguyên và phần thập phân
 	const pointPos = number.indexOf(config.pointSign)
-	let integralString = pointPos === -1 ? number : number.substring(0, pointPos)
-	const fractionalString = pointPos === -1 ? '' : number.substring(pointPos + 1)
+	let integralString =
+		pointPos === -1 ? number : number.substring(0, pointPos)
+	const fractionalString =
+		pointPos === -1 ? '' : number.substring(pointPos + 1)
 
 	// Chuẩn hóa chuỗi số
 	integralString = addLeadingZeroToFitPeriod(config, integralString)
 
 	// Phân tích từng chữ số
-	const integralDigits = integralString.split('').map(digit => parseInt(digit))
-	const fractionalDigits = fractionalString.split('').map(digit => parseInt(digit))
+	const integralDigits = integralString
+		.split('')
+		.map(digit => parseInt(digit))
+	const fractionalDigits = fractionalString
+		.split('')
+		.map(digit => parseInt(digit))
 
 	// Check quá trình parse có lỗi không
 	if (integralDigits.includes(NaN) || fractionalDigits.includes(NaN))
@@ -153,8 +163,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData {
 	const fractionalPart = fractionalDigits
 
 	// Nếu phần nguyên rỗng thì thêm 0
-	if (integralPart.length === 0)
-		integralPart.push([0, 0, 0])
+	if (integralPart.length === 0) integralPart.push([0, 0, 0])
 
 	// Báo lỗi nếu phần nguyên quá dài, không đủ đơn vị để đọc số
 	if (integralPart.length > config.units.length)
@@ -169,7 +178,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData {
  * @param digits Array các chữ số (không dư thừa, độ dài phải chia hết cho 3).
  * @returns Array các từ đã đọc.
  */
-function readIntegralPart(config: ReadingConfig, integralPart: Period[]): string[] {
+function readIntegralPart(
+	config: ReadingConfig,
+	integralPart: Period[]
+): string[] {
 	const output: string[] = []
 
 	// Đọc từng nhóm 3 chữ số
@@ -180,7 +192,8 @@ function readIntegralPart(config: ReadingConfig, integralPart: Period[]): string
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod)
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[integralPart.length - 1 - index])
+				...config.units[integralPart.length - 1 - index]
+			)
 	}
 
 	return output
@@ -211,8 +224,7 @@ function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
 		}
 		default: {
 			// Đọc từng chữ số riêng rẽ
-			for (const digit of digits)
-				output.push(config.digits[digit])
+			for (const digit of digits) output.push(config.digits[digit])
 			break
 		}
 	}
@@ -232,18 +244,26 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	// Đọc các chữ số
 	output.push(...readIntegralPart(config, numberData.integralPart))
 	if (numberData.fractionalPart.length !== 0)
-		output.push(config.pointText, ...readFractionalPart(config, numberData.fractionalPart))
+		output.push(
+			config.pointText,
+			...readFractionalPart(config, numberData.fractionalPart)
+		)
 
 	// Thêm dấu & đơn vị
-	if (numberData.isNegative)
-		output.unshift(config.negativeText)
+	if (numberData.isNegative) output.unshift(config.negativeText)
 	output.push(...config.unit)
 
 	return output.join(config.separator)
 }
 
 export {
-	readTwoDigits, readThreeDigits,
-	trimRedundantZeros, addLeadingZeroToFitPeriod, zipIntegralDigits,
-	parseNumberData, readIntegralPart, readFractionalPart, readNumber
+	readTwoDigits,
+	readThreeDigits,
+	trimRedundantZeros,
+	addLeadingZeroToFitPeriod,
+	zipIntegralDigits,
+	parseNumberData,
+	readIntegralPart,
+	readFractionalPart,
+	readNumber,
 }

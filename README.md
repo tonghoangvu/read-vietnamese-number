@@ -3,9 +3,9 @@
 Thư viện chuyển đổi số thành chữ trong Tiếng Việt.
 Có các tính năng như:
 
-* Đọc được số âm, số thập phân
-* Số lớn tùy ý (chỉ cần thêm đủ các đơn vị phù hợp)
-* Có nhiều tùy chọn: đơn vị tính, dấu phân tách, cách đọc số,...
+- Đọc được số âm, số thập phân
+- Số lớn tùy ý (chỉ cần thêm đủ các đơn vị phù hợp)
+- Có nhiều tùy chọn: đơn vị tính, dấu phân tách, cách đọc số,...
 
 Hỗ trợ ngôn ngữ JavaScript và TypeScript.
 
@@ -39,8 +39,11 @@ Ví dụ cách sử dụng thư viện trong JavaScript.
 ```js
 // Bước 1
 import {
-	InvalidNumberError, UnitNotEnoughError, ReadingConfig,
-	parseNumberData, readNumber
+	InvalidNumberError,
+	UnitNotEnoughError,
+	ReadingConfig,
+	parseNumberData,
+	readNumber,
 } from 'read-vietnamese-number'
 
 // Bước 2
@@ -54,8 +57,7 @@ try {
 	// Bước 4
 	console.log(readNumber(config, number))
 } catch (e) {
-	if (e instanceof InvalidNumberError)
-		console.log('Số không hợp lệ')
+	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
 	else if (e instanceof UnitNotEnoughError)
 		console.log('Không đủ đơn vị đọc số')
 }
@@ -67,8 +69,8 @@ Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
 
 Function `parseNumberData()` có thể tạo ra 2 loại Error:
 
-* InvalidNumberError: khi số không hợp lệ
-* UnitNotEnoughError: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
+- InvalidNumberError: khi số không hợp lệ
+- UnitNotEnoughError: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
 
 Do đó cần sử dụng `try catch` và xử lý thích hợp như trong ví dụ.
 

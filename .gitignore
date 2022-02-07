@@ -1,14 +1,8 @@
-# Folders
+private/
 node_modules/
 dist/
 coverage/
 .vscode/
 
-# Files
-TODO
-.env
-yarn-error.log
-
-# System files
+*.tgz
 .DS_Store
-Thumbs.db

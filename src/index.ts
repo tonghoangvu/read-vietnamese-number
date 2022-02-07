@@ -4,7 +4,10 @@ import { ReadingConfig } from './ReadingConfig'
 import { parseNumberData, readNumber } from './Reader'
 
 export {
-	InvalidNumberError, UnitNotEnoughError,
-	NumberData, ReadingConfig,
-	parseNumberData, readNumber
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
+	parseNumberData,
+	readNumber,
 }

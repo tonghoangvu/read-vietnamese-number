@@ -12,12 +12,25 @@ export class ReadingConfig {
 	public filledDigit = '0'
 
 	public digits = [
-		'không', 'một', 'hai', 'ba', 'bốn',
-		'năm', 'sáu', 'bảy', 'tám', 'chín'
+		'không',
+		'một',
+		'hai',
+		'ba',
+		'bốn',
+		'năm',
+		'sáu',
+		'bảy',
+		'tám',
+		'chín',
 	]
 	public units = [
-		[], ['nghìn'], ['triệu'], ['tỉ'],
-		['nghìn', 'tỉ'], ['triệu', 'tỉ'], ['tỉ', 'tỉ']
+		[],
+		['nghìn'],
+		['triệu'],
+		['tỉ'],
+		['nghìn', 'tỉ'],
+		['triệu', 'tỉ'],
+		['tỉ', 'tỉ'],
 	]
 
 	public negativeText = 'âm'

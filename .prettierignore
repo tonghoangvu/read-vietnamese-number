@@ -1,16 +1,18 @@
-# Prettier CLI skips node_modules by default
 *.html
 *.md
 
-# Folders
+# From .gitignore
+# Folders (Prettier CLI skips node_modules by default)
+private/
+node_modules/
 dist/
 coverage/
 .vscode/
 
 # Files
-TODO
 *.env
 *.log
+*.tgz
 
 # System files
 .DS_Store

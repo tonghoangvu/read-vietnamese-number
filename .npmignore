@@ -1,26 +1,34 @@
-# Never exlude
-# - node_modules, dist
-# - package.json, .npmignore
-# - README.md, CONTRIBUTING.md, LICENSE
+# Don't exclude
+!node_modules/
+!dist/
+!package.json
+!.npmignore
+!README.md
+!CONTRIBUTING.md
+!LICENSE
 
-# Excluded project folders
-src/
-test/
-coverage/
-.vscode/
-
-# Excluded project files
+# Project files
 .editorconfig
 .eslintignore
 .eslintrc.js
 .gitignore
 jest.config.js
 package-lock.json
-TODO
 tsconfig.json
+
+# From .gitignore with some changes
+# Folders
+private/
+coverage/
+.vscode/
+src/
+test/
+
+# Files
 *.env
 *.log
+*.tgz
 
-# Exclude system files
+# System files
 .DS_Store
 Thumbs.db

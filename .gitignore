@@ -1,13 +1,14 @@
 # Folders
+private/
 node_modules/
 dist/
 coverage/
 .vscode/
 
 # Files
-TODO
 *.env
 *.log
+*.tgz
 
 # System files
 .DS_Store

@@ -52,7 +52,7 @@ function readThreeDigits(
 	a: number,
 	b: number,
 	c: number,
-	readZeroHundred: boolean
+	readZeroHundred: boolean,
 ): string[] {
 	const output: string[] = []
 	const hasHundred = a !== 0 || readZeroHundred
@@ -94,7 +94,7 @@ function trimRedundantZeros(config: ReadingConfig, number: string): string {
  */
 function addLeadingZeroToFitPeriod(
 	config: ReadingConfig,
-	number: string
+	number: string,
 ): string {
 	const correctLength =
 		Math.ceil(number.length / config.periodSize) * config.periodSize
@@ -113,7 +113,7 @@ function zipIntegralDigits(config: ReadingConfig, digits: number[]): Period[] {
 	for (let i = 0; i < periodCount; i++) {
 		const [a, b, c] = digits.slice(
 			i * config.periodSize,
-			(i + 1) * config.periodSize
+			(i + 1) * config.periodSize,
 		)
 		output.push([a, b, c])
 	}
@@ -180,7 +180,7 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData {
  */
 function readIntegralPart(
 	config: ReadingConfig,
-	integralPart: Period[]
+	integralPart: Period[],
 ): string[] {
 	const output: string[] = []
 
@@ -192,7 +192,7 @@ function readIntegralPart(
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod)
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[integralPart.length - 1 - index]
+				...config.units[integralPart.length - 1 - index],
 			)
 	}
 
@@ -246,7 +246,7 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	if (numberData.fractionalPart.length !== 0)
 		output.push(
 			config.pointText,
-			...readFractionalPart(config, numberData.fractionalPart)
+			...readFractionalPart(config, numberData.fractionalPart),
 		)
 
 	// Thêm dấu & đơn vị

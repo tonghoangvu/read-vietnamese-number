@@ -133,25 +133,25 @@ describe('Parse number data function', () => {
 
 	it('Should throw InvalidNumberError', () => {
 		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 		expect(() => parseNumberData(config, '-12..3')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 		expect(() => parseNumberData(config, '--12.34')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 	})
 
 	it('Should throw UnitNotEnoughError', () => {
 		expect(() =>
-			parseNumberData(config, '1234567890123456789012')
+			parseNumberData(config, '1234567890123456789012'),
 		).toThrowError(UnitNotEnoughError)
 		expect(() =>
-			parseNumberData(config, '123456789012345678901')
+			parseNumberData(config, '123456789012345678901'),
 		).not.toThrowError(UnitNotEnoughError)
 		expect(() =>
-			parseNumberData(config, '123456789012345678901.123456789')
+			parseNumberData(config, '123456789012345678901.123456789'),
 		).not.toThrowError(UnitNotEnoughError)
 	})
 
@@ -207,13 +207,13 @@ describe('Read integral part function', () => {
 			readIntegralPart(config, [
 				[0, 1, 5],
 				[7, 2, 5],
-			])
+			]),
 		).toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm'])
 		expect(
 			readIntegralPart(config, [
 				[6, 2, 3],
 				[0, 0, 0],
-			])
+			]),
 		).toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn'])
 	})
 })
@@ -272,13 +272,13 @@ describe('Read full string number', () => {
 
 	it('Should throw UnitNotEnoughError', () => {
 		expect(() => func(config, '1234567890123456789012')).toThrowError(
-			UnitNotEnoughError
+			UnitNotEnoughError,
 		)
 		expect(() => func(config, '123456789012345678901')).not.toThrowError(
-			UnitNotEnoughError
+			UnitNotEnoughError,
 		)
 		expect(() =>
-			func(config, '123456789012345678901.123456789')
+			func(config, '123456789012345678901.123456789'),
 		).not.toThrowError(UnitNotEnoughError)
 	})
 
@@ -298,10 +298,10 @@ describe('Read full string number', () => {
 		expect(func(config, '06000')).toBe('sáu nghìn')
 		expect(func(config, '1000024')).toBe('một triệu không trăm hai mươi tư')
 		expect(func(config, '23010000')).toBe(
-			'hai mươi ba triệu không trăm mười nghìn'
+			'hai mươi ba triệu không trăm mười nghìn',
 		)
 		expect(func(config, '2030000305')).toBe(
-			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm'
+			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm',
 		)
 	})
 
@@ -309,7 +309,7 @@ describe('Read full string number', () => {
 		expect(func(config, '304.23')).toBe('ba trăm lẻ bốn chấm hai mươi ba')
 		expect(func(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
 		expect(func(config, '-0.00001')).toBe(
-			'âm không chấm không không không không một'
+			'âm không chấm không không không không một',
 		)
 	})
 })

@@ -33,7 +33,7 @@
 		"linebreak-style": ["error", "unix"],
 		"brace-style": ["error", "1tbs"],
 		"eol-last": ["error", "always"],
-		"comma-dangle": ["error", "only-multiline"],
+		"comma-dangle": ["error", "always-multiline"],
 		"array-bracket-spacing": ["error", "never"],
 		"object-curly-spacing": ["error", "always"]
 	}

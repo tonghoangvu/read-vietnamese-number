@@ -1,6 +1,9 @@
-import { InvalidNumberError, UnitNotEnoughError } from '../src/types'
-import { NumberData } from '../src/NumberData'
-import { ReadingConfig } from '../src/ReadingConfig'
+import {
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
+} from '../src/types'
 import {
 	readTwoDigits,
 	readThreeDigits,

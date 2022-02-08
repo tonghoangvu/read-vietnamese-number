@@ -1,6 +1,10 @@
-import { NumberData } from './NumberData'
-import { ReadingConfig } from './ReadingConfig'
-import { Period, InvalidNumberError, UnitNotEnoughError } from './types'
+import {
+	Period,
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
+} from './types'
 import { trimLeft, trimRight } from './Utils'
 
 /**

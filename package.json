@@ -29,7 +29,7 @@
 	"scripts": {
 		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
 		"build": "tsc",
-		"lint": "eslint . --fix",
+		"lint": "eslint --fix .",
 		"format": "prettier --write .",
 		"demo": "ts-node src/demo.ts",
 		"test": "jest --coverage",

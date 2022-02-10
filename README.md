@@ -93,11 +93,11 @@ console.log(rvn.readNumber(config, number))
 
 Các bước publish phiên bản mới lên NPM:
 
-1. Commit tất cả những thay đổi
-2. Chạy `npm pre-deploy` để check coding style và unit test
-3. Chạy `npm deploy-xxx` với `xxx` là mức độ tăng version (`patch`, `minor` hoặc `major`)
-4. Push code lên GitHub
+1. Chạy `npm deploy:check` để check coding style và chạy unit test
+2. Chạy `npm deploy:build` để dọn dẹp project và build mới
+3. Chạy `npm deploy:publish` để publish lên NPM registry
 
-**Lưu ý:** Các script trên cũng có thể sử dụng Yarn thay thế.
+Chú ý nếu source code có sự thay đổi sau bước 1, cần commit code lại.
 
-Nếu thư viện hữu ích, cho tớ một star trên GitHub nhé ❤
+Sau khi hoàn thiện tính năng và kiểm tra đầy đủ, cần thực hiện tăng version.
+Chạy lệnh `npm version` để tăng version cho project phù hợp.

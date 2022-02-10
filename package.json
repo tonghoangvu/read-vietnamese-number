@@ -27,16 +27,15 @@
 		"dist"
 	],
 	"scripts": {
-		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
-		"build": "tsc",
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
-		"demo": "ts-node src/demo.ts",
 		"test": "jest --coverage",
-		"prev-deploy": "npm run lint && npm run format && npm run test",
-		"deploy-patch": "npm run build && npm version patch && npm publish",
-		"deploy-minor": "npm run build && npm version minor && npm publish",
-		"deploy-major": "npm run build && npm version major && npm publish"
+		"clean-win": "rmdir dist /s /q && rmdir coverage /s /q",
+		"build": "tsc",
+		"deploy:check": "npm run lint && npm run format && npm run test",
+		"deploy:build": "npm run clean-win && npm run build",
+		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
+		"demo": "ts-node src/demo.ts"
 	},
 	"devDependencies": {
 		"@types/jest": "^27.4.0",

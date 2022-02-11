@@ -3,8 +3,8 @@ import {
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
-} from './types'
-import { parseNumberData, readNumber } from './Reader'
+} from './type'
+import { parseNumberData, readNumber } from './reader'
 
 export {
 	InvalidNumberError,

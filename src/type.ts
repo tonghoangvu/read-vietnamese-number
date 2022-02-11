@@ -3,21 +3,12 @@ type Period = [number, number, number]
 class InvalidNumberError extends Error {}
 class UnitNotEnoughError extends Error {}
 
-/**
- * Interface chứa dữ liệu số đã phân tích.
- * Thực hiện đọc số là đọc trên interface này.
- */
 interface NumberData {
 	isNegative: boolean
 	integralPart: Period[]
 	fractionalPart: number[]
 }
 
-/**
- * Class dùng tạo các object cấu hình để đọc số.
- * Các cấu hình mặc định như bên dưới.
- * Có thể thay đổi tùy theo nhu cầu sử dụng.
- */
 class ReadingConfig {
 	public separator = ' '
 	public unit = ['đơn', 'vị']

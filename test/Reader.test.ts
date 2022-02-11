@@ -3,37 +3,37 @@ import {
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
-} from '../src/types'
+} from '../src/type'
 import {
-	readTwoDigits,
+	readLastTwoDigits,
 	readThreeDigits,
 	trimRedundantZeros,
-	addLeadingZeroToFitPeriod,
-	zipIntegralDigits,
+	addLeadingZerosToFitPeriod,
+	zipIntegralPeriods,
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
 	readNumber,
-} from '../src/Reader'
+} from '../src/reader'
 
 describe('Read the last two digits function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should return value', () => {
-		expect(readTwoDigits(config, 0, 0)).toEqual(['không'])
-		expect(readTwoDigits(config, 0, 3)).toEqual(['ba'])
+		expect(readLastTwoDigits(config, 0, 0)).toEqual(['không'])
+		expect(readLastTwoDigits(config, 0, 3)).toEqual(['ba'])
 
-		expect(readTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
-		expect(readTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
-		expect(readTwoDigits(config, 1, 0)).toEqual(['mười'])
+		expect(readLastTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
+		expect(readLastTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
+		expect(readLastTwoDigits(config, 1, 0)).toEqual(['mười'])
 
-		expect(readTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
-		expect(readTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
-		expect(readTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'bốn'])
-		expect(readTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
-		expect(readTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
-		expect(readTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
+		expect(readLastTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
+		expect(readLastTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
+		expect(readLastTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
+		expect(readLastTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
 	})
 })
 
@@ -100,16 +100,16 @@ describe('Add leading zeros to fit period function', () => {
 	config.unit = []
 
 	it('Should not change', () => {
-		expect(addLeadingZeroToFitPeriod(config, '')).toBe('')
-		expect(addLeadingZeroToFitPeriod(config, '257')).toBe('257')
-		expect(addLeadingZeroToFitPeriod(config, '123456')).toBe('123456')
+		expect(addLeadingZerosToFitPeriod(config, '')).toBe('')
+		expect(addLeadingZerosToFitPeriod(config, '257')).toBe('257')
+		expect(addLeadingZerosToFitPeriod(config, '123456')).toBe('123456')
 	})
 
 	it('Should have the length divisible by 3', () => {
-		expect(addLeadingZeroToFitPeriod(config, '1')).toBe('001')
-		expect(addLeadingZeroToFitPeriod(config, '23')).toBe('023')
-		expect(addLeadingZeroToFitPeriod(config, '1234')).toBe('001234')
-		expect(addLeadingZeroToFitPeriod(config, '12345')).toBe('012345')
+		expect(addLeadingZerosToFitPeriod(config, '1')).toBe('001')
+		expect(addLeadingZerosToFitPeriod(config, '23')).toBe('023')
+		expect(addLeadingZerosToFitPeriod(config, '1234')).toBe('001234')
+		expect(addLeadingZerosToFitPeriod(config, '12345')).toBe('012345')
 	})
 })
 
@@ -118,12 +118,12 @@ describe('Zip integral digits function', () => {
 	config.unit = []
 
 	it('Should return no period', () => {
-		expect(zipIntegralDigits(config, [])).toEqual([])
+		expect(zipIntegralPeriods(config, [])).toEqual([])
 	})
 
 	it('Should return one period with zeros', () => {
-		expect(zipIntegralDigits(config, [1, 2, 3])).toEqual([[1, 2, 3]])
-		expect(zipIntegralDigits(config, [1, 2, 3, 4, 5, 6])).toEqual([
+		expect(zipIntegralPeriods(config, [1, 2, 3])).toEqual([[1, 2, 3]])
+		expect(zipIntegralPeriods(config, [1, 2, 3, 4, 5, 6])).toEqual([
 			[1, 2, 3],
 			[4, 5, 6],
 		])

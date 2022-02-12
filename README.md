@@ -37,7 +37,7 @@ Cách sử dụng gồm 4 bước:
 Ví dụ cách sử dụng thư viện trong JavaScript.
 
 ```js
-// Bước 1
+// Step 1
 import {
 	InvalidNumberError,
 	UnitNotEnoughError,
@@ -46,15 +46,15 @@ import {
 	readNumber,
 } from 'read-vietnamese-number'
 
-// Bước 2
+// Step 2
 const config = new ReadingConfig()
 config.unit = ['đồng']
 
 try {
-	// Bước 3
+	// Step 3
 	const number = parseNumberData(config, '12345.6789')
 
-	// Bước 4
+	// Step 4
 	console.log(readNumber(config, number))
 } catch (e) {
 	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
@@ -81,12 +81,12 @@ Nếu bạn sử dụng CommonJS (require/export), cách sử dụng thư viện
 ```js
 const rvn = require('read-vietnamese-number')
 
-// Sau đó, các function, class,... của thư viện được gọi qua biến rvn
+// Access everything by rvn
 const config = new rvn.ReadingConfig()
 const number = rvn.parseNumberData(config, '12345.6789')
 console.log(rvn.readNumber(config, number))
 
-// Viết như trên để cho đơn giản, nhưng vẫn cần kiểm tra lỗi đầy đủ
+// For simplicity, this code doesn't handle errors
 ```
 
 ## 3. How to publish a new version?

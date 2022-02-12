@@ -7,7 +7,7 @@ import {
 	ReadingConfig,
 	parseNumberData,
 	readNumber,
-} from './index' // Hoặc 'read-vietnamese-number'
+} from './index' // Or 'read-vietnamese-number'
 
 async function input(
 	reader: readline.Interface,
@@ -20,11 +20,11 @@ async function input(
 
 function read(config: ReadingConfig, number: string) {
 	try {
-		// Phân tích và đọc số đã phân tích
+		// Parse the number and start reading
 		const numberData = parseNumberData(config, number)
 		console.log(readNumber(config, numberData))
 	} catch (e) {
-		// Xử lý từng loại lỗi
+		// Handle errors
 		if (e instanceof InvalidNumberError) console.error('Số không hợp lệ')
 		else if (e instanceof UnitNotEnoughError)
 			console.warn('Không đủ đơn vị')
@@ -32,24 +32,24 @@ function read(config: ReadingConfig, number: string) {
 }
 
 async function run() {
-	// Tạo đối tượng readline
+	// Prepare the console reader
 	const reader = readline.createInterface({
 		input: process.stdin,
 		output: process.stdout,
 	})
 
-	// Cấu hình đọc số
+	// Create reading config
 	const config = new ReadingConfig()
 	config.unit = ['đơn', 'vị']
 
 	let isBreak = false
 	do {
-		// Nhập số và hiển thị kết quả
-		const numberAnswer: string = await input(reader, 'Nhập số: ')
+		// Input a number and read it
+		const numberAnswer: string = await input(reader, 'Enter a number: ')
 		read(config, numberAnswer)
 
-		// Tiếp tục hay không
-		const continueAnswer: string = await input(reader, 'Tiếp tục (y/n): ')
+		// Ask for continue or not
+		const continueAnswer: string = await input(reader, 'Continue (y/n): ')
 		if (continueAnswer.toLowerCase() === 'n') isBreak = true
 		else console.log()
 	} while (isBreak === false)

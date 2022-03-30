@@ -1,36 +1,39 @@
-import { InvalidNumberError, UnitNotEnoughError } from '../src/types'
-import { NumberData } from '../src/NumberData'
-import { ReadingConfig } from '../src/ReadingConfig'
 import {
-	readTwoDigits,
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
+} from '../src/type'
+import {
+	readLastTwoDigits,
 	readThreeDigits,
 	trimRedundantZeros,
-	addLeadingZeroToFitPeriod,
-	zipIntegralDigits,
+	addLeadingZerosToFitPeriod,
+	zipIntegralPeriods,
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
 	readNumber,
-} from '../src/Reader'
+} from '../src/reader'
 
 describe('Read the last two digits function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should return value', () => {
-		expect(readTwoDigits(config, 0, 0)).toEqual(['không'])
-		expect(readTwoDigits(config, 0, 3)).toEqual(['ba'])
+		expect(readLastTwoDigits(config, 0, 0)).toEqual(['không'])
+		expect(readLastTwoDigits(config, 0, 3)).toEqual(['ba'])
 
-		expect(readTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
-		expect(readTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
-		expect(readTwoDigits(config, 1, 0)).toEqual(['mười'])
+		expect(readLastTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
+		expect(readLastTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
+		expect(readLastTwoDigits(config, 1, 0)).toEqual(['mười'])
 
-		expect(readTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
-		expect(readTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
-		expect(readTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'bốn'])
-		expect(readTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
-		expect(readTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
-		expect(readTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
+		expect(readLastTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
+		expect(readLastTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
+		expect(readLastTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
+		expect(readLastTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
 	})
 })
 
@@ -97,16 +100,16 @@ describe('Add leading zeros to fit period function', () => {
 	config.unit = []
 
 	it('Should not change', () => {
-		expect(addLeadingZeroToFitPeriod(config, '')).toBe('')
-		expect(addLeadingZeroToFitPeriod(config, '257')).toBe('257')
-		expect(addLeadingZeroToFitPeriod(config, '123456')).toBe('123456')
+		expect(addLeadingZerosToFitPeriod(config, '')).toBe('')
+		expect(addLeadingZerosToFitPeriod(config, '257')).toBe('257')
+		expect(addLeadingZerosToFitPeriod(config, '123456')).toBe('123456')
 	})
 
 	it('Should have the length divisible by 3', () => {
-		expect(addLeadingZeroToFitPeriod(config, '1')).toBe('001')
-		expect(addLeadingZeroToFitPeriod(config, '23')).toBe('023')
-		expect(addLeadingZeroToFitPeriod(config, '1234')).toBe('001234')
-		expect(addLeadingZeroToFitPeriod(config, '12345')).toBe('012345')
+		expect(addLeadingZerosToFitPeriod(config, '1')).toBe('001')
+		expect(addLeadingZerosToFitPeriod(config, '23')).toBe('023')
+		expect(addLeadingZerosToFitPeriod(config, '1234')).toBe('001234')
+		expect(addLeadingZerosToFitPeriod(config, '12345')).toBe('012345')
 	})
 })
 
@@ -115,12 +118,12 @@ describe('Zip integral digits function', () => {
 	config.unit = []
 
 	it('Should return no period', () => {
-		expect(zipIntegralDigits(config, [])).toEqual([])
+		expect(zipIntegralPeriods(config, [])).toEqual([])
 	})
 
 	it('Should return one period with zeros', () => {
-		expect(zipIntegralDigits(config, [1, 2, 3])).toEqual([[1, 2, 3]])
-		expect(zipIntegralDigits(config, [1, 2, 3, 4, 5, 6])).toEqual([
+		expect(zipIntegralPeriods(config, [1, 2, 3])).toEqual([[1, 2, 3]])
+		expect(zipIntegralPeriods(config, [1, 2, 3, 4, 5, 6])).toEqual([
 			[1, 2, 3],
 			[4, 5, 6],
 		])
@@ -133,25 +136,25 @@ describe('Parse number data function', () => {
 
 	it('Should throw InvalidNumberError', () => {
 		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 		expect(() => parseNumberData(config, '-12..3')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 		expect(() => parseNumberData(config, '--12.34')).toThrowError(
-			InvalidNumberError
+			InvalidNumberError,
 		)
 	})
 
 	it('Should throw UnitNotEnoughError', () => {
 		expect(() =>
-			parseNumberData(config, '1234567890123456789012')
+			parseNumberData(config, '1234567890123456789012'),
 		).toThrowError(UnitNotEnoughError)
 		expect(() =>
-			parseNumberData(config, '123456789012345678901')
+			parseNumberData(config, '123456789012345678901'),
 		).not.toThrowError(UnitNotEnoughError)
 		expect(() =>
-			parseNumberData(config, '123456789012345678901.123456789')
+			parseNumberData(config, '123456789012345678901.123456789'),
 		).not.toThrowError(UnitNotEnoughError)
 	})
 
@@ -207,13 +210,13 @@ describe('Read integral part function', () => {
 			readIntegralPart(config, [
 				[0, 1, 5],
 				[7, 2, 5],
-			])
+			]),
 		).toEqual(['mười', 'lăm', 'nghìn', 'bảy', 'trăm', 'hai', 'mươi', 'lăm'])
 		expect(
 			readIntegralPart(config, [
 				[6, 2, 3],
 				[0, 0, 0],
-			])
+			]),
 		).toEqual(['sáu', 'trăm', 'hai', 'mươi', 'ba', 'nghìn'])
 	})
 })
@@ -272,13 +275,13 @@ describe('Read full string number', () => {
 
 	it('Should throw UnitNotEnoughError', () => {
 		expect(() => func(config, '1234567890123456789012')).toThrowError(
-			UnitNotEnoughError
+			UnitNotEnoughError,
 		)
 		expect(() => func(config, '123456789012345678901')).not.toThrowError(
-			UnitNotEnoughError
+			UnitNotEnoughError,
 		)
 		expect(() =>
-			func(config, '123456789012345678901.123456789')
+			func(config, '123456789012345678901.123456789'),
 		).not.toThrowError(UnitNotEnoughError)
 	})
 
@@ -298,10 +301,10 @@ describe('Read full string number', () => {
 		expect(func(config, '06000')).toBe('sáu nghìn')
 		expect(func(config, '1000024')).toBe('một triệu không trăm hai mươi tư')
 		expect(func(config, '23010000')).toBe(
-			'hai mươi ba triệu không trăm mười nghìn'
+			'hai mươi ba triệu không trăm mười nghìn',
 		)
 		expect(func(config, '2030000305')).toBe(
-			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm'
+			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm',
 		)
 	})
 
@@ -309,7 +312,7 @@ describe('Read full string number', () => {
 		expect(func(config, '304.23')).toBe('ba trăm lẻ bốn chấm hai mươi ba')
 		expect(func(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
 		expect(func(config, '-0.00001')).toBe(
-			'âm không chấm không không không không một'
+			'âm không chấm không không không không một',
 		)
 	})
 })

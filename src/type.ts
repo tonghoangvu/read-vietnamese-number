@@ -1,9 +1,15 @@
-/**
- * Class dùng tạo các object cấu hình để đọc số.
- * Các cấu hình mặc định như bên dưới.
- * Có thể thay đổi tùy theo nhu cầu sử dụng.
- */
-export class ReadingConfig {
+type Period = [number, number, number]
+
+class InvalidNumberError extends Error {}
+class UnitNotEnoughError extends Error {}
+
+interface NumberData {
+	isNegative: boolean
+	integralPart: Period[]
+	fractionalPart: number[]
+}
+
+class ReadingConfig {
 	public separator = ' '
 	public unit = ['đơn', 'vị']
 	public negativeSign = '-'
@@ -43,4 +49,12 @@ export class ReadingConfig {
 	public fourToneText = 'tư'
 	public fiveToneText = 'lăm'
 	public tenToneText = 'mươi'
+}
+
+export {
+	Period,
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
 }

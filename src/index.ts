@@ -1,7 +1,10 @@
-import { InvalidNumberError, UnitNotEnoughError } from './types'
-import { NumberData } from './NumberData'
-import { ReadingConfig } from './ReadingConfig'
-import { parseNumberData, readNumber } from './Reader'
+import {
+	InvalidNumberError,
+	UnitNotEnoughError,
+	NumberData,
+	ReadingConfig,
+} from './type'
+import { parseNumberData, readNumber } from './reader'
 
 export {
 	InvalidNumberError,

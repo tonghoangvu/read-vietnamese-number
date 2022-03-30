@@ -37,7 +37,7 @@ Cách sử dụng gồm 4 bước:
 Ví dụ cách sử dụng thư viện trong JavaScript.
 
 ```js
-// Bước 1
+// Step 1
 import {
 	InvalidNumberError,
 	UnitNotEnoughError,
@@ -46,15 +46,15 @@ import {
 	readNumber,
 } from 'read-vietnamese-number'
 
-// Bước 2
+// Step 2
 const config = new ReadingConfig()
 config.unit = ['đồng']
 
 try {
-	// Bước 3
+	// Step 3
 	const number = parseNumberData(config, '12345.6789')
 
-	// Bước 4
+	// Step 4
 	console.log(readNumber(config, number))
 } catch (e) {
 	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
@@ -81,23 +81,23 @@ Nếu bạn sử dụng CommonJS (require/export), cách sử dụng thư viện
 ```js
 const rvn = require('read-vietnamese-number')
 
-// Sau đó, các function, class,... của thư viện được gọi qua biến rvn
+// Access everything by rvn
 const config = new rvn.ReadingConfig()
 const number = rvn.parseNumberData(config, '12345.6789')
 console.log(rvn.readNumber(config, number))
 
-// Viết như trên để cho đơn giản, nhưng vẫn cần kiểm tra lỗi đầy đủ
+// For simplicity, this code doesn't handle errors
 ```
 
 ## 3. How to publish a new version?
 
 Các bước publish phiên bản mới lên NPM:
 
-1. Commit tất cả những thay đổi
-2. Chạy `npm pre-deploy` để check coding style và unit test
-3. Chạy `npm deploy-xxx` với `xxx` là mức độ tăng version (`patch`, `minor` hoặc `major`)
-4. Push code lên GitHub
+1. Chạy `npm deploy:check` để check coding style và chạy unit test
+2. Chạy `npm deploy:build` để dọn dẹp project và build mới
+3. Chạy `npm deploy:publish` để publish lên NPM registry
 
-**Lưu ý:** Các script trên cũng có thể sử dụng Yarn thay thế.
+Chú ý nếu source code có sự thay đổi sau bước 1, cần commit code lại.
 
-Nếu thư viện hữu ích, cho tớ một star trên GitHub nhé ❤
+Sau khi hoàn thiện tính năng và kiểm tra đầy đủ, cần thực hiện tăng version.
+Chạy lệnh `npm version` để tăng version cho project phù hợp.

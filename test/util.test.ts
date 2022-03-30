@@ -1,4 +1,4 @@
-import { trimLeft, trimRight } from '../src/Utils'
+import { trimLeft, trimRight, splitToDigits } from '../src/util'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {
@@ -38,5 +38,21 @@ describe('Trim right function', () => {
 		expect(trimRight('abc', 'c')).toBe('ab')
 		expect(trimRight('abc', 'cb')).toBe('ab')
 		expect(trimRight('abccccc', 'c')).toBe('ab')
+	})
+})
+
+describe('Split to digits function', () => {
+	it('Should return empty array', () => {
+		expect(splitToDigits('')).toEqual([])
+	})
+
+	it('Should return array of digits', () => {
+		expect(splitToDigits('123')).toEqual([1, 2, 3])
+		expect(splitToDigits('012333')).toEqual([0, 1, 2, 3, 3, 3])
+	})
+
+	it('Should return array contains NaN at error index', () => {
+		expect(splitToDigits('123x')).toEqual([1, 2, 3, NaN])
+		expect(splitToDigits('12 34x5')).toEqual([1, 2, NaN, 3, 4, NaN, 5])
 	})
 })

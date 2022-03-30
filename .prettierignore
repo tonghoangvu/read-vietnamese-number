@@ -1,3 +1,4 @@
+# Don't let Prettier format list items
 *.md
 
 # From .gitignore (Prettier skips node_modules by default)
@@ -6,6 +7,7 @@ node_modules/
 dist/
 coverage/
 .vscode/
+.idea/
 
 *.tgz
 .DS_Store

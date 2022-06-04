@@ -13,8 +13,8 @@ async function input(
 	reader: readline.Interface,
 	question: string,
 ): Promise<string> {
-	return new Promise(resolve => {
-		reader.question(question, number => resolve(number))
+	return new Promise((resolve) => {
+		reader.question(question, (number) => resolve(number))
 	})
 }
 

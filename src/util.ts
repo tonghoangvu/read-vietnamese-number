@@ -13,7 +13,7 @@ function trimRight(str: string, char: string): string {
 }
 
 function splitToDigits(str: string): number[] {
-	return str.split('').map(digit => parseInt(digit))
+	return str.split('').map((digit) => parseInt(digit))
 }
 
 export { trimLeft, trimRight, splitToDigits }

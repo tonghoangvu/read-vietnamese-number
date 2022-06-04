@@ -35,6 +35,7 @@
 		"eol-last": ["error", "always"],
 		"comma-dangle": ["error", "always-multiline"],
 		"array-bracket-spacing": ["error", "never"],
-		"object-curly-spacing": ["error", "always"]
+		"object-curly-spacing": ["error", "always"],
+		"arrow-parens": ["error", "always"]
 	}
 }

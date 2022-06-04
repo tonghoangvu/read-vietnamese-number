@@ -8,7 +8,11 @@
 		"declaration": true, // Should have to support typings
 		"outDir": "./dist",
 		"skipLibCheck": true,
-		"importHelpers": true
+		"importHelpers": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
 	},
 	"include": ["src/**/*.ts"]
 }

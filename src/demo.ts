@@ -25,9 +25,11 @@ function read(config: ReadingConfig, number: string) {
 		console.log(readNumber(config, numberData))
 	} catch (e) {
 		// Handle errors
-		if (e instanceof InvalidNumberError) console.error('Số không hợp lệ')
-		else if (e instanceof UnitNotEnoughError)
+		if (e instanceof InvalidNumberError) {
+			console.error('Số không hợp lệ')
+		} else if (e instanceof UnitNotEnoughError) {
 			console.warn('Không đủ đơn vị')
+		}
 	}
 }
 
@@ -50,8 +52,11 @@ async function run() {
 
 		// Ask for continue or not
 		const continueAnswer: string = await input(reader, 'Continue (y/n): ')
-		if (continueAnswer.toLowerCase() === 'n') isBreak = true
-		else console.log()
+		if (continueAnswer.toLowerCase() === 'n') {
+			isBreak = true
+		} else {
+			console.log()
+		}
 	} while (isBreak === false)
 	reader.close()
 }

@@ -36,6 +36,7 @@
 		"comma-dangle": ["error", "always-multiline"],
 		"array-bracket-spacing": ["error", "never"],
 		"object-curly-spacing": ["error", "always"],
-		"arrow-parens": ["error", "always"]
+		"arrow-parens": ["error", "always"],
+		"curly": "error"
 	}
 }

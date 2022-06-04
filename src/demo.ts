@@ -18,7 +18,7 @@ async function input(
 	})
 }
 
-function read(config: ReadingConfig, number: string) {
+function read(config: ReadingConfig, number: string): void {
 	try {
 		// Parse the number and start reading
 		const numberData = parseNumberData(config, number)
@@ -33,7 +33,7 @@ function read(config: ReadingConfig, number: string) {
 	}
 }
 
-async function run() {
+async function run(): Promise<void> {
 	// Prepare the console reader
 	const reader = readline.createInterface({
 		input: process.stdin,

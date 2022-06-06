@@ -1,4 +1,5 @@
-import { trimLeft, trimRight, splitToDigits } from '../src/util'
+import { InvalidFormatError } from '../src/type'
+import { trimLeft, trimRight, splitToDigits, validateNumber } from '../src/util'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {
@@ -54,5 +55,31 @@ describe('Split to digits function', () => {
 	it('Should return array contains NaN at error index', () => {
 		expect(splitToDigits('123x')).toEqual([1, 2, 3, NaN])
 		expect(splitToDigits('12 34x5')).toEqual([1, 2, NaN, 3, 4, NaN, 5])
+	})
+})
+
+describe('Validate number function', () => {
+	it('Should return itself', () => {
+		expect(validateNumber('-12345.67890')).toBe('-12345.67890')
+	})
+
+	it('Should return as string', () => {
+		expect(validateNumber(-12345n)).toBe('-12345')
+		expect(validateNumber(11111111111111111111112345n)).toBe(
+			'11111111111111111111112345',
+		)
+	})
+
+	it('Should throw InvalidFormatError', () => {
+		// Cannot simulate TypeScript string but actually number
+		expect(() => validateNumber(-12345)).toThrowError(InvalidFormatError)
+		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+		expect(() => validateNumber(11111111111111111111112345)).toThrowError(
+			InvalidFormatError,
+		)
+		expect(() => validateNumber(0.00123)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(0.000000000012345)).toThrowError(
+			InvalidFormatError,
+		)
 	})
 })

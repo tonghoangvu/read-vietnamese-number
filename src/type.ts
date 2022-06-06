@@ -1,7 +1,9 @@
 type Period = [number, number, number]
 
-class InvalidNumberError extends Error {}
-class UnitNotEnoughError extends Error {}
+class RvnError extends Error {}
+class InvalidFormatError extends RvnError {}
+class InvalidNumberError extends RvnError {}
+class UnitNotEnoughError extends RvnError {}
 
 interface NumberData {
 	isNegative: boolean
@@ -53,6 +55,8 @@ class ReadingConfig {
 
 export {
 	Period,
+	RvnError,
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	NumberData,

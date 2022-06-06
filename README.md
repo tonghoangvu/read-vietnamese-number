@@ -7,7 +7,7 @@ Có các tính năng như:
 - Số lớn tùy ý (chỉ cần thêm đủ các đơn vị phù hợp)
 - Có nhiều tùy chọn: đơn vị tính, dấu phân tách, cách đọc số,...
 
-Hỗ trợ ngôn ngữ JavaScript và TypeScript.
+Hỗ trợ ngôn ngữ JavaScript và TypeScript, tương thích với ECMAScript 6 trở lên.
 
 ## 1. Installation
 
@@ -27,21 +27,24 @@ yarn add read-vietnamese-number
 
 ## 2. How to use?
 
-Cách sử dụng gồm 4 bước:
+Cách sử dụng gồm 5 bước:
 
-1. Import class và các function cần thiết
+1. Import các class và function cần thiết
 2. Tạo object cấu hình và điều chỉnh phù hợp
-3. Gọi hàm phân tích chuỗi số
-4. Gọi hàm đọc số đã phân tích
+3. Kiểm tra định dạng số hợp lệ
+4. Gọi hàm phân tích chuỗi số
+5. Gọi hàm đọc số đã phân tích
 
 Ví dụ cách sử dụng thư viện trong JavaScript.
 
 ```js
 // Step 1
 import {
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
+	validateNumber,
 	parseNumberData,
 	readNumber,
 } from 'read-vietnamese-number'
@@ -52,14 +55,23 @@ config.unit = ['đồng']
 
 try {
 	// Step 3
-	const number = parseNumberData(config, '12345.6789')
+	const number = '12345.6789'
+	const validatedNumber = validateNumber(number)
 
 	// Step 4
-	console.log(readNumber(config, number))
-} catch (e) {
-	if (e instanceof InvalidNumberError) console.log('Số không hợp lệ')
-	else if (e instanceof UnitNotEnoughError)
-		console.log('Không đủ đơn vị đọc số')
+	const numberData = parseNumberData(config, validatedNumber)
+
+	// Step 5
+	const result = readNumber(config, numberData)
+	console.log(result)
+} catch (ex) {
+	if (ex instanceof InvalidFormatError) {
+		console.error('Định dạng số không hợp lệ')
+	} else if (ex instanceof InvalidNumberError) {
+		console.error('Số không hợp lệ')
+	} else if (ex instanceof UnitNotEnoughError) {
+		console.error('Không đủ đơn vị đọc số')
+	}
 }
 ```
 
@@ -67,24 +79,29 @@ Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
 
 ### 2.1. Error handling
 
-Function `parseNumberData()` có thể tạo ra 2 loại Error:
+Có 3 loại Error có thể được ném ra khi đọc số:
 
-- InvalidNumberError: khi số không hợp lệ
-- UnitNotEnoughError: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
+- `InvalidFormatError`: khi định dạng số không hợp lệ
+- `InvalidNumberError`: khi số không hợp lệ
+- `UnitNotEnoughError`: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
 
-Do đó cần sử dụng `try catch` và xử lý thích hợp như trong ví dụ.
+Các loại Error trên đều kế thừa từ `RvnError`.
+Cần sử dụng `try catch` và có cách xử lý thích hợp như trong ví dụ.
 
 ### 2.2. CommonJS
 
-Nếu bạn sử dụng CommonJS (require/export), cách sử dụng thư viện sẽ hơi khác một chút.
+Nếu bạn sử dụng CommonJS (require/export), toàn bộ các class, function của thư viện sẽ được chứa trong một object duy nhất.
 
 ```js
 const rvn = require('read-vietnamese-number')
 
-// Access everything by rvn
+// Access everything by rvn object
 const config = new rvn.ReadingConfig()
-const number = rvn.parseNumberData(config, '12345.6789')
-console.log(rvn.readNumber(config, number))
+const number = '12345.6789'
+const validatedNumber = rvn.validateNumber(number)
+const numberData = rvn.parseNumberData(config, validatedNumber)
+const result = rvn.readNumber(config, numberData)
+console.log(result)
 
 // For simplicity, this code doesn't handle errors
 ```

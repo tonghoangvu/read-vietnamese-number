@@ -2,9 +2,11 @@
 
 import * as readline from 'readline'
 import {
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
+	validateNumber,
 	parseNumberData,
 	readNumber,
 } from './index' // Or 'read-vietnamese-number'
@@ -21,14 +23,18 @@ async function input(
 function read(config: ReadingConfig, number: string): void {
 	try {
 		// Parse the number and start reading
-		const numberData = parseNumberData(config, number)
-		console.log(readNumber(config, numberData))
+		const validatedNumber = validateNumber(number)
+		const numberData = parseNumberData(config, validatedNumber)
+		const result = readNumber(config, numberData)
+		console.log(result)
 	} catch (e) {
 		// Handle errors
-		if (e instanceof InvalidNumberError) {
+		if (e instanceof InvalidFormatError) {
+			console.error('Định dạng số không hợp lệ')
+		} else if (e instanceof InvalidNumberError) {
 			console.error('Số không hợp lệ')
 		} else if (e instanceof UnitNotEnoughError) {
-			console.warn('Không đủ đơn vị')
+			console.error('Không đủ đơn vị đọc số')
 		}
 	}
 }

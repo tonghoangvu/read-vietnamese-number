@@ -1,5 +1,6 @@
 type Period = [number, number, number]
 
+class InvalidFormatError extends Error {}
 class InvalidNumberError extends Error {}
 class UnitNotEnoughError extends Error {}
 
@@ -53,6 +54,7 @@ class ReadingConfig {
 
 export {
 	Period,
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	NumberData,

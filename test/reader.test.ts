@@ -1,9 +1,11 @@
 import {
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
 } from '../src/type'
+import { validateNumber } from '../src/util'
 import {
 	readLastTwoDigits,
 	readThreeDigits,
@@ -259,12 +261,25 @@ describe('Read fractional part function', () => {
 })
 
 describe('Read full string number', () => {
-	const func = (config: ReadingConfig, number: string) => {
-		const numberData = parseNumberData(config, number)
+	const func = (config: ReadingConfig, number: string | bigint | number) => {
+		const validatedNumber = validateNumber(number)
+		const numberData = parseNumberData(config, validatedNumber)
 		return readNumber(config, numberData)
 	}
 	const config = new ReadingConfig()
 	config.unit = []
+
+	it('Should throw InvalidFormatError', () => {
+		expect(() => func(config, 0)).toThrowError(InvalidFormatError)
+		expect(() => func(config, -12345)).toThrowError(InvalidFormatError)
+		expect(() => func(config, 0.000000000012345)).toThrowError(
+			InvalidFormatError,
+		)
+		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+		expect(() => func(config, -1234567890123456789012)).toThrowError(
+			InvalidFormatError,
+		)
+	})
 
 	it('Should throw InvalidNumberError', () => {
 		expect(() => func(config, '1..23')).toThrowError(InvalidNumberError)

@@ -1,3 +1,5 @@
+import { InvalidFormatError } from './type'
+
 function trimLeft(str: string, char: string): string {
 	if (str === '') {
 		return ''
@@ -24,4 +26,27 @@ function splitToDigits(str: string): number[] {
 	return str.split('').map((digit) => parseInt(digit))
 }
 
-export { trimLeft, trimRight, splitToDigits }
+function validateNumber(value: string | bigint | number): string {
+	// String type in TS maybe number at runtime
+	switch (typeof value) {
+		case 'string': {
+			return value
+		}
+		case 'bigint': {
+			// BigInt is integer, not float
+			return value.toString()
+		}
+		case 'number': {
+			throw new InvalidFormatError()
+			/**
+			 * SOME NUMBERS MAY CAUSE ERRORS
+			 * - Loss precision
+			 * 		Number.isInteger(value) && !Number.isSafeInteger(value)
+			 * - Cannot parse in scientific notation
+			 * 		value.toString().includes('e')
+			 */
+		}
+	}
+}
+
+export { trimLeft, trimRight, splitToDigits, validateNumber }

@@ -27,21 +27,24 @@ yarn add read-vietnamese-number
 
 ## 2. How to use?
 
-Cách sử dụng gồm 4 bước:
+Cách sử dụng gồm 5 bước:
 
 1. Import class và các function cần thiết
 2. Tạo object cấu hình và điều chỉnh phù hợp
-3. Gọi hàm phân tích chuỗi số
-4. Gọi hàm đọc số đã phân tích
+3. Kiểm tra định dạng số hợp lệ
+4. Gọi hàm phân tích chuỗi số
+5. Gọi hàm đọc số đã phân tích
 
 Ví dụ cách sử dụng thư viện trong JavaScript.
 
 ```js
 // Step 1
 import {
+	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
+	validateNumber,
 	parseNumberData,
 	readNumber,
 } from 'read-vietnamese-number'
@@ -52,15 +55,22 @@ config.unit = ['đồng']
 
 try {
 	// Step 3
-	const number = parseNumberData(config, '12345.6789')
+	const number = '12345.6789'
+	const validatedNumber = validateNumber(number)
 
 	// Step 4
-	console.log(readNumber(config, number))
+	const numberData = parseNumberData(config, validatedNumber)
+
+	// Step 5
+	const result = readNumber(config, numberData)
+	console.log(result)
 } catch (e) {
-	if (e instanceof InvalidNumberError) {
-		console.log('Số không hợp lệ')
+	if (e instanceof InvalidFormatError) {
+		console.error('Định dạng số không hợp lệ')
+	} else if (e instanceof InvalidNumberError) {
+		console.error('Số không hợp lệ')
 	} else if (e instanceof UnitNotEnoughError) {
-		console.log('Không đủ đơn vị đọc số')
+		console.error('Không đủ đơn vị đọc số')
 	}
 }
 ```
@@ -69,8 +79,9 @@ Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
 
 ### 2.1. Error handling
 
-Function `parseNumberData()` có thể tạo ra 2 loại Error:
+Function `parseNumberData()` có thể ném ra 3 loại Error:
 
+- InvalidFormatError: khi định dạng số không hợp lệ
 - InvalidNumberError: khi số không hợp lệ
 - UnitNotEnoughError: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
 
@@ -85,8 +96,11 @@ const rvn = require('read-vietnamese-number')
 
 // Access everything by rvn
 const config = new rvn.ReadingConfig()
-const number = rvn.parseNumberData(config, '12345.6789')
-console.log(rvn.readNumber(config, number))
+const number = '12345.6789'
+const validatedNumber = rvn.validateNumber(number)
+const numberData = rvn.parseNumberData(config, validatedNumber)
+const result = rvn.readNumber(config, numberData)
+console.log(result)
 
 // For simplicity, this code doesn't handle errors
 ```

@@ -1,4 +1,5 @@
 import {
+	RvnError,
 	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
@@ -9,6 +10,7 @@ import { validateNumber } from './util'
 import { parseNumberData, readNumber } from './reader'
 
 export {
+	RvnError,
 	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,

@@ -9,7 +9,7 @@ import {
 	validateNumber,
 	parseNumberData,
 	readNumber,
-} from './index' // Or 'read-vietnamese-number'
+} from './index' // or 'read-vietnamese-number'
 
 async function input(
 	reader: readline.Interface,
@@ -27,13 +27,13 @@ function read(config: ReadingConfig, number: string): void {
 		const numberData = parseNumberData(config, validatedNumber)
 		const result = readNumber(config, numberData)
 		console.log(result)
-	} catch (e) {
+	} catch (ex) {
 		// Handle errors
-		if (e instanceof InvalidFormatError) {
+		if (ex instanceof InvalidFormatError) {
 			console.error('Định dạng số không hợp lệ')
-		} else if (e instanceof InvalidNumberError) {
+		} else if (ex instanceof InvalidNumberError) {
 			console.error('Số không hợp lệ')
-		} else if (e instanceof UnitNotEnoughError) {
+		} else if (ex instanceof UnitNotEnoughError) {
 			console.error('Không đủ đơn vị đọc số')
 		}
 	}
@@ -61,7 +61,7 @@ async function run(): Promise<void> {
 		if (continueAnswer.toLowerCase() === 'n') {
 			isBreak = true
 		} else {
-			console.log()
+			console.log() // New line
 		}
 	} while (isBreak === false)
 	reader.close()

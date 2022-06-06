@@ -26,7 +26,9 @@ function splitToDigits(str: string): number[] {
 	return str.split('').map((digit) => parseInt(digit))
 }
 
-function validateNumber(value: string | bigint | number): string {
+function validateNumber(
+	value: string | bigint | number | null | undefined,
+): string {
 	// String type in TS maybe number at runtime
 	switch (typeof value) {
 		case 'string': {
@@ -45,6 +47,17 @@ function validateNumber(value: string | bigint | number): string {
 			 * - Cannot parse in scientific notation
 			 * 		value.toString().includes('e')
 			 */
+		}
+		case 'object': {
+			// Check for nullable strings
+			if (value === null) {
+				throw new InvalidFormatError()
+			}
+			return (value as object).toString()
+		}
+		default: {
+			// Typeof is undefined, boolean, symbol, function
+			throw new InvalidFormatError()
 		}
 	}
 }

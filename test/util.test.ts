@@ -81,5 +81,11 @@ describe('Validate number function', () => {
 		expect(() => validateNumber(0.000000000012345)).toThrowError(
 			InvalidFormatError,
 		)
+		// Typeof is object, but TS type is string
+		expect(() =>
+			validateNumber(new String(12345) as string),
+		).not.toThrowError(InvalidFormatError)
+		expect(() => validateNumber(null)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(undefined)).toThrowError(InvalidFormatError)
 	})
 })

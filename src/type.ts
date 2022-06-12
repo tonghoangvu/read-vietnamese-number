@@ -16,6 +16,7 @@ class ReadingConfig {
 	public unit = ['đơn', 'vị']
 	public negativeSign = '-'
 	public pointSign = '.'
+	public thousandSign = ','
 	public periodSize = 3
 	public filledDigit = '0'
 

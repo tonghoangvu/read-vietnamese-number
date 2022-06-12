@@ -66,6 +66,14 @@ function readThreeDigits(
 	return output
 }
 
+function removeThousandsSeparators(
+	config: ReadingConfig,
+	number: string,
+): string {
+	const regex = new RegExp(config.thousandSign, 'g')
+	return number.replace(regex, '')
+}
+
 function trimRedundantZeros(config: ReadingConfig, number: string): string {
 	return number.includes(config.pointSign)
 		? trimLeft(trimRight(number, config.filledDigit), config.filledDigit)
@@ -95,8 +103,10 @@ function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
 }
 
 function parseNumberData(config: ReadingConfig, number: string): NumberData {
-	const isNegative = number[0] === config.negativeSign
-	let numberString = isNegative ? number.substring(1) : number
+	let numberString = removeThousandsSeparators(config, number)
+
+	const isNegative = numberString[0] === config.negativeSign
+	numberString = isNegative ? numberString.substring(1) : numberString
 	numberString = trimRedundantZeros(config, numberString)
 
 	const pointPos = numberString.indexOf(config.pointSign)
@@ -180,6 +190,7 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 export {
 	readLastTwoDigits,
 	readThreeDigits,
+	removeThousandsSeparators,
 	trimRedundantZeros,
 	addLeadingZerosToFitPeriod,
 	zipIntegralPeriods,

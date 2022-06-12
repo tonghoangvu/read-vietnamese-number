@@ -30,7 +30,7 @@
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
 		"test": "jest --coverage",
-		"clean": "rimraf dist/ coverage/ *.tgz",
+		"clean": "rimraf .idea/ coverage/ dist/ *.tgz",
 		"build": "tsc",
 		"deploy:check": "npm run format && npm run lint && npm run test",
 		"deploy:build": "npm run clean && npm run build",

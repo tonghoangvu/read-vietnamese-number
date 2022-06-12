@@ -9,6 +9,7 @@ import { validateNumber } from '../src/util'
 import {
 	readLastTwoDigits,
 	readThreeDigits,
+	removeThousandsSeparators,
 	trimRedundantZeros,
 	addLeadingZerosToFitPeriod,
 	zipIntegralPeriods,
@@ -73,6 +74,28 @@ describe('Read three digits function', () => {
 			'lẻ',
 			'năm',
 		])
+	})
+})
+
+describe('Remove thousands separators function', () => {
+	const config = new ReadingConfig()
+	config.unit = []
+
+	it('Should not contain any thousands separators', () => {
+		expect(removeThousandsSeparators(config, '123.456')).toBe('123.456')
+		expect(removeThousandsSeparators(config, '1,234,567.89')).toBe(
+			'1234567.89',
+		)
+		expect(removeThousandsSeparators(config, '1,234.567,89')).toBe(
+			'1234.56789',
+		)
+	})
+
+	it('Should work even if thousands separators are invalid', () => {
+		expect(removeThousandsSeparators(config, '1,2,3456,7')).toBe('1234567')
+		expect(removeThousandsSeparators(config, '123.4,567,89')).toBe(
+			'123.456789',
+		)
 	})
 })
 
@@ -188,6 +211,24 @@ describe('Parse number data function', () => {
 			isNegative: true,
 			integralPart: [[0, 3, 1]],
 			fractionalPart: [1, 4, 1, 5, 9],
+		} as NumberData)
+		expect(parseNumberData(config, '-123,456,789.012,345')).toEqual({
+			isNegative: true,
+			integralPart: [
+				[1, 2, 3],
+				[4, 5, 6],
+				[7, 8, 9],
+			],
+			fractionalPart: [0, 1, 2, 3, 4, 5],
+		} as NumberData)
+		expect(parseNumberData(config, '12,3,4567.8,9')).toEqual({
+			isNegative: false,
+			integralPart: [
+				[0, 0, 1],
+				[2, 3, 4],
+				[5, 6, 7],
+			],
+			fractionalPart: [8, 9],
 		} as NumberData)
 	})
 })
@@ -321,6 +362,9 @@ describe('Read full string number', () => {
 		expect(func(config, '2030000305')).toBe(
 			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm',
 		)
+		expect(func(config, '00,123,456')).toBe(
+			'một trăm hai mươi ba nghìn bốn trăm năm mươi sáu',
+		)
 	})
 
 	it('Should return double value', () => {
@@ -328,6 +372,9 @@ describe('Read full string number', () => {
 		expect(func(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
 		expect(func(config, '-0.00001')).toBe(
 			'âm không chấm không không không không một',
+		)
+		expect(func(config, '-123,456.7,89')).toBe(
+			'âm một trăm hai mươi ba nghìn bốn trăm năm mươi sáu chấm bảy trăm tám mươi chín',
 		)
 	})
 })

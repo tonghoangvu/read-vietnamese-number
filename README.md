@@ -64,12 +64,12 @@ try {
 	// Step 5
 	const result = readNumber(config, numberData)
 	console.log(result)
-} catch (ex) {
-	if (ex instanceof InvalidFormatError) {
+} catch (err) {
+	if (err instanceof InvalidFormatError) {
 		console.error('Định dạng số không hợp lệ')
-	} else if (ex instanceof InvalidNumberError) {
+	} else if (err instanceof InvalidNumberError) {
 		console.error('Số không hợp lệ')
-	} else if (ex instanceof UnitNotEnoughError) {
+	} else if (err instanceof UnitNotEnoughError) {
 		console.error('Không đủ đơn vị đọc số')
 	}
 }

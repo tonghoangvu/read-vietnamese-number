@@ -27,13 +27,13 @@ function read(config: ReadingConfig, number: string): void {
 		const numberData = parseNumberData(config, validatedNumber)
 		const result = readNumber(config, numberData)
 		console.log(result)
-	} catch (ex) {
+	} catch (err) {
 		// Handle errors
-		if (ex instanceof InvalidFormatError) {
+		if (err instanceof InvalidFormatError) {
 			console.error('Định dạng số không hợp lệ')
-		} else if (ex instanceof InvalidNumberError) {
+		} else if (err instanceof InvalidNumberError) {
 			console.error('Số không hợp lệ')
-		} else if (ex instanceof UnitNotEnoughError) {
+		} else if (err instanceof UnitNotEnoughError) {
 			console.error('Không đủ đơn vị đọc số')
 		}
 	}

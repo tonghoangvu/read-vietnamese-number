@@ -4,7 +4,7 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"strict": true,
-		"sourceMap": true, // Should have sourcemaps
+		"sourceMap": false, // Should not have sourcemaps
 		"declaration": true, // Should have to support typings
 		"outDir": "./dist",
 		"skipLibCheck": true,

@@ -27,14 +27,14 @@
 		"dist"
 	],
 	"scripts": {
-		"lint": "eslint --fix .",
-		"format": "prettier --write .",
-		"test": "jest --coverage",
-		"clean": "rimraf .idea/ coverage/ dist/ *.tgz",
-		"build": "tsc",
-		"deploy:check": "npm run format && npm run lint && npm run test",
+		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
 		"deploy:build": "npm run clean && npm run build",
 		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
+		"prettier": "prettier --check .",
+		"eslint": "eslint --max-warnings 0 .",
+		"jest": "jest --coverage",
+		"clean": "rimraf dist/ coverage/ *.tgz",
+		"build": "tsc",
 		"demo": "ts-node src/demo.ts"
 	},
 	"devDependencies": {

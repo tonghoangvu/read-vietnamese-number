@@ -1,10 +1,9 @@
-# From .gitignore
+# .gitignore
 private/
 node_modules/
 dist/
 coverage/
 .vscode/
 .idea/
-
 *.tgz
 .DS_Store

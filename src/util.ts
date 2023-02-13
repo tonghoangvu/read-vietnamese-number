@@ -27,7 +27,7 @@ function splitToDigits(str: string): number[] {
 }
 
 function validateNumber(
-	value: string | bigint | number | null | undefined,
+	value: string | bigint | number | null | undefined
 ): string {
 	// String type in TS maybe number at runtime
 	switch (typeof value) {

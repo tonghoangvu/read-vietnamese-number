@@ -10,7 +10,7 @@ import { splitToDigits, trimLeft, trimRight } from './util'
 function readLastTwoDigits(
 	config: ReadingConfig,
 	b: number,
-	c: number,
+	c: number
 ): string[] {
 	const output: string[] = []
 	switch (b) {
@@ -49,7 +49,7 @@ function readThreeDigits(
 	a: number,
 	b: number,
 	c: number,
-	readZeroHundred: boolean,
+	readZeroHundred: boolean
 ): string[] {
 	const output: string[] = []
 	const hasHundred = a !== 0 || readZeroHundred
@@ -68,7 +68,7 @@ function readThreeDigits(
 
 function removeThousandsSeparators(
 	config: ReadingConfig,
-	number: string,
+	number: string
 ): string {
 	const regex = new RegExp(config.thousandSign, 'g')
 	return number.replace(regex, '')
@@ -82,7 +82,7 @@ function trimRedundantZeros(config: ReadingConfig, number: string): string {
 
 function addLeadingZerosToFitPeriod(
 	config: ReadingConfig,
-	number: string,
+	number: string
 ): string {
 	const newLength =
 		Math.ceil(number.length / config.periodSize) * config.periodSize
@@ -95,7 +95,7 @@ function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
 	for (let i = 0; i < periodCount; i++) {
 		const [a, b, c] = digits.slice(
 			i * config.periodSize,
-			(i + 1) * config.periodSize,
+			(i + 1) * config.periodSize
 		)
 		output.push([a, b, c])
 	}
@@ -141,7 +141,7 @@ function readIntegralPart(config: ReadingConfig, periods: Period[]): string[] {
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod) {
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[periods.length - 1 - index],
+				...config.units[periods.length - 1 - index]
 			)
 		}
 	}
@@ -177,7 +177,7 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	if (numberData.fractionalPart.length !== 0) {
 		output.push(
 			config.pointText,
-			...readFractionalPart(config, numberData.fractionalPart),
+			...readFractionalPart(config, numberData.fractionalPart)
 		)
 	}
 	if (numberData.isNegative) {

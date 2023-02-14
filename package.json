@@ -1,9 +1,7 @@
 {
 	"name": "read-vietnamese-number",
 	"version": "1.8.2",
-	"description": "Thư viện đọc số thành chữ trong Tiếng Việt",
-	"main": "dist/index.js",
-	"types": "dist/index.d.js",
+	"description": "Đọc số thành chữ trong Tiếng Việt",
 	"private": false,
 	"license": "MIT",
 	"repository": {
@@ -11,7 +9,7 @@
 		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
 	},
 	"author": {
-		"name": "Tong Hoang Vu",
+		"name": "Vu Tong",
 		"email": "tonghoangvu@outlook.com",
 		"url": "https://github.com/tonghoangvu"
 	},
@@ -26,6 +24,8 @@
 	"files": [
 		"dist"
 	],
+	"main": "dist/index.js",
+	"types": "dist/index.d.js",
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
 		"deploy:build": "npm run clean && npm run build",

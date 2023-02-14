@@ -30,7 +30,7 @@ function read(config: ReadingConfig, number: string): void {
 	} catch (err) {
 		// Handle errors
 		if (err instanceof InvalidFormatError) {
-			console.error('Định dạng số không hợp lệ')
+			console.error('Định dạng input không hợp lệ')
 		} else if (err instanceof InvalidNumberError) {
 			console.error('Số không hợp lệ')
 		} else if (err instanceof UnitNotEnoughError) {

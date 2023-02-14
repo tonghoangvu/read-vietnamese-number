@@ -1,3 +1,5 @@
+import { describe, it, expect } from '@jest/globals'
+
 import { InvalidFormatError } from '../src/type'
 import { trimLeft, trimRight, splitToDigits, validateNumber } from '../src/util'
 
@@ -66,7 +68,7 @@ describe('Validate number function', () => {
 	it('Should return as string', () => {
 		expect(validateNumber(-12345n)).toBe('-12345')
 		expect(validateNumber(11111111111111111111112345n)).toBe(
-			'11111111111111111111112345',
+			'11111111111111111111112345'
 		)
 	})
 
@@ -75,16 +77,16 @@ describe('Validate number function', () => {
 		expect(() => validateNumber(-12345)).toThrowError(InvalidFormatError)
 		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
 		expect(() => validateNumber(11111111111111111111112345)).toThrowError(
-			InvalidFormatError,
+			InvalidFormatError
 		)
 		expect(() => validateNumber(0.00123)).toThrowError(InvalidFormatError)
 		expect(() => validateNumber(0.000000000012345)).toThrowError(
-			InvalidFormatError,
+			InvalidFormatError
 		)
 		// Typeof is object, but TS type is string
-		expect(() =>
-			validateNumber(new String(12345) as string),
-		).not.toThrowError(InvalidFormatError)
+		expect(() => validateNumber(new String(12345) as string)).not.toThrowError(
+			InvalidFormatError
+		)
 		expect(() => validateNumber(null)).toThrowError(InvalidFormatError)
 		expect(() => validateNumber(undefined)).toThrowError(InvalidFormatError)
 	})

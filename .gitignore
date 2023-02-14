@@ -4,6 +4,5 @@ dist/
 coverage/
 .vscode/
 .idea/
-
 *.tgz
 .DS_Store

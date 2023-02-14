@@ -1,44 +1,37 @@
 # read-vietnamese-number
 
-Thư viện chuyển đổi số thành chữ trong Tiếng Việt.
-Có các tính năng như:
+Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năng:
 
-- Đọc được số âm, số thập phân
-- Số lớn tùy ý (chỉ cần thêm đủ các đơn vị phù hợp)
-- Có nhiều tùy chọn: đơn vị tính, dấu phân tách, cách đọc số,...
+- Hỗ trợ số âm, số thập phân
+- Đọc được số lớn tùy ý (với cấu hình đơn vị phù hợp)
+- Có nhiều tùy chọn: đơn vị tính, dấu phân tách,...
 
-Hỗ trợ ngôn ngữ JavaScript và TypeScript, tương thích với ECMAScript 6 trở lên.
+Hỗ trợ TypeScript, tương thích với JavaScript từ ES6 trở lên.
 
-## 1. Installation
+## Installation
 
-Thư viện đã được publish tại https://www.npmjs.com/package/read-vietnamese-number.
+Cài đặt thư viện với NPM hoặc Yarn (hoặc các package manager khác).
 
-Cài đặt thư viện qua NPM.
-
-```
+```bash
+# NPM
 npm install read-vietnamese-number
-```
 
-Hoặc sử dụng Yarn thay thế.
-
-```
+# Yarn
 yarn add read-vietnamese-number
 ```
 
-## 2. How to use?
+## Usage
 
-Cách sử dụng gồm 5 bước:
+Cách sử dụng gồm 4 bước:
 
-1. Import các class và function cần thiết
-2. Tạo object cấu hình và điều chỉnh phù hợp
-3. Kiểm tra định dạng số hợp lệ
-4. Gọi hàm phân tích chuỗi số
-5. Gọi hàm đọc số đã phân tích
+- Tạo object cấu hình và điều chỉnh phù hợp
+- Kiểm tra định dạng chuỗi số hợp lệ
+- Phân tích chuỗi số
+- Đọc số đã phân tích
 
-Ví dụ cách sử dụng thư viện trong JavaScript.
+### Code example
 
 ```js
-// Step 1
 import {
 	InvalidFormatError,
 	InvalidNumberError,
@@ -49,72 +42,73 @@ import {
 	readNumber,
 } from 'read-vietnamese-number'
 
-// Step 2
+// Step 1
 const config = new ReadingConfig()
 config.unit = ['đồng']
 
 try {
-	// Step 3
 	const number = '12345.6789'
-	const validatedNumber = validateNumber(number)
-
-	// Step 4
-	const numberData = parseNumberData(config, validatedNumber)
-
-	// Step 5
-	const result = readNumber(config, numberData)
+	const validatedNumber = validateNumber(number) // Step 2
+	const numberData = parseNumberData(config, validatedNumber) // Step 3
+	const result = readNumber(config, numberData) // Step 4
 	console.log(result)
-} catch (ex) {
-	if (ex instanceof InvalidFormatError) {
-		console.error('Định dạng số không hợp lệ')
-	} else if (ex instanceof InvalidNumberError) {
+} catch (err) {
+	if (err instanceof InvalidFormatError) {
+		console.error('Định dạng input không hợp lệ')
+	} else if (err instanceof InvalidNumberError) {
 		console.error('Số không hợp lệ')
-	} else if (ex instanceof UnitNotEnoughError) {
+	} else if (err instanceof UnitNotEnoughError) {
 		console.error('Không đủ đơn vị đọc số')
 	}
 }
 ```
 
-Với TypeScript, vui lòng tham khảo ví dụ trong file `demo.ts`.
+Với TypeScript, tham khảo ví dụ trong file `demo.ts`.
 
-### 2.1. Error handling
+### Error handling
 
-Có 3 loại Error có thể được ném ra khi đọc số:
+Thư viện ném ra 3 loại `RvnError` sau nếu có lỗi trong quá trình đọc số:
 
-- `InvalidFormatError`: khi định dạng số không hợp lệ
-- `InvalidNumberError`: khi số không hợp lệ
-- `UnitNotEnoughError`: khi không đủ đơn vị đọc số (số có phần nguyên quá dài trong khi số lượng đơn vị trong cấu hình không đủ)
+- `InvalidFormatError` khi input không hợp lệ
+- `InvalidNumberError` khi số chứa kí tự không hợp lệ
+- `UnitNotEnoughError` khi không đủ đơn vị đọc số
 
-Các loại Error trên đều kế thừa từ `RvnError`.
-Cần sử dụng `try catch` và có cách xử lý thích hợp như trong ví dụ.
+Hàm `validateNumber()` chấp nhận input là `string` (nên dùng), `bigint` hoặc non-null `object`, và ném `InvalidFormatError` với các trường hợp khác.
+Hành vi này liên quan đến các vấn đề định dạng số của JavaScript (tràn số, mất độ chính xác,...).
 
-### 2.2. CommonJS
+Với `UnitNotEnoughError`, nguyên nhân do cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
+Nên giới hạn độ lớn số nhập vào cho phù hợp với các đơn vị hiện có (mặc định hỗ trợ đến `tỉ tỉ`).
+Ngoài ra có thể xử lý bằng cách thêm các đơn vị lớn hơn vào cấu hình (không khuyến khích).
 
-Nếu bạn sử dụng CommonJS (require/export), toàn bộ các class, function của thư viện sẽ được chứa trong một object duy nhất.
+### CommonJS support
+
+Với các module CommonJS (sử dụng `require()` và `exports`), toàn bộ thư viện được truy cập thông qua một object duy nhất.
 
 ```js
+// Access everything using `rvn` object
 const rvn = require('read-vietnamese-number')
 
-// Access everything by rvn object
+// For simplicity, this code doesn't handle errors
 const config = new rvn.ReadingConfig()
 const number = '12345.6789'
 const validatedNumber = rvn.validateNumber(number)
 const numberData = rvn.parseNumberData(config, validatedNumber)
-const result = rvn.readNumber(config, numberData)
-console.log(result)
+const output = rvn.readNumber(config, numberData)
 
-// For simplicity, this code doesn't handle errors
+console.log(output)
 ```
 
-## 3. How to publish a new version?
+## Contributing
 
-Các bước publish phiên bản mới lên NPM:
+Muốn đóng góp cho project?
+Đừng ngại mở một Issue mới khi bạn có thắc mắc, đề xuất hoặc muốn báo cáo vấn đề.
 
-1. Chạy `npm deploy:check` để check coding style và chạy unit test
-2. Chạy `npm deploy:build` để dọn dẹp project và build mới
-3. Chạy `npm deploy:publish` để publish lên NPM registry
+Pull request phù hợp sẽ được xem xét và hợp nhất:
 
-Chú ý nếu source code có sự thay đổi sau bước 1, cần commit code lại.
+- Có mô tả rõ ràng
+- Đúng chuẩn code style (chạy `npm run deploy:check`)
+- Source code biên dịch được (chạy `npm run deploy:build`)
 
-Sau khi hoàn thiện tính năng và kiểm tra đầy đủ, cần thực hiện tăng version.
-Chạy lệnh `npm version` để tăng version cho project phù hợp.
+<a href="https://www.buymeacoffee.com/tonghoangvu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+Cho tớ một sao ⭐ hoặc click vào nút trên 😍 nếu project hữu ích với bạn nhé.

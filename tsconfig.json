@@ -1,18 +1,24 @@
 {
 	"compilerOptions": {
-		"target": "es6",
-		"module": "commonjs",
+		"target": "ES6",
+		"module": "CommonJS",
 		"moduleResolution": "node",
-		"strict": true,
-		"sourceMap": true, // Should have sourcemaps
-		"declaration": true, // Should have to support typings
-		"outDir": "./dist",
+		"outDir": "dist",
+		"sourceMap": false,
+		"declaration": true,
+		"importHelpers": false,
 		"skipLibCheck": true,
-		"importHelpers": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"strict": true,
+		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"exactOptionalPropertyTypes": true,
+		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts"],
+	"exclude": ["src/demo.ts"]
 }

@@ -29,6 +29,7 @@
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
 		"deploy:build": "npm run clean && npm run build",
+		"deploy:dry-run": "npm publish --dry-run && npm pack -q",
 		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
 		"prettier": "prettier --check .",
 		"eslint": "eslint --max-warnings 0 .",

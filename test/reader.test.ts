@@ -1,6 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 
 import {
+	InputNumber,
 	InvalidFormatError,
 	InvalidNumberError,
 	UnitNotEnoughError,
@@ -291,7 +292,7 @@ describe('Read fractional part function', () => {
 })
 
 describe('Read full string number', () => {
-	const func = (config: ReadingConfig, number: string | bigint | number) => {
+	const func = (config: ReadingConfig, number: InputNumber) => {
 		const validatedNumber = validateNumber(number)
 		const numberData = parseNumberData(config, validatedNumber)
 		return readNumber(config, numberData)

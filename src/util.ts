@@ -1,4 +1,4 @@
-import { InvalidFormatError } from './type'
+import { InputNumber, InvalidFormatError } from './type'
 
 function trimLeft(str: string, char: string): string {
 	if (str === '') {
@@ -26,9 +26,7 @@ function splitToDigits(str: string): number[] {
 	return str.split('').map((digit) => parseInt(digit))
 }
 
-function validateNumber(
-	value: string | bigint | number | null | undefined
-): string {
+function validateNumber(value: InputNumber): string {
 	// String type in TS maybe number at runtime
 	switch (typeof value) {
 		case 'string': {

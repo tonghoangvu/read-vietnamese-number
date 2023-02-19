@@ -1,4 +1,5 @@
 type Period = [number, number, number]
+type InputNumber = string | bigint | number | null | undefined
 
 class RvnError extends Error {}
 class InvalidFormatError extends RvnError {}
@@ -56,6 +57,7 @@ class ReadingConfig {
 
 export {
 	Period,
+	InputNumber,
 	RvnError,
 	InvalidFormatError,
 	InvalidNumberError,

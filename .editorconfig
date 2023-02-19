@@ -6,6 +6,7 @@ root = true
 [*]
 indent_style = tab
 indent_size = 2
+tab_width = unset # Don't set fixed tab width
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true

@@ -6,9 +6,7 @@ import {
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
-	validateNumber,
-	parseNumberData,
-	readNumber,
+	doReadNumber,
 } from './index' // or 'read-vietnamese-number'
 
 async function input(
@@ -22,13 +20,9 @@ async function input(
 
 function read(config: ReadingConfig, number: string): void {
 	try {
-		// Parse the number and start reading
-		const validatedNumber = validateNumber(number)
-		const numberData = parseNumberData(config, validatedNumber)
-		const result = readNumber(config, numberData)
+		const result = doReadNumber(config, number)
 		console.log(result)
 	} catch (err) {
-		// Handle errors
 		if (err instanceof InvalidFormatError) {
 			console.error('Định dạng input không hợp lệ')
 		} else if (err instanceof InvalidNumberError) {

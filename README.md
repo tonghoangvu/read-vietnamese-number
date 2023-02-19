@@ -22,12 +22,11 @@ yarn add read-vietnamese-number
 
 ## Usage
 
-Cách sử dụng gồm 4 bước:
+Cách sử dụng gồm 3 bước:
 
-- Tạo object cấu hình và điều chỉnh phù hợp
-- Kiểm tra định dạng chuỗi số hợp lệ
-- Phân tích chuỗi số
-- Đọc số đã phân tích
+- Tạo cấu hình đọc số và điều chỉnh phù hợp
+- Đọc chuỗi số với cấu hình đã tạo
+- Xử lý lỗi phát sinh
 
 ### Code example
 
@@ -37,22 +36,20 @@ import {
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
-	validateNumber,
-	parseNumberData,
-	readNumber,
+	doReadNumber,
 } from 'read-vietnamese-number'
 
-// Step 1
+// Config reading options
 const config = new ReadingConfig()
 config.unit = ['đồng']
 
 try {
-	const number = '12345.6789'
-	const validatedNumber = validateNumber(number) // Step 2
-	const numberData = parseNumberData(config, validatedNumber) // Step 3
-	const result = readNumber(config, numberData) // Step 4
+	// Start reading
+	const number = '-12345.6789'
+	const result = doReadNumber(config, number)
 	console.log(result)
 } catch (err) {
+	// Handle errors
 	if (err instanceof InvalidFormatError) {
 		console.error('Định dạng input không hợp lệ')
 	} else if (err instanceof InvalidNumberError) {
@@ -90,12 +87,9 @@ const rvn = require('read-vietnamese-number')
 
 // For simplicity, this code doesn't handle errors
 const config = new rvn.ReadingConfig()
-const number = '12345.6789'
-const validatedNumber = rvn.validateNumber(number)
-const numberData = rvn.parseNumberData(config, validatedNumber)
-const output = rvn.readNumber(config, numberData)
-
-console.log(output)
+const number = '-12345.6789'
+const result = rvn.doReadNumber(config, number)
+console.log(result)
 ```
 
 ## Contributing

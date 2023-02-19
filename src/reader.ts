@@ -1,13 +1,14 @@
 import {
 	Period,
+	InputNumber,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
 } from './type'
-import { splitToDigits, trimLeft, trimRight } from './util'
+import { trimLeft, trimRight, splitToDigits, validateNumber } from './util'
 
-function readLastTwoDigits(
+export function readLastTwoDigits(
 	config: ReadingConfig,
 	b: number,
 	c: number
@@ -44,7 +45,7 @@ function readLastTwoDigits(
 	return output
 }
 
-function readThreeDigits(
+export function readThreeDigits(
 	config: ReadingConfig,
 	a: number,
 	b: number,
@@ -66,7 +67,7 @@ function readThreeDigits(
 	return output
 }
 
-function removeThousandsSeparators(
+export function removeThousandsSeparators(
 	config: ReadingConfig,
 	number: string
 ): string {
@@ -74,13 +75,16 @@ function removeThousandsSeparators(
 	return number.replace(regex, '')
 }
 
-function trimRedundantZeros(config: ReadingConfig, number: string): string {
+export function trimRedundantZeros(
+	config: ReadingConfig,
+	number: string
+): string {
 	return number.includes(config.pointSign)
 		? trimLeft(trimRight(number, config.filledDigit), config.filledDigit)
 		: trimLeft(number, config.filledDigit)
 }
 
-function addLeadingZerosToFitPeriod(
+export function addLeadingZerosToFitPeriod(
 	config: ReadingConfig,
 	number: string
 ): string {
@@ -89,7 +93,10 @@ function addLeadingZerosToFitPeriod(
 	return number.padStart(newLength, config.filledDigit)
 }
 
-function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
+export function zipIntegralPeriods(
+	config: ReadingConfig,
+	digits: number[]
+): Period[] {
 	const output: Period[] = []
 	const periodCount = Math.ceil(digits.length / config.periodSize)
 	for (let i = 0; i < periodCount; i++) {
@@ -102,7 +109,10 @@ function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
 	return output
 }
 
-function parseNumberData(config: ReadingConfig, number: string): NumberData {
+export function parseNumberData(
+	config: ReadingConfig,
+	number: string
+): NumberData {
 	let numberString = removeThousandsSeparators(config, number)
 
 	const isNegative = numberString[0] === config.negativeSign
@@ -132,7 +142,10 @@ function parseNumberData(config: ReadingConfig, number: string): NumberData {
 	return { isNegative, integralPart, fractionalPart }
 }
 
-function readIntegralPart(config: ReadingConfig, periods: Period[]): string[] {
+export function readIntegralPart(
+	config: ReadingConfig,
+	periods: Period[]
+): string[] {
 	const output: string[] = []
 	const isSinglePeriod = periods.length === 1
 	for (const [index, period] of periods.entries()) {
@@ -148,7 +161,10 @@ function readIntegralPart(config: ReadingConfig, periods: Period[]): string[] {
 	return output
 }
 
-function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
+export function readFractionalPart(
+	config: ReadingConfig,
+	digits: number[]
+): string[] {
 	const output: string[] = []
 	switch (digits.length) {
 		case 2: {
@@ -171,7 +187,10 @@ function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
 	return output
 }
 
-function readNumber(config: ReadingConfig, numberData: NumberData): string {
+export function readNumber(
+	config: ReadingConfig,
+	numberData: NumberData
+): string {
 	const output: string[] = []
 	output.push(...readIntegralPart(config, numberData.integralPart))
 	if (numberData.fractionalPart.length !== 0) {
@@ -187,15 +206,8 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	return output.join(config.separator)
 }
 
-export {
-	readLastTwoDigits,
-	readThreeDigits,
-	removeThousandsSeparators,
-	trimRedundantZeros,
-	addLeadingZerosToFitPeriod,
-	zipIntegralPeriods,
-	parseNumberData,
-	readIntegralPart,
-	readFractionalPart,
-	readNumber,
+export function doReadNumber(config: ReadingConfig, number: InputNumber) {
+	const validatedNumber = validateNumber(number)
+	const numberData = parseNumberData(config, validatedNumber)
+	return readNumber(config, numberData)
 }

@@ -7,7 +7,7 @@ import {
 	ReadingConfig,
 } from './type'
 import { validateNumber } from './util'
-import { parseNumberData, readNumber } from './reader'
+import { parseNumberData, readNumber, doReadNumber } from './reader'
 
 export {
 	RvnError,
@@ -19,4 +19,5 @@ export {
 	validateNumber,
 	parseNumberData,
 	readNumber,
+	doReadNumber,
 }

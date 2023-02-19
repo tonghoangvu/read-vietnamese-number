@@ -1,11 +1,12 @@
 import {
 	Period,
+	InputNumber,
 	InvalidNumberError,
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
 } from './type'
-import { splitToDigits, trimLeft, trimRight } from './util'
+import { trimLeft, trimRight, splitToDigits, validateNumber } from './util'
 
 function readLastTwoDigits(
 	config: ReadingConfig,
@@ -187,6 +188,12 @@ function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	return output.join(config.separator)
 }
 
+function doReadNumber(config: ReadingConfig, number: InputNumber) {
+	const validatedNumber = validateNumber(number)
+	const numberData = parseNumberData(config, validatedNumber)
+	return readNumber(config, numberData)
+}
+
 export {
 	readLastTwoDigits,
 	readThreeDigits,
@@ -198,4 +205,5 @@ export {
 	readIntegralPart,
 	readFractionalPart,
 	readNumber,
+	doReadNumber,
 }

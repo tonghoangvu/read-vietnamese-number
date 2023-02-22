@@ -36,7 +36,6 @@
 		"jest": "jest --coverage",
 		"clean": "del-cli dist/ coverage/ *.tgz",
 		"build": "tsc",
-		"demo": "ts-node src/demo.ts",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
@@ -51,7 +50,6 @@
 		"lint-staged": "^13.1.2",
 		"prettier": "^2.5.1",
 		"ts-jest": "^29.0.5",
-		"ts-node": "^10.4.0",
 		"typescript": "^4.5.5"
 	}
 }

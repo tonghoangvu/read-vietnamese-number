@@ -60,8 +60,6 @@ try {
 }
 ```
 
-Với TypeScript, tham khảo ví dụ trong file `demo.ts`.
-
 ### Error handling
 
 Thư viện ném ra 3 loại `RvnError` sau nếu có lỗi trong quá trình đọc số:

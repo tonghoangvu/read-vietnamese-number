@@ -19,6 +19,5 @@
 		"exactOptionalPropertyTypes": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["src/demo.ts"]
+	"include": ["src/**/*.ts"]
 }

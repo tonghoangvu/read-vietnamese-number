@@ -46,13 +46,14 @@
 		"jest": "jest --coverage",
 		"clean": "del-cli dist/ coverage/ *.tgz",
 		"build:cjs": "tsc -p tsconfig-cjs.json",
-		"build:esm": "tsc -p tsconfig-esm.json",
+		"build:esm": "tsc -p tsconfig-esm.json && cp-cli ./package-esm.json ./dist/esm/package.json",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@jest/globals": "^29.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.10.2",
 		"@typescript-eslint/parser": "^5.10.2",
+		"cp-cli": "^2.0.0",
 		"del-cli": "^5.0.0",
 		"eslint": "^8.8.0",
 		"eslint-config-prettier": "^8.3.0",

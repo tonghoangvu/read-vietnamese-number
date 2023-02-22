@@ -1,7 +1,12 @@
 import { describe, it, expect } from '@jest/globals'
 
-import { InvalidFormatError } from '../src/type'
-import { trimLeft, trimRight, splitToDigits, validateNumber } from '../src/util'
+import { InvalidFormatError } from '../src/type.js'
+import {
+	trimLeft,
+	trimRight,
+	splitToDigits,
+	validateNumber,
+} from '../src/util.js'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {

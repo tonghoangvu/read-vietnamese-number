@@ -1,4 +1,4 @@
-import { InputNumber, InvalidFormatError } from './type'
+import { InputNumber, InvalidFormatError } from './type.js'
 
 export function trimLeft(str: string, char: string): string {
 	if (str === '') {

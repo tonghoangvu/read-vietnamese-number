@@ -1,17 +1,18 @@
-type Period = [number, number, number]
+export type Period = [number, number, number]
+export type InputNumber = string | bigint | number | null | undefined
 
-class RvnError extends Error {}
-class InvalidFormatError extends RvnError {}
-class InvalidNumberError extends RvnError {}
-class UnitNotEnoughError extends RvnError {}
+export class RvnError extends Error {}
+export class InvalidFormatError extends RvnError {}
+export class InvalidNumberError extends RvnError {}
+export class UnitNotEnoughError extends RvnError {}
 
-interface NumberData {
+export interface NumberData {
 	isNegative: boolean
 	integralPart: Period[]
 	fractionalPart: number[]
 }
 
-class ReadingConfig {
+export class ReadingConfig {
 	public separator = ' '
 	public unit = ['đơn', 'vị']
 	public negativeSign = '-'
@@ -52,14 +53,4 @@ class ReadingConfig {
 	public fourToneText = 'tư'
 	public fiveToneText = 'lăm'
 	public tenToneText = 'mươi'
-}
-
-export {
-	Period,
-	RvnError,
-	InvalidFormatError,
-	InvalidNumberError,
-	UnitNotEnoughError,
-	NumberData,
-	ReadingConfig,
 }

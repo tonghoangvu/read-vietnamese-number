@@ -7,7 +7,6 @@ import {
 	NumberData,
 	ReadingConfig,
 } from '../src/type'
-import { validateNumber } from '../src/util'
 import {
 	readLastTwoDigits,
 	readThreeDigits,
@@ -18,7 +17,7 @@ import {
 	parseNumberData,
 	readIntegralPart,
 	readFractionalPart,
-	readNumber,
+	doReadNumber,
 } from '../src/reader'
 
 describe('Read the last two digits function', () => {
@@ -290,79 +289,84 @@ describe('Read fractional part function', () => {
 	})
 })
 
-describe('Read full string number', () => {
-	const func = (config: ReadingConfig, number: string | bigint | number) => {
-		const validatedNumber = validateNumber(number)
-		const numberData = parseNumberData(config, validatedNumber)
-		return readNumber(config, numberData)
-	}
+describe('Do read number function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
 	it('Should throw InvalidFormatError', () => {
-		expect(() => func(config, 0)).toThrowError(InvalidFormatError)
-		expect(() => func(config, -12345)).toThrowError(InvalidFormatError)
-		expect(() => func(config, 0.000000000012345)).toThrowError(
+		expect(() => doReadNumber(config, 0)).toThrowError(InvalidFormatError)
+		expect(() => doReadNumber(config, -12345)).toThrowError(InvalidFormatError)
+		expect(() => doReadNumber(config, 0.000000000012345)).toThrowError(
 			InvalidFormatError
 		)
 		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-		expect(() => func(config, -1234567890123456789012)).toThrowError(
+		expect(() => doReadNumber(config, -1234567890123456789012)).toThrowError(
 			InvalidFormatError
 		)
 	})
 
 	it('Should throw InvalidNumberError', () => {
-		expect(() => func(config, '1..23')).toThrowError(InvalidNumberError)
-		expect(() => func(config, '--1.23')).toThrowError(InvalidNumberError)
-		expect(() => func(config, '12_3')).toThrowError(InvalidNumberError)
-		expect(() => func(config, 'abc123')).toThrowError(InvalidNumberError)
+		expect(() => doReadNumber(config, '1..23')).toThrowError(InvalidNumberError)
+		expect(() => doReadNumber(config, '--1.23')).toThrowError(
+			InvalidNumberError
+		)
+		expect(() => doReadNumber(config, '12_3')).toThrowError(InvalidNumberError)
+		expect(() => doReadNumber(config, 'abc123')).toThrowError(
+			InvalidNumberError
+		)
 	})
 
 	it('Should throw UnitNotEnoughError', () => {
-		expect(() => func(config, '1234567890123456789012')).toThrowError(
-			UnitNotEnoughError
-		)
-		expect(() => func(config, '123456789012345678901')).not.toThrowError(
+		expect(() => doReadNumber(config, '1234567890123456789012')).toThrowError(
 			UnitNotEnoughError
 		)
 		expect(() =>
-			func(config, '123456789012345678901.123456789')
+			doReadNumber(config, '123456789012345678901')
+		).not.toThrowError(UnitNotEnoughError)
+		expect(() =>
+			doReadNumber(config, '123456789012345678901.123456789')
 		).not.toThrowError(UnitNotEnoughError)
 	})
 
 	it('Should return zero', () => {
-		expect(func(config, '')).toBe('không')
-		expect(func(config, '0')).toBe('không')
-		expect(func(config, '000')).toBe('không')
-		expect(func(config, '00.')).toBe('không')
-		expect(func(config, '.00')).toBe('không')
-		expect(func(config, '000.00')).toBe('không')
+		expect(doReadNumber(config, '')).toBe('không')
+		expect(doReadNumber(config, '0')).toBe('không')
+		expect(doReadNumber(config, '000')).toBe('không')
+		expect(doReadNumber(config, '00.')).toBe('không')
+		expect(doReadNumber(config, '.00')).toBe('không')
+		expect(doReadNumber(config, '000.00')).toBe('không')
 	})
 
 	it('Should return integer value', () => {
-		expect(func(config, '02')).toBe('hai')
-		expect(func(config, '15')).toBe('mười lăm')
-		expect(func(config, '4065')).toBe('bốn nghìn không trăm sáu mươi lăm')
-		expect(func(config, '06000')).toBe('sáu nghìn')
-		expect(func(config, '1000024')).toBe('một triệu không trăm hai mươi tư')
-		expect(func(config, '23010000')).toBe(
+		expect(doReadNumber(config, '02')).toBe('hai')
+		expect(doReadNumber(config, '15')).toBe('mười lăm')
+		expect(doReadNumber(config, '4065')).toBe(
+			'bốn nghìn không trăm sáu mươi lăm'
+		)
+		expect(doReadNumber(config, '06000')).toBe('sáu nghìn')
+		expect(doReadNumber(config, '1000024')).toBe(
+			'một triệu không trăm hai mươi tư'
+		)
+		expect(doReadNumber(config, '23010000')).toBe(
 			'hai mươi ba triệu không trăm mười nghìn'
 		)
-		expect(func(config, '2030000305')).toBe(
+		expect(doReadNumber(config, '2030000305')).toBe(
 			'hai tỉ không trăm ba mươi triệu ba trăm lẻ năm'
 		)
-		expect(func(config, '00,123,456')).toBe(
+		expect(doReadNumber(config, '00,123,456')).toBe(
 			'một trăm hai mươi ba nghìn bốn trăm năm mươi sáu'
 		)
 	})
 
 	it('Should return double value', () => {
-		expect(func(config, '304.23')).toBe('ba trăm lẻ bốn chấm hai mươi ba')
-		expect(func(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
-		expect(func(config, '-0.00001')).toBe(
+		expect(doReadNumber(config, '304.23')).toBe(
+			'ba trăm lẻ bốn chấm hai mươi ba'
+		)
+		expect(doReadNumber(config, '-0003.804')).toBe('âm ba chấm tám trăm lẻ bốn')
+		expect(doReadNumber(config, '-0.00001')).toBe(
 			'âm không chấm không không không không một'
 		)
-		expect(func(config, '-123,456.7,89')).toBe(
+		expect(doReadNumber(config, '-123,456.7,89')).toBe(
 			'âm một trăm hai mươi ba nghìn bốn trăm năm mươi sáu chấm bảy trăm tám mươi chín'
 		)
 	})

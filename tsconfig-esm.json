@@ -4,6 +4,7 @@
 		"module": "ES6",
 		"moduleResolution": "node",
 		"outDir": "dist/esm",
+		"declaration": true,
 		"declarationDir": "dist/types"
 	},
 	"extends": "./tsconfig-base.json"

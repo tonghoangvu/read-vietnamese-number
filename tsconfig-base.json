@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"sourceMap": false,
-		"declaration": true,
 		"importHelpers": false,
 		"skipLibCheck": true,
 		"allowUnusedLabels": false,

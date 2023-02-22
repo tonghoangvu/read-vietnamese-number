@@ -25,11 +25,20 @@
 		"dist"
 	],
 	"type": "commonjs",
-	"main": "dist/index.js",
-	"types": "dist/index.d.js",
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"default": "./dist/cjs/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"types": "./dist/types/index.d.ts",
+	"main": "./dist/cjs/index.js",
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
-		"deploy:build": "npm run clean && npm run build:cjs",
+		"deploy:build": "npm run clean && npm run build:cjs && npm run build:esm",
 		"deploy:dry-run": "npm publish --dry-run && npm pack -q",
 		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
 		"prettier": "prettier --check .",

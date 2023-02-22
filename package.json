@@ -36,8 +36,8 @@
 		"eslint": "eslint --max-warnings 0 .",
 		"jest": "jest --coverage",
 		"clean": "del-cli dist/ coverage/ *.tgz",
-		"build:cjs": "tsc",
-		"build:esm": "tsc --module ES6",
+		"build:cjs": "tsc -p tsconfig-cjs.json",
+		"build:esm": "tsc -p tsconfig-esm.json",
 		"prepare": "husky install"
 	},
 	"devDependencies": {

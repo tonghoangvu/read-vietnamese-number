@@ -14,10 +14,8 @@ const config: Config = {
 			'ts-jest',
 			{
 				useESM: true,
-				tsconfig: {
-					// To use bigint literals in tests
-					target: 'ES2020',
-				},
+				// Set target to ES2020 to use bigint in tests
+				tsconfig: 'tsconfig-jest.json',
 			},
 		],
 	},

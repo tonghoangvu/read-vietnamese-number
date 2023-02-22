@@ -24,18 +24,18 @@
 	"files": [
 		"dist"
 	],
-	"type": "commonjs",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./dist/types/index.d.ts",
 			"import": "./dist/esm/index.js",
 			"require": "./dist/cjs/index.js",
-			"default": "./dist/cjs/index.js"
+			"default": "./dist/esm/index.js"
 		},
 		"./package.json": "./package.json"
 	},
 	"types": "./dist/types/index.d.ts",
-	"main": "./dist/cjs/index.js",
+	"main": "./dist/esm/index.js",
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
 		"deploy:build": "npm run clean && npm run build:cjs && npm run build:esm",
@@ -45,8 +45,8 @@
 		"eslint": "eslint --max-warnings 0 .",
 		"jest": "jest --coverage",
 		"clean": "del-cli dist/ coverage/ *.tgz",
-		"build:cjs": "tsc -p tsconfig-cjs.json",
-		"build:esm": "tsc -p tsconfig-esm.json && cp-cli ./package-esm.json ./dist/esm/package.json",
+		"build:cjs": "tsc -p tsconfig-cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
+		"build:esm": "tsc -p tsconfig-esm.json",
 		"prepare": "husky install"
 	},
 	"devDependencies": {

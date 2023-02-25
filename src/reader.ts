@@ -5,8 +5,8 @@ import {
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
-} from './type'
-import { trimLeft, trimRight, splitToDigits, validateNumber } from './util'
+} from './type.js'
+import { trimLeft, trimRight, splitToDigits, validateNumber } from './util.js'
 
 export function readLastTwoDigits(
 	config: ReadingConfig,

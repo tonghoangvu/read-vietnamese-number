@@ -4,8 +4,8 @@ import {
 	InvalidNumberError,
 	UnitNotEnoughError,
 	ReadingConfig,
-} from './type'
-import { doReadNumber } from './reader'
+} from './type.js'
+import { doReadNumber } from './reader.js'
 
 export {
 	RvnError,

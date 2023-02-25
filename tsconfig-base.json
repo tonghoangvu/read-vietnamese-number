@@ -1,11 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
-		"module": "CommonJS",
-		"moduleResolution": "node",
-		"outDir": "dist",
 		"sourceMap": false,
-		"declaration": true,
 		"importHelpers": false,
 		"skipLibCheck": true,
 		"allowUnusedLabels": false,

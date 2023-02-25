@@ -24,24 +24,36 @@
 	"files": [
 		"dist"
 	],
-	"main": "dist/index.js",
-	"types": "dist/index.d.js",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"default": "./dist/esm/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"types": "./dist/types/index.d.ts",
+	"main": "./dist/esm/index.js",
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
-		"deploy:build": "npm run clean && npm run build",
+		"deploy:build": "npm run clean && npm run build:cjs && npm run build:esm",
 		"deploy:dry-run": "npm publish --dry-run && npm pack -q",
 		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
 		"prettier": "prettier --check .",
 		"eslint": "eslint --max-warnings 0 .",
 		"jest": "jest --coverage",
 		"clean": "del-cli dist/ coverage/ *.tgz",
-		"build": "tsc",
+		"build:cjs": "tsc -p tsconfig-cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
+		"build:esm": "tsc -p tsconfig-esm.json",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@jest/globals": "^29.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.10.2",
 		"@typescript-eslint/parser": "^5.10.2",
+		"cp-cli": "^2.0.0",
 		"del-cli": "^5.0.0",
 		"eslint": "^8.8.0",
 		"eslint-config-prettier": "^8.3.0",

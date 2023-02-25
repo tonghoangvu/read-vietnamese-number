@@ -6,7 +6,7 @@ import {
 	UnitNotEnoughError,
 	NumberData,
 	ReadingConfig,
-} from '../src/type'
+} from '../src/type.js'
 import {
 	readLastTwoDigits,
 	readThreeDigits,
@@ -18,7 +18,7 @@ import {
 	readIntegralPart,
 	readFractionalPart,
 	doReadNumber,
-} from '../src/reader'
+} from '../src/reader.js'
 
 describe('Read the last two digits function', () => {
 	const config = new ReadingConfig()

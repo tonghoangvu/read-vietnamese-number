@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"sourceMap": false,
+		"removeComments": true,
 		"importHelpers": false,
 		"skipLibCheck": true,
 		"allowUnusedLabels": false,

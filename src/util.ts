@@ -37,7 +37,7 @@ export function validateNumber(value: InputNumber): string {
 			return value.toString()
 		}
 		case 'number': {
-			throw new InvalidFormatError()
+			throw new InvalidFormatError('Invalid format')
 			/**
 			 * SOME NUMBERS MAY CAUSE ERRORS
 			 * - Loss precision
@@ -49,13 +49,13 @@ export function validateNumber(value: InputNumber): string {
 		case 'object': {
 			// Check for nullable strings
 			if (value === null) {
-				throw new InvalidFormatError()
+				throw new InvalidFormatError('Invalid format')
 			}
 			return (value as object).toString()
 		}
 		default: {
 			// Typeof is undefined, boolean, symbol, function
-			throw new InvalidFormatError()
+			throw new InvalidFormatError('Invalid format')
 		}
 	}
 }

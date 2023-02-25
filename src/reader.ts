@@ -129,14 +129,14 @@ export function parseNumberData(
 	const integralDigits = splitToDigits(integralString)
 	const fractionalDigits = splitToDigits(fractionalString)
 	if (integralDigits.includes(NaN) || fractionalDigits.includes(NaN)) {
-		throw new InvalidNumberError()
+		throw new InvalidNumberError('Invalid number')
 	}
 
 	const integralPart = zipIntegralPeriods(config, integralDigits)
 	if (integralPart.length === 0) {
 		integralPart.push([0, 0, 0])
 	} else if (integralPart.length > config.units.length) {
-		throw new UnitNotEnoughError()
+		throw new UnitNotEnoughError('Unit not enough')
 	}
 	const fractionalPart = fractionalDigits
 	return { isNegative, integralPart, fractionalPart }

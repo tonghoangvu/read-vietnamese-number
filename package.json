@@ -19,7 +19,14 @@
 		"vietnamese",
 		"convert",
 		"read",
-		"number"
+		"number",
+		"digit",
+		"text",
+		"language",
+		"rvn",
+		"vnd",
+		"currency",
+		"money"
 	],
 	"files": [
 		"dist"

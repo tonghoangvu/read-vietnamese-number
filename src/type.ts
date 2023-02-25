@@ -1,5 +1,5 @@
 export type Period = [number, number, number]
-export type InputNumber = string | bigint | number | null | undefined
+export type InputNumber = string | bigint
 
 export class RvnError extends Error {}
 export class InvalidFormatError extends RvnError {}

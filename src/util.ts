@@ -27,34 +27,18 @@ export function splitToDigits(str: string): number[] {
 }
 
 export function validateNumber(value: InputNumber): string {
-	// String type in TS maybe number at runtime
 	switch (typeof value) {
 		case 'string': {
 			return value
 		}
 		case 'bigint': {
-			// BigInt is integer, not float
 			return value.toString()
 		}
-		case 'number': {
-			throw new InvalidFormatError('Invalid format')
-			/**
-			 * SOME NUMBERS MAY CAUSE ERRORS
-			 * - Loss precision
-			 * 		Number.isInteger(value) && !Number.isSafeInteger(value)
-			 * - Cannot parse in scientific notation
-			 * 		value.toString().includes('e')
-			 */
-		}
-		case 'object': {
-			// Check for nullable strings
-			if (value === null) {
-				throw new InvalidFormatError('Invalid format')
-			}
-			return (value as object).toString()
-		}
 		default: {
-			// Typeof is undefined, boolean, symbol, function
+			// Throw error on number, object, undefined, boolean, symbol, function
+			// Some numbers may cause errors when in parsing process:
+			// - Loss precision: Number.isInteger(value) && !Number.isSafeInteger(value)
+			// - Cannot parse scientific notation: value.toString().includes('e')
 			throw new InvalidFormatError('Invalid format')
 		}
 	}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from '@jest/globals'
 
 import {
@@ -294,15 +295,16 @@ describe('Do read number function', () => {
 	config.unit = []
 
 	it('Should throw InvalidFormatError', () => {
-		expect(() => doReadNumber(config, 0)).toThrowError(InvalidFormatError)
-		expect(() => doReadNumber(config, -12345)).toThrowError(InvalidFormatError)
-		expect(() => doReadNumber(config, 0.000000000012345)).toThrowError(
+		expect(() => doReadNumber(config, null as any as string)).toThrowError(
 			InvalidFormatError
 		)
-		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-		expect(() => doReadNumber(config, -1234567890123456789012)).toThrowError(
+		expect(() => doReadNumber(config, -0.12345 as any as string)).toThrowError(
 			InvalidFormatError
 		)
+		expect(() =>
+			// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+			doReadNumber(config, -1234567890123456789012 as any as string)
+		).toThrowError(InvalidFormatError)
 	})
 
 	it('Should throw InvalidNumberError', () => {

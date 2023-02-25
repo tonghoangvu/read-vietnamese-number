@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from '@jest/globals'
 
 import { InvalidFormatError } from '../src/type.js'
@@ -78,21 +79,26 @@ describe('Validate number function', () => {
 	})
 
 	it('Should throw InvalidFormatError', () => {
-		// Cannot simulate TypeScript string but actually number
-		expect(() => validateNumber(-12345)).toThrowError(InvalidFormatError)
-		// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
-		expect(() => validateNumber(11111111111111111111112345)).toThrowError(
+		expect(() => validateNumber(1 as any as string)).toThrowError(
 			InvalidFormatError
 		)
-		expect(() => validateNumber(0.00123)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(0.000000000012345)).toThrowError(
+		expect(() => validateNumber(new Object() as string)).toThrowError(
 			InvalidFormatError
 		)
-		// Typeof is object, but TS type is string
-		expect(() => validateNumber(new String(12345) as string)).not.toThrowError(
+		expect(() => validateNumber(null as any as string)).toThrowError(
 			InvalidFormatError
 		)
-		expect(() => validateNumber(null)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(undefined)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(undefined as any as string)).toThrowError(
+			InvalidFormatError
+		)
+		expect(() => validateNumber(false as any as bigint)).toThrowError(
+			InvalidFormatError
+		)
+		expect(() => validateNumber(Symbol('test') as any as bigint)).toThrowError(
+			InvalidFormatError
+		)
+		expect(() => validateNumber((() => 'test') as any as bigint)).toThrowError(
+			InvalidFormatError
+		)
 	})
 })

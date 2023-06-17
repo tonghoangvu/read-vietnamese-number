@@ -50,7 +50,7 @@
 		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
 		"prettier": "prettier --check .",
 		"eslint": "eslint --max-warnings 0 .",
-		"jest": "jest --coverage",
+		"jest": "jest",
 		"clean": "del-cli dist/ coverage/ *.tgz",
 		"build:cjs": "tsc -p tsconfig-cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
 		"build:esm": "tsc -p tsconfig-esm.json",

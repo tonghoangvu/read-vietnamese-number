@@ -4,6 +4,21 @@ const config: Config = {
 	preset: 'ts-jest',
 	testEnvironment: 'node',
 	maxWorkers: '50%',
+	collectCoverage: true,
+	collectCoverageFrom: ['./src/**'],
+	coveragePathIgnorePatterns: [
+		'/node_modules/',
+		'./src/index.ts',
+		'./src/demo.ts',
+	],
+	coverageThreshold: {
+		global: {
+			branches: 100,
+			functions: 100,
+			lines: 90,
+			statements: 90,
+		},
+	},
 
 	// https://kulshekhar.github.io/ts-jest/docs/guides/esm-support/
 	extensionsToTreatAsEsm: ['.ts'],

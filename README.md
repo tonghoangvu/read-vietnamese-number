@@ -83,10 +83,10 @@ try {
 Thư viện ném ra 3 loại `RvnError` sau nếu có lỗi trong quá trình đọc số:
 
 - `InvalidFormatError` khi input không hợp lệ
-- `InvalidNumberError` khi số chứa kí tự không hợp lệ
+- `InvalidNumberError` khi số chứa ký tự không hợp lệ
 - `UnitNotEnoughError` khi không đủ đơn vị đọc số
 
-Hàm `validateNumber()` chấp nhận input là `string` (nên dùng), `bigint` hoặc non-null `object`, và ném `InvalidFormatError` với các trường hợp khác.
+Hàm `doReadNumber()` chấp nhận input là `string` và `bigint`, ném `InvalidFormatError` với các trường hợp khác.
 Hành vi này liên quan đến các vấn đề định dạng số của JavaScript (tràn số, mất độ chính xác,...).
 
 Với `UnitNotEnoughError`, nguyên nhân do cấu hình đọc số không có đủ số lượng đơn vị phù hợp.

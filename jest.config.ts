@@ -6,11 +6,7 @@ const config: Config = {
 	maxWorkers: '50%',
 	collectCoverage: true,
 	collectCoverageFrom: ['./src/**'],
-	coveragePathIgnorePatterns: [
-		'/node_modules/',
-		'./src/index.ts',
-		'./src/demo.ts',
-	],
+	coveragePathIgnorePatterns: ['/node_modules/', './src/index.ts', './src/demo.ts'],
 	coverageThreshold: {
 		global: {
 			branches: 100,

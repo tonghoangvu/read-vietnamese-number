@@ -2,12 +2,7 @@
 import { describe, it, expect } from '@jest/globals'
 
 import { InvalidFormatError } from '../src/type.js'
-import {
-	trimLeft,
-	trimRight,
-	splitToDigits,
-	validateNumber,
-} from '../src/util.js'
+import { trimLeft, trimRight, splitToDigits, validateNumber } from '../src/util.js'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {
@@ -73,32 +68,16 @@ describe('Validate number function', () => {
 
 	it('Should return as string', () => {
 		expect(validateNumber(-12345n)).toBe('-12345')
-		expect(validateNumber(11111111111111111111112345n)).toBe(
-			'11111111111111111111112345'
-		)
+		expect(validateNumber(11111111111111111111112345n)).toBe('11111111111111111111112345')
 	})
 
 	it('Should throw InvalidFormatError', () => {
-		expect(() => validateNumber(1 as any as string)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber(new Object() as string)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber(null as any as string)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber(undefined as any as string)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber(false as any as bigint)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber(Symbol('test') as any as bigint)).toThrowError(
-			InvalidFormatError
-		)
-		expect(() => validateNumber((() => 'test') as any as bigint)).toThrowError(
-			InvalidFormatError
-		)
+		expect(() => validateNumber(1 as any as string)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(new Object() as string)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(null as any as string)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(undefined as any as string)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(false as any as bigint)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(Symbol('test') as any as bigint)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber((() => 'test') as any as bigint)).toThrowError(InvalidFormatError)
 	})
 })

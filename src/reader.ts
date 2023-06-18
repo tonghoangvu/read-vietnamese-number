@@ -8,11 +8,7 @@ import {
 } from './type.js'
 import { trimLeft, trimRight, splitToDigits, validateNumber } from './util.js'
 
-export function readLastTwoDigits(
-	config: ReadingConfig,
-	b: number,
-	c: number
-): string[] {
+export function readLastTwoDigits(config: ReadingConfig, b: number, c: number): string[] {
 	const output: string[] = []
 	switch (b) {
 		case 0: {
@@ -67,52 +63,33 @@ export function readThreeDigits(
 	return output
 }
 
-export function removeThousandsSeparators(
-	config: ReadingConfig,
-	number: string
-): string {
+export function removeThousandsSeparators(config: ReadingConfig, number: string): string {
 	const regex = new RegExp(config.thousandSign, 'g')
 	return number.replace(regex, '')
 }
 
-export function trimRedundantZeros(
-	config: ReadingConfig,
-	number: string
-): string {
+export function trimRedundantZeros(config: ReadingConfig, number: string): string {
 	return number.includes(config.pointSign)
 		? trimLeft(trimRight(number, config.filledDigit), config.filledDigit)
 		: trimLeft(number, config.filledDigit)
 }
 
-export function addLeadingZerosToFitPeriod(
-	config: ReadingConfig,
-	number: string
-): string {
-	const newLength =
-		Math.ceil(number.length / config.periodSize) * config.periodSize
+export function addLeadingZerosToFitPeriod(config: ReadingConfig, number: string): string {
+	const newLength = Math.ceil(number.length / config.periodSize) * config.periodSize
 	return number.padStart(newLength, config.filledDigit)
 }
 
-export function zipIntegralPeriods(
-	config: ReadingConfig,
-	digits: number[]
-): Period[] {
+export function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
 	const output: Period[] = []
 	const periodCount = Math.ceil(digits.length / config.periodSize)
 	for (let i = 0; i < periodCount; i++) {
-		const [a, b, c] = digits.slice(
-			i * config.periodSize,
-			(i + 1) * config.periodSize
-		)
+		const [a, b, c] = digits.slice(i * config.periodSize, (i + 1) * config.periodSize)
 		output.push([a, b, c])
 	}
 	return output
 }
 
-export function parseNumberData(
-	config: ReadingConfig,
-	number: string
-): NumberData {
+export function parseNumberData(config: ReadingConfig, number: string): NumberData {
 	let numberString = removeThousandsSeparators(config, number)
 
 	const isNegative = numberString[0] === config.negativeSign
@@ -120,10 +97,8 @@ export function parseNumberData(
 	numberString = trimRedundantZeros(config, numberString)
 
 	const pointPos = numberString.indexOf(config.pointSign)
-	let integralString =
-		pointPos === -1 ? numberString : numberString.substring(0, pointPos)
-	const fractionalString =
-		pointPos === -1 ? '' : numberString.substring(pointPos + 1)
+	let integralString = pointPos === -1 ? numberString : numberString.substring(0, pointPos)
+	const fractionalString = pointPos === -1 ? '' : numberString.substring(pointPos + 1)
 	integralString = addLeadingZerosToFitPeriod(config, integralString)
 
 	const integralDigits = splitToDigits(integralString)
@@ -142,10 +117,7 @@ export function parseNumberData(
 	return { isNegative, integralPart, fractionalPart }
 }
 
-export function readIntegralPart(
-	config: ReadingConfig,
-	periods: Period[]
-): string[] {
+export function readIntegralPart(config: ReadingConfig, periods: Period[]): string[] {
 	const output: string[] = []
 	const isSinglePeriod = periods.length === 1
 	for (const [index, period] of periods.entries()) {
@@ -161,10 +133,7 @@ export function readIntegralPart(
 	return output
 }
 
-export function readFractionalPart(
-	config: ReadingConfig,
-	digits: number[]
-): string[] {
+export function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
 	const output: string[] = []
 	switch (digits.length) {
 		case 2: {
@@ -187,17 +156,11 @@ export function readFractionalPart(
 	return output
 }
 
-export function readNumber(
-	config: ReadingConfig,
-	numberData: NumberData
-): string {
+export function readNumber(config: ReadingConfig, numberData: NumberData): string {
 	const output: string[] = []
 	output.push(...readIntegralPart(config, numberData.integralPart))
 	if (numberData.fractionalPart.length !== 0) {
-		output.push(
-			config.pointText,
-			...readFractionalPart(config, numberData.fractionalPart)
-		)
+		output.push(config.pointText, ...readFractionalPart(config, numberData.fractionalPart))
 	}
 	if (numberData.isNegative) {
 		output.unshift(config.negativeText)

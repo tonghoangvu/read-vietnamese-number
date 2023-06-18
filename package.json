@@ -52,8 +52,8 @@
 		"eslint": "eslint --max-warnings 0 .",
 		"jest": "jest",
 		"clean": "del-cli dist/ coverage/ *.tgz",
-		"build:cjs": "tsc -p tsconfig-cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
-		"build:esm": "tsc -p tsconfig-esm.json",
+		"build:cjs": "tsc -p tsconfig.cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
+		"build:esm": "tsc -p tsconfig.esm.json",
 		"prepare": "husky install"
 	},
 	"devDependencies": {

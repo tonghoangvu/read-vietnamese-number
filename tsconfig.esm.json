@@ -7,5 +7,5 @@
 		"declaration": true,
 		"declarationDir": "dist/types"
 	},
-	"extends": "./tsconfig-base.json"
+	"extends": "./tsconfig.base.json"
 }

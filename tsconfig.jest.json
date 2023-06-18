@@ -4,5 +4,5 @@
 		"esModuleInterop": true,
 		"noEmit": true
 	},
-	"extends": "./tsconfig-esm.json"
+	"extends": "./tsconfig.esm.json"
 }

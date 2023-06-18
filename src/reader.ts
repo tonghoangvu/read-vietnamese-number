@@ -2,7 +2,7 @@ import {
 	Period,
 	InputNumber,
 	InvalidNumberError,
-	UnitNotEnoughError,
+	NotEnoughUnitError,
 	NumberData,
 	ReadingConfig,
 } from './type.js'
@@ -136,7 +136,7 @@ export function parseNumberData(
 	if (integralPart.length === 0) {
 		integralPart.push([0, 0, 0])
 	} else if (integralPart.length > config.units.length) {
-		throw new UnitNotEnoughError('Unit not enough')
+		throw new NotEnoughUnitError('Unit not enough')
 	}
 	const fractionalPart = fractionalDigits
 	return { isNegative, integralPart, fractionalPart }

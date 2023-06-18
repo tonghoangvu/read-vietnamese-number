@@ -4,7 +4,7 @@ export type InputNumber = string | bigint
 export class RvnError extends Error {}
 export class InvalidFormatError extends RvnError {}
 export class InvalidNumberError extends RvnError {}
-export class UnitNotEnoughError extends RvnError {}
+export class NotEnoughUnitError extends RvnError {}
 
 export interface NumberData {
 	isNegative: boolean

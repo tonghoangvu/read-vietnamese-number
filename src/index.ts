@@ -2,7 +2,7 @@ import {
 	RvnError,
 	InvalidFormatError,
 	InvalidNumberError,
-	UnitNotEnoughError,
+	NotEnoughUnitError,
 	ReadingConfig,
 } from './type.js'
 import { doReadNumber } from './reader.js'
@@ -11,7 +11,7 @@ export {
 	RvnError,
 	InvalidFormatError,
 	InvalidNumberError,
-	UnitNotEnoughError,
+	NotEnoughUnitError,
 	ReadingConfig,
 	doReadNumber,
 }

@@ -4,7 +4,7 @@ import { describe, it, expect } from '@jest/globals'
 import {
 	InvalidFormatError,
 	InvalidNumberError,
-	UnitNotEnoughError,
+	NotEnoughUnitError,
 	NumberData,
 	ReadingConfig,
 } from '../src/type.js'
@@ -164,16 +164,16 @@ describe('Parse number data function', () => {
 		)
 	})
 
-	it('Should throw UnitNotEnoughError', () => {
+	it('Should throw NotEnoughUnitError', () => {
 		expect(() =>
 			parseNumberData(config, '1234567890123456789012')
-		).toThrowError(UnitNotEnoughError)
+		).toThrowError(NotEnoughUnitError)
 		expect(() =>
 			parseNumberData(config, '123456789012345678901')
-		).not.toThrowError(UnitNotEnoughError)
+		).not.toThrowError(NotEnoughUnitError)
 		expect(() =>
 			parseNumberData(config, '123456789012345678901.123456789')
-		).not.toThrowError(UnitNotEnoughError)
+		).not.toThrowError(NotEnoughUnitError)
 	})
 
 	it('Should return empty data', () => {
@@ -318,16 +318,16 @@ describe('Do read number function', () => {
 		)
 	})
 
-	it('Should throw UnitNotEnoughError', () => {
+	it('Should throw NotEnoughUnitError', () => {
 		expect(() => doReadNumber(config, '1234567890123456789012')).toThrowError(
-			UnitNotEnoughError
+			NotEnoughUnitError
 		)
 		expect(() =>
 			doReadNumber(config, '123456789012345678901')
-		).not.toThrowError(UnitNotEnoughError)
+		).not.toThrowError(NotEnoughUnitError)
 		expect(() =>
 			doReadNumber(config, '123456789012345678901.123456789')
-		).not.toThrowError(UnitNotEnoughError)
+		).not.toThrowError(NotEnoughUnitError)
 	})
 
 	it('Should return zero', () => {

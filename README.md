@@ -52,7 +52,7 @@ Cách sử dụng gồm 3 bước:
 import {
 	InvalidFormatError,
 	InvalidNumberError,
-	UnitNotEnoughError,
+	NotEnoughUnitError,
 	ReadingConfig,
 	doReadNumber,
 } from 'read-vietnamese-number' // or CDN URL
@@ -72,7 +72,7 @@ try {
 		console.error('Định dạng input không hợp lệ')
 	} else if (err instanceof InvalidNumberError) {
 		console.error('Số không hợp lệ')
-	} else if (err instanceof UnitNotEnoughError) {
+	} else if (err instanceof NotEnoughUnitError) {
 		console.error('Không đủ đơn vị đọc số')
 	}
 }
@@ -84,12 +84,12 @@ Thư viện ném ra 3 loại `RvnError` sau nếu có lỗi trong quá trình đ
 
 - `InvalidFormatError` khi input không hợp lệ
 - `InvalidNumberError` khi số chứa ký tự không hợp lệ
-- `UnitNotEnoughError` khi không đủ đơn vị đọc số
+- `NotEnoughUnitError` khi không đủ đơn vị đọc số
 
 Hàm `doReadNumber()` chấp nhận input là `string` và `bigint`, ném `InvalidFormatError` với các trường hợp khác.
 Hành vi này liên quan đến các vấn đề định dạng số của JavaScript (tràn số, mất độ chính xác,...).
 
-Với `UnitNotEnoughError`, nguyên nhân do cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
+Với `NotEnoughUnitError`, nguyên nhân do cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
 Nên giới hạn độ lớn số nhập vào cho phù hợp với các đơn vị hiện có (mặc định hỗ trợ đến `tỉ tỉ`).
 Ngoài ra có thể xử lý bằng cách thêm các đơn vị lớn hơn vào cấu hình (không khuyến khích).
 

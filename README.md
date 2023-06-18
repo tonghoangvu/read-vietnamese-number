@@ -22,17 +22,15 @@ yarn add read-vietnamese-number
 ```
 
 Hoặc sử dụng trực tiếp trong browser thông qua CDN (hoặc tự host).
+Chú ý nên kèm theo version cố định trong CDN URL, ví dụ như https://unpkg.com/read-vietnamese-number@2.0.0.
 
 ```html
 <!-- Load the library -->
-<script
-	type="module"
-	src="https://unpkg.com/read-vietnamese-number@2.0.0/dist/esm/index.js"
-></script>
+<script type="module" src="https://unpkg.com/read-vietnamese-number"></script>
 
 <!-- And use it -->
 <script type="module">
-	import {} from 'https://unpkg.com/read-vietnamese-number@2.0.0/dist/esm/index.js'
+	import {} from 'https://unpkg.com/read-vietnamese-number'
 
 	// ...
 </script>
@@ -137,14 +135,11 @@ Cần dùng `import` để nhập thư viện trực tiếp trong trình duyệt
 
 ```html
 <!-- Load the library -->
-<script
-	type="module"
-	src="https://unpkg.com/read-vietnamese-number@2.0.0/dist/esm/index.js"
-></script>
+<script type="module" src="https://unpkg.com/read-vietnamese-number"></script>
 
 <!-- And use it -->
 <script type="module">
-	import {} from 'https://unpkg.com/read-vietnamese-number@2.0.0/dist/esm/index.js'
+	import {} from 'https://unpkg.com/read-vietnamese-number'
 
 	// ...
 </script>

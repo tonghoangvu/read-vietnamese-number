@@ -14,5 +14,13 @@
 	"htmlWhitespaceSensitivity": "css",
 	"endOfLine": "lf",
 	"embeddedLanguageFormatting": "auto",
-	"singleAttributePerLine": false
+	"singleAttributePerLine": false,
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": {
+				"useTabs": false
+			}
+		}
+	]
 }

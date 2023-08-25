@@ -32,9 +32,9 @@ Chú ý nên kèm theo version cố định trong CDN URL, ví dụ như https:/
 
 <!-- And use it -->
 <script type="module">
-	import {} from 'https://unpkg.com/read-vietnamese-number'
+  import {} from 'https://unpkg.com/read-vietnamese-number'
 
-	// ...
+  // ...
 </script>
 ```
 
@@ -50,11 +50,11 @@ Cách sử dụng gồm 3 bước:
 
 ```js
 import {
-	InvalidFormatError,
-	InvalidNumberError,
-	NotEnoughUnitError,
-	ReadingConfig,
-	doReadNumber,
+  InvalidFormatError,
+  InvalidNumberError,
+  NotEnoughUnitError,
+  ReadingConfig,
+  doReadNumber,
 } from 'read-vietnamese-number' // or CDN URL
 
 // Config reading options
@@ -62,19 +62,19 @@ const config = new ReadingConfig()
 config.unit = ['đồng']
 
 try {
-	// Start reading
-	const number = '-12345.6789'
-	const result = doReadNumber(config, number)
-	console.log(result)
+  // Start reading
+  const number = '-12345.6789'
+  const result = doReadNumber(config, number)
+  console.log(result)
 } catch (err) {
-	// Handle errors
-	if (err instanceof InvalidFormatError) {
-		console.error('Định dạng input không hợp lệ')
-	} else if (err instanceof InvalidNumberError) {
-		console.error('Số không hợp lệ')
-	} else if (err instanceof NotEnoughUnitError) {
-		console.error('Không đủ đơn vị đọc số')
-	}
+  // Handle errors
+  if (err instanceof InvalidFormatError) {
+    console.error('Định dạng input không hợp lệ')
+  } else if (err instanceof InvalidNumberError) {
+    console.error('Số không hợp lệ')
+  } else if (err instanceof NotEnoughUnitError) {
+    console.error('Không đủ đơn vị đọc số')
+  }
 }
 ```
 
@@ -141,9 +141,9 @@ Cần dùng `import` để nhập thư viện trực tiếp trong trình duyệt
 
 <!-- And use it -->
 <script type="module">
-	import {} from 'https://unpkg.com/read-vietnamese-number'
+  import {} from 'https://unpkg.com/read-vietnamese-number'
 
-	// ...
+  // ...
 </script>
 ```
 

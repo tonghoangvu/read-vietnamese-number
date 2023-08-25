@@ -73,7 +73,7 @@ describe('Validate number function', () => {
 
 	it('Should throw InvalidFormatError', () => {
 		expect(() => validateNumber(1 as any as string)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(new Object() as string)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber({} as string)).toThrowError(InvalidFormatError)
 		expect(() => validateNumber(null as any as string)).toThrowError(InvalidFormatError)
 		expect(() => validateNumber(undefined as any as string)).toThrowError(InvalidFormatError)
 		expect(() => validateNumber(false as any as bigint)).toThrowError(InvalidFormatError)

@@ -92,8 +92,8 @@ export function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Per
 export function parseNumberData(config: ReadingConfig, number: string): NumberData {
 	let numberString = removeThousandsSeparators(config, number)
 
-	const isNegative = numberString[0] === config.negativeSign
-	numberString = isNegative ? numberString.substring(1) : numberString
+	const isNegative = numberString.startsWith(config.negativeSign)
+	numberString = isNegative ? numberString.substring(config.negativeSign.length) : numberString
 	numberString = trimRedundantZeros(config, numberString)
 
 	const pointPos = numberString.indexOf(config.pointSign)

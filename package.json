@@ -34,14 +34,18 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./dist/types/index.d.ts",
-			"import": "./dist/esm/index.js",
-			"require": "./dist/cjs/index.js",
-			"default": "./dist/esm/index.js"
+			"import": {
+				"types": "./dist/esm/index.d.ts",
+				"default": "./dist/esm/index.js"
+			},
+			"require": {
+				"types": "./dist/cjs/index.d.ts",
+				"default": "./dist/cjs/index.js"
+			}
 		},
 		"./package.json": "./package.json"
 	},
-	"types": "./dist/types/index.d.ts",
+	"types": "./dist/cjs/index.d.ts",
 	"main": "./dist/cjs/index.js",
 	"scripts": {
 		"deploy:check": "npm run prettier && npm run eslint && npm run jest",

@@ -44,16 +44,12 @@
 	"types": "./dist/types/index.d.ts",
 	"main": "./dist/esm/index.js",
 	"scripts": {
-		"deploy:check": "npm run prettier && npm run eslint && npm run jest",
-		"deploy:build": "npm run clean && npm run build:cjs && npm run build:esm",
-		"deploy:dry-run": "npm publish --dry-run && npm pack -q",
-		"deploy:publish": "echo Run 'npm version' and 'npm publish' manually.",
-		"prettier": "prettier --check .",
-		"eslint": "eslint --max-warnings 0 .",
-		"jest": "jest",
+		"lint": "prettier --check . && eslint --max-warnings 0 .",
+		"test": "jest",
 		"clean": "del-cli dist/ coverage/ *.tgz",
-		"build:cjs": "tsc -p tsconfig.cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
-		"build:esm": "tsc -p tsconfig.esm.json",
+		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cp-cli ./package-cjs.json ./dist/cjs/package.json",
+		"dry-run": "npm publish --dry-run && npm pack -q",
+		"package": "echo Run 'npm version' and 'npm publish' manually.",
 		"prepare": "husky install"
 	},
 	"devDependencies": {

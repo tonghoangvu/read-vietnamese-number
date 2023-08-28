@@ -27,13 +27,8 @@ Hoặc sử dụng trực tiếp trong browser thông qua CDN (hoặc tự host)
 Chú ý nên kèm theo version cố định trong CDN URL, ví dụ như https://unpkg.com/read-vietnamese-number@2.0.0.
 
 ```html
-<!-- Load the library -->
-<script type="module" src="https://unpkg.com/read-vietnamese-number"></script>
-
-<!-- And use it -->
 <script type="module">
   import {} from 'https://unpkg.com/read-vietnamese-number'
-
   // ...
 </script>
 ```
@@ -136,13 +131,8 @@ Nên dùng một syntax thống nhất để import thư viện, tránh dùng c�
 Cần dùng `import` để nhập thư viện trực tiếp trong trình duyệt (môi trường ESM).
 
 ```html
-<!-- Load the library -->
-<script type="module" src="https://unpkg.com/read-vietnamese-number"></script>
-
-<!-- And use it -->
 <script type="module">
   import {} from 'https://unpkg.com/read-vietnamese-number'
-
   // ...
 </script>
 ```
@@ -199,7 +189,7 @@ Pull request phù hợp sẽ được xem xét và hợp nhất:
 
 - Có mô tả rõ ràng
 - Đúng chuẩn code style (chạy `npm run lint`)
-- Pass các unit test (chạy `npm test`)
+- Pass các unit test (chạy `npm run test`)
 - Source code biên dịch được (chạy `npm run build`)
 
 <a href="https://www.buymeacoffee.com/tonghoangvu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

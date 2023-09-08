@@ -198,8 +198,9 @@ Muốn đóng góp cho project?
 Pull request phù hợp sẽ được xem xét và hợp nhất:
 
 - Có mô tả rõ ràng
-- Đúng chuẩn code style (chạy `npm run deploy:check`)
-- Source code biên dịch được (chạy `npm run deploy:build`)
+- Đúng chuẩn code style (chạy `npm run lint`)
+- Pass các unit test (chạy `npm test`)
+- Source code biên dịch được (chạy `npm run build`)
 
 <a href="https://www.buymeacoffee.com/tonghoangvu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 

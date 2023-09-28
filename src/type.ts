@@ -1,4 +1,5 @@
-export type Period = [number, number, number]
+export type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+export type Period = [Digit, Digit, Digit]
 export type InputNumber = string | bigint
 
 export class RvnError extends Error {}
@@ -9,7 +10,7 @@ export class NotEnoughUnitError extends RvnError {}
 export interface NumberData {
 	isNegative: boolean
 	integralPart: Period[]
-	fractionalPart: number[]
+	fractionalPart: Digit[]
 }
 
 export class ReadingConfig {

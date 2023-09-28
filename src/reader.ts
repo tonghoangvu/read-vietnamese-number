@@ -1,14 +1,15 @@
 import {
-	Period,
+	Digit,
 	InputNumber,
 	InvalidNumberError,
 	NotEnoughUnitError,
 	NumberData,
+	Period,
 	ReadingConfig,
 } from './type.js'
-import { trimLeft, trimRight, splitToDigits, validateNumber } from './util.js'
+import { splitToDigits, trimLeft, trimRight, validateNumber } from './util.js'
 
-export function readLastTwoDigits(config: ReadingConfig, b: number, c: number): string[] {
+export function readLastTwoDigits(config: ReadingConfig, b: Digit, c: Digit): string[] {
 	const output: string[] = []
 	switch (b) {
 		case 0: {
@@ -43,9 +44,9 @@ export function readLastTwoDigits(config: ReadingConfig, b: number, c: number): 
 
 export function readThreeDigits(
 	config: ReadingConfig,
-	a: number,
-	b: number,
-	c: number,
+	a: Digit,
+	b: Digit,
+	c: Digit,
 	readZeroHundred: boolean
 ): string[] {
 	const output: string[] = []
@@ -79,7 +80,7 @@ export function addLeadingZerosToFitPeriod(config: ReadingConfig, number: string
 	return number.padStart(newLength, config.filledDigit)
 }
 
-export function zipIntegralPeriods(config: ReadingConfig, digits: number[]): Period[] {
+export function zipIntegralPeriods(config: ReadingConfig, digits: Digit[]): Period[] {
 	const output: Period[] = []
 	const periodCount = Math.ceil(digits.length / config.periodSize)
 	for (let i = 0; i < periodCount; i++) {
@@ -103,7 +104,7 @@ export function parseNumberData(config: ReadingConfig, number: string): NumberDa
 
 	const integralDigits = splitToDigits(integralString)
 	const fractionalDigits = splitToDigits(fractionalString)
-	if (integralDigits.includes(NaN) || fractionalDigits.includes(NaN)) {
+	if (integralDigits === null || fractionalDigits === null) {
 		throw new InvalidNumberError('Invalid number')
 	}
 
@@ -133,7 +134,7 @@ export function readIntegralPart(config: ReadingConfig, periods: Period[]): stri
 	return output
 }
 
-export function readFractionalPart(config: ReadingConfig, digits: number[]): string[] {
+export function readFractionalPart(config: ReadingConfig, digits: Digit[]): string[] {
 	const output: string[] = []
 	switch (digits.length) {
 		case 2: {

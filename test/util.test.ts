@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import { InvalidFormatError } from '../src/type.js'
-import { trimLeft, trimRight, splitToDigits, validateNumber } from '../src/util.js'
+import { splitToDigits, trimLeft, trimRight, validateNumber } from '../src/util.js'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {
@@ -55,9 +55,9 @@ describe('Split to digits function', () => {
 		expect(splitToDigits('012333')).toEqual([0, 1, 2, 3, 3, 3])
 	})
 
-	it('Should return array contains NaN at error index', () => {
-		expect(splitToDigits('123x')).toEqual([1, 2, 3, NaN])
-		expect(splitToDigits('12 34x5')).toEqual([1, 2, NaN, 3, 4, NaN, 5])
+	it('Should return null', () => {
+		expect(splitToDigits('123x')).toEqual(null)
+		expect(splitToDigits('12 34x5')).toEqual(null)
 	})
 })
 

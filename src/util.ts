@@ -1,4 +1,4 @@
-import { InputNumber, InvalidFormatError } from './type.js'
+import { Digit, InputNumber, InvalidFormatError } from './type.js'
 
 export function trimLeft(str: string, char: string): string {
 	if (str === '') {
@@ -22,8 +22,12 @@ export function trimRight(str: string, char: string): string {
 	return str.substring(0, lastPos + 1)
 }
 
-export function splitToDigits(str: string): number[] {
-	return str.split('').map((digit) => parseInt(digit))
+export function splitToDigits(str: string): Digit[] | null {
+	const digits = str.split('').map((digit) => {
+		const value = parseInt(digit)
+		return isNaN(value) || value < 0 || value > 9 ? null : value
+	})
+	return digits.includes(null) ? null : (digits as Digit[])
 }
 
 export function validateNumber(value: InputNumber): string {

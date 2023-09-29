@@ -1,6 +1,6 @@
 {
 	"name": "read-vietnamese-number",
-	"version": "2.0.2",
+	"version": "2.1.0",
 	"description": "Đọc số thành chữ trong Tiếng Việt",
 	"private": false,
 	"license": "MIT",

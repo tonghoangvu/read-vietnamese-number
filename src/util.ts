@@ -24,7 +24,7 @@ export function trimRight(str: string, char: string): string {
 
 export function splitToDigits(str: string): Digit[] | null {
 	const digits = str.split('').map((digit) => {
-		const value = parseInt(digit)
+		const value = parseInt(digit, 10)
 		return isNaN(value) || value < 0 || value > 9 ? null : value
 	})
 	return digits.includes(null) ? null : (digits as Digit[])

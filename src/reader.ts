@@ -104,8 +104,11 @@ export function parseNumberData(config: ReadingConfig, number: string): NumberDa
 
 	const integralDigits = splitToDigits(integralString)
 	const fractionalDigits = splitToDigits(fractionalString)
-	if (integralDigits === null || fractionalDigits === null) {
-		throw new InvalidNumberError('Invalid number')
+	if (integralDigits === null) {
+		throw new InvalidNumberError('Invalid integral part')
+	}
+	if (fractionalDigits === null) {
+		throw new InvalidNumberError('Invalid fractional part')
 	}
 
 	const integralPart = zipIntegralPeriods(config, integralDigits)

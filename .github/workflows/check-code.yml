@@ -1,0 +1,28 @@
+name: Check code
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check-code:
+    name: Check code
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.8.1
+        with:
+          node-version: '18.18.2'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run lint
+        run: npm run lint
+      - name: Run test
+        run: npm run test
+      - name: Run build
+        run: npm run build

@@ -1,8 +1,10 @@
 {
 	"compilerOptions": {
 		"target": "ES2020",
+		"module": "ES2020",
+		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"noEmit": true
 	},
-	"extends": "./tsconfig.esm.json"
+	"extends": "./tsconfig.base.json"
 }

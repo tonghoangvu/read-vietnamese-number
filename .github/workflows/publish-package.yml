@@ -43,9 +43,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - build
-    defaults:
-      run:
-        working-directory: /tmp
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v2.1.1

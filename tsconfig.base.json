@@ -3,6 +3,7 @@
 		"declaration": true,
 		"sourceMap": false,
 		"removeComments": true,
+		"listEmittedFiles": true,
 		"importHelpers": false,
 		"skipLibCheck": true,
 		"allowUnusedLabels": false,

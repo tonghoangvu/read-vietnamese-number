@@ -12,6 +12,7 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
+		"eqeqeq": "warn",
 		"no-console": "warn",
 		"no-debugger": "error",
 		"curly": "error"

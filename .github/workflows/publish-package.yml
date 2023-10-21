@@ -31,12 +31,12 @@ jobs:
         run: npm run build
       - name: Run package
         id: run-package
-        run: npm pack -q >> "$GITHUB_OUTPUT"
+        run: echo "filename=$(npm pack -q)" >> "$GITHUB_OUTPUT"
       - name: Upload build artifact
         uses: actions/upload-artifact@v3.1.3
         with:
           name: 'tgz-package'
-          path: ${{ steps.run-package.outputs }}
+          path: ${{ steps.run-package.outputs.filename }}
           if-no-files-found: error
   publish-npm:
     name: Publish to NPM

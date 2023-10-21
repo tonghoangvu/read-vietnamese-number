@@ -194,6 +194,4 @@ Pull request phù hợp sẽ được xem xét và hợp nhất:
 - Tính năng phù hợp với dự án
 - Pass được CI pipeline khi tạo Pull request
 
-<a href="https://www.buymeacoffee.com/tonghoangvu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
-Cho tớ một sao ⭐ hoặc click vào nút trên 😍 nếu project hữu ích với bạn nhé.
+Cho tớ một sao 🌟 hoặc click vào nút Sponsor 😍 nếu project hữu ích với bạn nhé.

@@ -2,6 +2,9 @@ name: Publish package
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/setup-cicd # Just for testing
 
 permissions:
   contents: read

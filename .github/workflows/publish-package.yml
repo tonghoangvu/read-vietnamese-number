@@ -35,19 +35,23 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v3.1.3
         with:
-          name: 'tgz-package'
+          name: ${{ steps.run-package.outputs.filename }}
           path: ${{ steps.run-package.outputs.filename }}
           if-no-files-found: error
+    outputs:
+      filename: ${{ steps.run-package.outputs.filename }}
   publish-npm:
     name: Publish to NPM
     runs-on: ubuntu-22.04
     needs:
       - build
+    env:
+      ARTIFACT_FILENAME: ${{ needs.build.outputs.filename }}
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v2.1.1
         with:
-          name: 'tgz-package'
+          name: $ARTIFACT_FILENAME
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.8.1
         with:

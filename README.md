@@ -1,5 +1,8 @@
 # read-vietnamese-number
 
+[![Check code](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/check-code.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/check-code.yml)
+[![Publish package](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/publish-package.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/publish-package.yml)
+
 Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năng:
 
 - Hỗ trợ số âm, số thập phân, số lớn tùy ý (với cấu hình phù hợp)
@@ -188,9 +191,8 @@ Muốn đóng góp cho project?
 Pull request phù hợp sẽ được xem xét và hợp nhất:
 
 - Có mô tả rõ ràng
-- Đúng chuẩn code style (chạy `npm run lint`)
-- Pass các unit test (chạy `npm run test`)
-- Source code biên dịch được (chạy `npm run build`)
+- Tính năng phù hợp với dự án
+- Pass được CI pipeline khi tạo Pull request
 
 <a href="https://www.buymeacoffee.com/tonghoangvu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 

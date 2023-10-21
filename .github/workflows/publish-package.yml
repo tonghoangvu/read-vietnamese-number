@@ -2,17 +2,25 @@ name: Publish package
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/setup-cicd # Just for testing
 
 permissions:
   contents: read
 
 jobs:
+  check:
+    name: Check before publish
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check main branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Can only publish from the main branch"
+          exit 1
   build:
     name: Build
     runs-on: ubuntu-22.04
+    needs:
+      - check
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -47,6 +55,9 @@ jobs:
       - build
     env:
       ARTIFACT_FILENAME: ${{ needs.build.outputs.filename }}
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/read-vietnamese-number
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v2.1.1
@@ -58,6 +69,6 @@ jobs:
           node-version: '18.18.2'
           registry-url: https://registry.npmjs.org/
       - name: Run publish
-        run: npm publish ${{ env.ARTIFACT_FILENAME }} --dry-run
+        run: npm publish ${{ env.ARTIFACT_FILENAME }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

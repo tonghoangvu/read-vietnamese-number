@@ -56,7 +56,6 @@ jobs:
         uses: actions/setup-node@v3.8.1
         with:
           node-version: '18.18.2'
-          cache: 'npm'
           registry-url: https://registry.npmjs.org/
       - name: Run publish
         run: npm publish read-vietnamese-number.tgz --dry-run

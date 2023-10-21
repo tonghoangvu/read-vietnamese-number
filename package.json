@@ -8,6 +8,7 @@
 		"type": "git",
 		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
 	},
+	"homepage": "https://rvn.tonghoangvu.id.vn",
 	"author": {
 		"name": "Vu Tong",
 		"email": "tonghoangvu@outlook.com",

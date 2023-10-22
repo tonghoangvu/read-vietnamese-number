@@ -50,9 +50,9 @@
 	"types": "./dist/cjs/index.d.ts",
 	"main": "./dist/cjs/index.js",
 	"scripts": {
-		"lint": "prettier -c --no-editorconfig --ignore-unknown . && eslint --max-warnings 0 .",
+		"lint": "prettier -c --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
 		"test": "jest",
-		"clean": "del-cli -v dist/ coverage/ *.tgz",
+		"clean": "del-cli -v dist/ coverage/ .cache/ *.tgz",
 		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cpy package-cjs.json dist/cjs --rename=package.json",
 		"dryrun": "npm publish --dry-run && npm pack -q",
 		"prepare": "husky install"

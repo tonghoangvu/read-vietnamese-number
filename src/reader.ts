@@ -9,10 +9,18 @@ import {
 } from './type.js'
 import { splitToDigits, trimLeft, trimRight, validateNumber } from './util.js'
 
-export function readLastTwoDigits(config: ReadingConfig, b: Digit, c: Digit): string[] {
+export function readLastTwoDigits(
+	config: ReadingConfig,
+	b: Digit,
+	c: Digit,
+	readZeroTen: boolean
+): string[] {
 	const output: string[] = []
 	switch (b) {
 		case 0: {
+			if (readZeroTen && c !== 0) {
+				output.push(config.digits[b])
+			}
 			output.push(config.digits[c])
 			break
 		}
@@ -60,7 +68,7 @@ export function readThreeDigits(
 		}
 		output.push(config.oddText)
 	}
-	output.push(...readLastTwoDigits(config, b, c))
+	output.push(...readLastTwoDigits(config, b, c, false))
 	return output
 }
 
@@ -142,7 +150,7 @@ export function readFractionalPart(config: ReadingConfig, digits: Digit[]): stri
 	switch (digits.length) {
 		case 2: {
 			const [b, c] = digits
-			output.push(...readLastTwoDigits(config, b, c))
+			output.push(...readLastTwoDigits(config, b, c, true))
 			break
 		}
 		case 3: {

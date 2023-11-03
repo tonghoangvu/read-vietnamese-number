@@ -25,20 +25,36 @@ describe('Read the last two digits function', () => {
 	const config = new ReadingConfig()
 	config.unit = []
 
-	it('Should return value', () => {
-		expect(readLastTwoDigits(config, 0, 0)).toEqual(['không'])
-		expect(readLastTwoDigits(config, 0, 3)).toEqual(['ba'])
+	it('Should return without zero ten', () => {
+		expect(readLastTwoDigits(config, 0, 0, false)).toEqual(['không'])
+		expect(readLastTwoDigits(config, 0, 3, false)).toEqual(['ba'])
 
-		expect(readLastTwoDigits(config, 1, 5)).toEqual(['mười', 'lăm'])
-		expect(readLastTwoDigits(config, 1, 6)).toEqual(['mười', 'sáu'])
-		expect(readLastTwoDigits(config, 1, 0)).toEqual(['mười'])
+		expect(readLastTwoDigits(config, 1, 5, false)).toEqual(['mười', 'lăm'])
+		expect(readLastTwoDigits(config, 1, 6, false)).toEqual(['mười', 'sáu'])
+		expect(readLastTwoDigits(config, 1, 0, false)).toEqual(['mười'])
 
-		expect(readLastTwoDigits(config, 5, 1)).toEqual(['năm', 'mươi', 'mốt'])
-		expect(readLastTwoDigits(config, 5, 4)).toEqual(['năm', 'mươi', 'tư'])
-		expect(readLastTwoDigits(config, 4, 4)).toEqual(['bốn', 'mươi', 'tư'])
-		expect(readLastTwoDigits(config, 8, 5)).toEqual(['tám', 'mươi', 'lăm'])
-		expect(readLastTwoDigits(config, 8, 2)).toEqual(['tám', 'mươi', 'hai'])
-		expect(readLastTwoDigits(config, 8, 0)).toEqual(['tám', 'mươi'])
+		expect(readLastTwoDigits(config, 5, 1, false)).toEqual(['năm', 'mươi', 'mốt'])
+		expect(readLastTwoDigits(config, 5, 4, false)).toEqual(['năm', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 4, 4, false)).toEqual(['bốn', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 8, 5, false)).toEqual(['tám', 'mươi', 'lăm'])
+		expect(readLastTwoDigits(config, 8, 2, false)).toEqual(['tám', 'mươi', 'hai'])
+		expect(readLastTwoDigits(config, 8, 0, false)).toEqual(['tám', 'mươi'])
+	})
+
+	it('Should return with zero ten', () => {
+		expect(readLastTwoDigits(config, 0, 0, true)).toEqual(['không'])
+		expect(readLastTwoDigits(config, 0, 3, true)).toEqual(['không', 'ba'])
+
+		expect(readLastTwoDigits(config, 1, 5, true)).toEqual(['mười', 'lăm'])
+		expect(readLastTwoDigits(config, 1, 6, true)).toEqual(['mười', 'sáu'])
+		expect(readLastTwoDigits(config, 1, 0, true)).toEqual(['mười'])
+
+		expect(readLastTwoDigits(config, 5, 1, true)).toEqual(['năm', 'mươi', 'mốt'])
+		expect(readLastTwoDigits(config, 5, 4, true)).toEqual(['năm', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 4, 4, true)).toEqual(['bốn', 'mươi', 'tư'])
+		expect(readLastTwoDigits(config, 8, 5, true)).toEqual(['tám', 'mươi', 'lăm'])
+		expect(readLastTwoDigits(config, 8, 2, true)).toEqual(['tám', 'mươi', 'hai'])
+		expect(readLastTwoDigits(config, 8, 0, true)).toEqual(['tám', 'mươi'])
 	})
 })
 
@@ -305,5 +321,7 @@ describe('Do read number function', () => {
 		expect(doReadNumber(config, '-123,456.7,89')).toBe(
 			'âm một trăm hai mươi ba nghìn bốn trăm năm mươi sáu chấm bảy trăm tám mươi chín'
 		)
+		expect(doReadNumber(config, '000100.01')).toBe('một trăm chấm không một')
+		expect(doReadNumber(config, '000100.10')).toBe('một trăm chấm một')
 	})
 })

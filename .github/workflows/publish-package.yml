@@ -58,7 +58,7 @@ jobs:
       url: https://www.npmjs.com/package/read-vietnamese-number
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v2.1.1
+        uses: actions/download-artifact@v3.0.2
         with:
           name: ${{ env.ARTIFACT_FILENAME }}
       - name: Setup Node.js environment

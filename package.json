@@ -53,7 +53,7 @@
 		"lint": "prettier -c --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
 		"test": "jest",
 		"clean": "del-cli -v dist/ coverage/ .cache/ *.tgz",
-		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && echo {\"type\": \"commonjs\"} >> dist/cjs/package.json",
+		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' >> dist/cjs/package.json",
 		"dryrun": "npm publish --dry-run && npm pack -q",
 		"prepare": "husky install"
 	},

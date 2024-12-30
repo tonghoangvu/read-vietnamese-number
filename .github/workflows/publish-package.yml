@@ -21,8 +21,6 @@ jobs:
         if: github.ref != 'refs/heads/main' && inputs.dry-run == false
         run: |
           echo "::error::Can only publish from the main branch"
-          echo "Current branch: ${{ github.ref }}"
-          echo "Dry run: ${{ inputs.dry-run }}"
           exit 1
   build:
     name: Build

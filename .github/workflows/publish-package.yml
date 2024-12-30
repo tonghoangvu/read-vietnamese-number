@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check run conditions
-        if: github.ref != 'refs/heads/main' && !inputs.dry-run
+        if: github.ref != 'refs/heads/main' && inputs.dry-run == false
         run: |
           echo "::error::Can only publish from the main branch"
           echo "Current branch: ${{ github.ref }}"
@@ -59,7 +59,7 @@ jobs:
     name: Publish to NPM
     runs-on: ubuntu-22.04
     needs: [build]
-    if: !inputs.dry-run
+    if: inputs.dry-run == false
     env:
       ARTIFACT_FILENAME: ${{ needs.build.outputs.filename }}
     environment:

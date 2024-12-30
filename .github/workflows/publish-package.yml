@@ -2,6 +2,12 @@ name: Publish package
 
 on:
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Dry run (no publish)
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -11,8 +17,8 @@ jobs:
     name: Check before publish
     runs-on: ubuntu-22.04
     steps:
-      - name: Check main branch
-        if: github.ref != 'refs/heads/main'
+      - name: Check run conditions
+        if: github.ref != 'refs/heads/main' && inputs.dry-run == false
         run: |
           echo "::error::Can only publish from the main branch"
           exit 1
@@ -51,6 +57,7 @@ jobs:
     name: Publish to NPM
     runs-on: ubuntu-22.04
     needs: [build]
+    if: inputs.dry-run == false
     env:
       ARTIFACT_FILENAME: ${{ needs.build.outputs.filename }}
     environment:

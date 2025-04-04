@@ -46,7 +46,7 @@ jobs:
         id: run-package
         run: echo "filename=$(npm pack -q)" >> "$GITHUB_OUTPUT"
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ steps.run-package.outputs.filename }}
           path: ${{ steps.run-package.outputs.filename }}
@@ -65,7 +65,7 @@ jobs:
       url: https://www.npmjs.com/package/read-vietnamese-number
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v4.2.1
         with:
           name: ${{ env.ARTIFACT_FILENAME }}
       - name: Setup Node.js environment

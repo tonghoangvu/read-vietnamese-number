@@ -5,7 +5,7 @@
 
 Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năng:
 
-- Hỗ trợ số âm, số thập phân, số lớn tùy ý (với cấu hình phù hợp)
+- Hỗ trợ số âm, số thập phân, số lớn tùy ý
 - Có nhiều tùy chọn: đơn vị tính, dấu phân tách,...
 - Hoạt động tốt trong trình duyệt và Node.js
 
@@ -50,7 +50,6 @@ Cách sử dụng gồm 3 bước:
 import {
   InvalidFormatError,
   InvalidNumberError,
-  NotEnoughUnitError,
   ReadingConfig,
   doReadNumber,
 } from 'read-vietnamese-number' // or CDN URL
@@ -70,24 +69,24 @@ try {
     console.error('Định dạng input không hợp lệ')
   } else if (err instanceof InvalidNumberError) {
     console.error('Số không hợp lệ')
-  } else if (err instanceof NotEnoughUnitError) {
-    console.error('Không đủ đơn vị đọc số')
   }
 }
 ```
 
 ### Error handling
 
-Thư viện ném ra 3 loại `RvnError` sau nếu có lỗi trong quá trình đọc số:
+Thư viện ném ra 2 loại `RvnError` sau nếu có lỗi trong quá trình đọc số:
 
 - `InvalidFormatError` khi input không hợp lệ
 - `InvalidNumberError` khi số chứa ký tự không hợp lệ
-- `NotEnoughUnitError` khi không đủ đơn vị đọc số
 
 Hàm `doReadNumber()` chấp nhận input là `string` và `bigint`, ném `InvalidFormatError` với các trường hợp khác.
 Hành vi này liên quan đến các vấn đề định dạng số của JavaScript (tràn số, mất độ chính xác,...).
 
-Với `NotEnoughUnitError`, nguyên nhân do cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
+Từ version 2.2.0, thư viện hỗ trợ đọc số với độ lớn không giới hạn.
+Nên nâng cấp lên version này để tránh các vấn đề khi đọc số lớn (issue [#38](https://github.com/tonghoangvu/read-vietnamese-number/issues/38)).
+
+Với các version cũ hơn, thư viện sẽ ném `NotEnoughUnitError` nếu cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
 Nên giới hạn độ lớn số nhập vào cho phù hợp với các đơn vị hiện có (mặc định hỗ trợ đến `tỉ tỉ`).
 Ngoài ra có thể xử lý bằng cách thêm các đơn vị lớn hơn vào cấu hình (không khuyến khích).
 

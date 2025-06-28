@@ -5,7 +5,6 @@ export type InputNumber = string | bigint
 export class RvnError extends Error {}
 export class InvalidFormatError extends RvnError {}
 export class InvalidNumberError extends RvnError {}
-export class NotEnoughUnitError extends RvnError {}
 
 export interface NumberData {
 	isNegative: boolean
@@ -23,7 +22,7 @@ export class ReadingConfig {
 	public filledDigit = '0'
 
 	public digits = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín']
-	public units = [[], ['nghìn'], ['triệu'], ['tỉ'], ['nghìn', 'tỉ'], ['triệu', 'tỉ'], ['tỉ', 'tỉ']]
+	public units = [[], ['nghìn'], ['triệu'], ['tỉ']]
 
 	public negativeText = 'âm'
 	public pointText = 'chấm'

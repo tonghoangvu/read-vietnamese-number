@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from '@jest/globals'
 
-import {
-	InvalidFormatError,
-	InvalidNumberError,
-	NotEnoughUnitError,
-	NumberData,
-	ReadingConfig,
-} from '../src/type.js'
+import { InvalidFormatError, InvalidNumberError, NumberData, ReadingConfig } from '../src/type.js'
 import {
 	readLastTwoDigits,
 	readThreeDigits,
@@ -159,16 +153,6 @@ describe('Parse number data function', () => {
 		expect(() => parseNumberData(config, '--12.34')).toThrowError(InvalidNumberError)
 	})
 
-	it('Should throw NotEnoughUnitError', () => {
-		expect(() => parseNumberData(config, '1234567890123456789012')).toThrowError(NotEnoughUnitError)
-		expect(() => parseNumberData(config, '123456789012345678901')).not.toThrowError(
-			NotEnoughUnitError
-		)
-		expect(() => parseNumberData(config, '123456789012345678901.123456789')).not.toThrowError(
-			NotEnoughUnitError
-		)
-	})
-
 	it('Should return empty data', () => {
 		expect(parseNumberData(config, '')).toEqual({
 			isNegative: false,
@@ -282,14 +266,6 @@ describe('Do read number function', () => {
 		expect(() => doReadNumber(config, 'abc123')).toThrowError(InvalidNumberError)
 	})
 
-	it('Should throw NotEnoughUnitError', () => {
-		expect(() => doReadNumber(config, '1234567890123456789012')).toThrowError(NotEnoughUnitError)
-		expect(() => doReadNumber(config, '123456789012345678901')).not.toThrowError(NotEnoughUnitError)
-		expect(() => doReadNumber(config, '123456789012345678901.123456789')).not.toThrowError(
-			NotEnoughUnitError
-		)
-	})
-
 	it('Should return zero', () => {
 		expect(doReadNumber(config, '')).toBe('không')
 		expect(doReadNumber(config, '0')).toBe('không')
@@ -311,6 +287,16 @@ describe('Do read number function', () => {
 		)
 		expect(doReadNumber(config, '00,123,456')).toBe(
 			'một trăm hai mươi ba nghìn bốn trăm năm mươi sáu'
+		)
+		expect(doReadNumber(config, '1,200,000,000,000')).toBe('một nghìn hai trăm tỉ')
+		expect(doReadNumber(config, '1,200,300,000,000,000')).toBe(
+			'một triệu hai trăm nghìn ba trăm tỉ'
+		)
+		expect(doReadNumber(config, '1,200,300,400,000,000,000')).toBe(
+			'một tỉ hai trăm triệu ba trăm nghìn bốn trăm tỉ'
+		)
+		expect(doReadNumber(config, '12,345,678,900,000,000,000')).toBe(
+			'mười hai tỉ ba trăm bốn mươi lăm triệu sáu trăm bảy mươi tám nghìn chín trăm tỉ'
 		)
 	})
 

@@ -270,7 +270,7 @@ describe('Do read number function', () => {
 		expect(() => doReadNumber(config, null as any as string)).toThrowError(InvalidFormatError)
 		expect(() => doReadNumber(config, -0.12345 as any as string)).toThrowError(InvalidFormatError)
 		expect(() =>
-			// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+			// eslint-disable-next-line no-loss-of-precision
 			doReadNumber(config, -1234567890123456789012 as any as string)
 		).toThrowError(InvalidFormatError)
 	})

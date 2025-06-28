@@ -2,7 +2,6 @@ import {
 	Digit,
 	InputNumber,
 	InvalidNumberError,
-	NotEnoughUnitError,
 	NumberData,
 	Period,
 	ReadingConfig,
@@ -122,8 +121,6 @@ export function parseNumberData(config: ReadingConfig, number: string): NumberDa
 	const integralPart = zipIntegralPeriods(config, integralDigits)
 	if (integralPart.length === 0) {
 		integralPart.push([0, 0, 0])
-	} else if (integralPart.length > config.units.length) {
-		throw new NotEnoughUnitError('Unit not enough')
 	}
 	const fractionalPart = fractionalDigits
 	return { isNegative, integralPart, fractionalPart }
@@ -131,15 +128,20 @@ export function parseNumberData(config: ReadingConfig, number: string): NumberDa
 
 export function readIntegralPart(config: ReadingConfig, periods: Period[]): string[] {
 	const output: string[] = []
-	const isSinglePeriod = periods.length === 1
 	for (const [index, period] of periods.entries()) {
-		const isFirstPeriod = index === 0
 		const [a, b, c] = period
+		const isSinglePeriod = periods.length === 1
+		const reverseIndex = periods.length - 1 - index
+		const periodLimit = config.units.length - 1
 		if (a !== 0 || b !== 0 || c !== 0 || isSinglePeriod) {
+			const isFirstPeriod = index === 0
 			output.push(
 				...readThreeDigits(config, a, b, c, !isFirstPeriod),
-				...config.units[periods.length - 1 - index]
+				...config.units[reverseIndex % periodLimit]
 			)
+		}
+		if (reverseIndex % periodLimit === 0 && reverseIndex !== 0) {
+			output.push(...config.units[periodLimit])
 		}
 	}
 	return output

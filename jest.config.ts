@@ -26,7 +26,6 @@ const config: Config = {
 			'ts-jest',
 			{
 				useESM: true,
-				isolatedModules: true, // Test faster by skip type-checking
 				// Set target to ES2020 to use bigint in tests
 				tsconfig: 'tsconfig.jest.json',
 			},

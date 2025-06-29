@@ -4,9 +4,80 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>read-vietnamese-number</title>
+		<link rel="icon" href="./favicon.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap"
+		/>
+		<link rel="stylesheet" href="https://unpkg.com/papercss@1.9.2/dist/paper.min.css" />
 		<link rel="stylesheet" href="./index.css" />
 	</head>
-	<body>
+	<body class="disable-selection">
+		<div class="container paper text-center">
+			<h3 class="text-secondary margin">Live demo</h3>
+			<main class="row flex-center tabs">
+				<!-- Tabs -->
+				<input type="radio" id="tab1" name="tabs" checked />
+				<label for="tab1">Demo</label>
+				<input type="radio" id="tab2" name="tabs" disabled />
+				<label for="tab2" class="disabled">Options</label>
+				<input type="radio" id="tab3" name="tabs" />
+				<label for="tab3">About</label>
+				<!-- Demo page -->
+				<div class="content" id="content1">
+					<div class="row flex-center">
+						<div class="col">
+							<div>
+								<label for="number">Enter a number</label>
+								<!-- Don't use numeric input -->
+								<input id="number" placeholder="How about -3.14" autofocus />
+							</div>
+							<div class="margin-top margin-bottom-none alert alert-muted">
+								Please enter a number
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Options page -->
+				<div class="content" id="content2"></div>
+				<!-- About page -->
+				<div class="content" id="content3">
+					<div class="row flex-center">
+						<div class="col">
+							<figure class="margin-none">
+								<img src="./favicon.png" alt="Read Vietnamese Number logo" />
+							</figure>
+							<h4 class="margin-top margin-bottom">Read Vietnamese Number</h4>
+							<p>
+								Convert numbers to words in Vietnamese<br />
+								Support JavaScript & TypeScript
+							</p>
+							<div>
+								<a href="https://www.npmjs.com/package/read-vietnamese-number" target="_blank">
+									Published on NPM
+								</a>
+							</div>
+							<div>
+								<a href="https://github.com/tonghoangvu/read-vietnamese-number" target="_blank">
+									Checkout GitHub repository
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<hr class="margin-bottom-large" />
+			<footer>
+				<p>
+					Design by <a href="https://www.getpapercss.com/" target="_blank">PaperCSS</a>
+					&mdash;
+					<a href="https://icons8.com/icon/FDoWrXB7G9Rc/99" target="_blank">99</a>
+					icon by <a href="https://icons8.com" target="_blank">Icons8</a>
+				</p>
+			</footer>
+		</div>
 		<script src="./index.js" type="module"></script>
 	</body>
 </html>

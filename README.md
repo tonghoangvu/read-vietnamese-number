@@ -27,7 +27,7 @@ yarn add read-vietnamese-number
 ```
 
 Hoặc sử dụng trực tiếp trong browser thông qua CDN (hoặc tự host).
-Chú ý nên kèm theo version cố định trong CDN URL, ví dụ như https://unpkg.com/read-vietnamese-number@2.0.0.
+Chú ý nên kèm theo version cố định trong CDN URL, ví dụ như https://unpkg.com/read-vietnamese-number@2.0.0 (không phải version mới nhất).
 
 ```html
 <script type="module">

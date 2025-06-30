@@ -54,8 +54,8 @@
 	"types": "./dist/cjs/index.d.ts",
 	"main": "./dist/cjs/index.js",
 	"scripts": {
-		"format": "prettier -w --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata .",
-		"lint": "prettier -c --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
+		"format": "prettier -w --no-editorconfig --ignore-unknown --ignore-path .gitignore --cache --cache-location .cache/.prettiercache --cache-strategy metadata .",
+		"lint": "prettier -c --no-editorconfig --ignore-unknown --ignore-path .gitignore --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --ignore-path .gitignore --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
 		"test": "jest",
 		"clean": "del-cli -v dist/ coverage/ .cache/ *.tgz",
 		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cpy package-cjs.json dist/cjs --rename=package.json",

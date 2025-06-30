@@ -54,12 +54,12 @@
 	"types": "./dist/cjs/index.d.ts",
 	"main": "./dist/cjs/index.js",
 	"scripts": {
+		"format": "prettier -w --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata .",
 		"lint": "prettier -c --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
 		"test": "jest",
 		"clean": "del-cli -v dist/ coverage/ .cache/ *.tgz",
 		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cpy package-cjs.json dist/cjs --rename=package.json",
-		"dryrun": "npm publish --dry-run && npm pack -q",
-		"prepare": "husky install"
+		"dryrun": "npm publish --dry-run && npm pack -q"
 	},
 	"devDependencies": {
 		"@jest/globals": "^29.4.2",
@@ -69,9 +69,7 @@
 		"del-cli": "^5.0.0",
 		"eslint": "^8.8.0",
 		"eslint-config-prettier": "^9.0.0",
-		"husky": "^8.0.3",
 		"jest": "^29.4.2",
-		"lint-staged": "^15.0.2",
 		"prettier": "^3.0.3",
 		"ts-jest": "^29.0.5",
 		"ts-node": "^10.9.1",

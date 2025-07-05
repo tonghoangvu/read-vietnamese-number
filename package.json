@@ -1,59 +1,8 @@
 {
 	"name": "read-vietnamese-number",
+	"description": "Convert numbers to text in Vietnamese",
 	"version": "2.2.1",
-	"description": "Đọc số thành chữ trong Tiếng Việt",
-	"private": false,
 	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
-	},
-	"homepage": "https://rvn.tonghoangvu.id.vn",
-	"author": {
-		"name": "Vu Tong",
-		"email": "tonghoangvu@outlook.com",
-		"url": "https://github.com/tonghoangvu"
-	},
-	"funding": "https://github.com/sponsors/tonghoangvu",
-	"keywords": [
-		"vn",
-		"vietnam",
-		"vietnamese",
-		"convert",
-		"read",
-		"number",
-		"digit",
-		"text",
-		"language",
-		"rvn",
-		"vnd",
-		"currency",
-		"money"
-	],
-	"files": [
-		"dist",
-		"!*.tsbuildinfo"
-	],
-	"type": "module",
-	"exports": {
-		".": {
-			"import": {
-				"types": "./dist/esm/index.d.ts",
-				"default": "./dist/esm/index.js"
-			},
-			"require": {
-				"types": "./dist/cjs/index.d.ts",
-				"default": "./dist/cjs/index.js"
-			},
-			"default": {
-				"types": "./dist/esm/index.d.ts",
-				"default": "./dist/esm/index.js"
-			}
-		},
-		"./package.json": "./package.json"
-	},
-	"types": "./dist/cjs/index.d.ts",
-	"main": "./dist/cjs/index.js",
 	"scripts": {
 		"format": "prettier -w --ignore-path .gitignore .",
 		"lint": "prettier -c --ignore-path .gitignore . && eslint --max-warnings 0 --ignore-path .gitignore .",
@@ -75,5 +24,52 @@
 		"ts-jest": "^29.0.5",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.2.2"
-	}
+	},
+	"files": [
+		"dist",
+		"!*.tsbuildinfo"
+	],
+	"type": "module",
+	"types": "./dist/cjs/index.d.ts",
+	"main": "./dist/cjs/index.js",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/esm/index.d.ts",
+				"default": "./dist/esm/index.js"
+			},
+			"require": {
+				"types": "./dist/cjs/index.d.ts",
+				"default": "./dist/cjs/index.js"
+			},
+			"default": {
+				"types": "./dist/esm/index.d.ts",
+				"default": "./dist/esm/index.js"
+			}
+		},
+		"./package.json": "./package.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
+	},
+	"homepage": "https://rvn.tonghoangvu.id.vn",
+	"author": {
+		"name": "Vu Tong",
+		"email": "tonghoangvu@outlook.com",
+		"url": "https://github.com/tonghoangvu"
+	},
+	"funding": "https://github.com/sponsors/tonghoangvu",
+	"keywords": [
+		"convert",
+		"read",
+		"number",
+		"text",
+		"vn",
+		"vietnam",
+		"vietnamese",
+		"currency",
+		"money",
+		"vnd"
+	]
 }

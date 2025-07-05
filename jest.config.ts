@@ -1,9 +1,7 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-	preset: 'ts-jest',
-	testEnvironment: 'node',
-	maxWorkers: '50%',
+	preset: 'ts-jest/presets/default-esm',
 	collectCoverage: true,
 	collectCoverageFrom: ['./src/**'],
 	coveragePathIgnorePatterns: ['./src/index.ts'],
@@ -11,11 +9,10 @@ const config: Config = {
 		global: {
 			branches: 100,
 			functions: 100,
-			lines: 90,
-			statements: 90,
+			lines: 100,
+			statements: 100,
 		},
 	},
-
 	// https://kulshekhar.github.io/ts-jest/docs/guides/esm-support/
 	extensionsToTreatAsEsm: ['.ts'],
 	moduleNameMapper: {
@@ -26,7 +23,6 @@ const config: Config = {
 			'ts-jest',
 			{
 				useESM: true,
-				// Set target to ES2020 to use bigint in tests
 				tsconfig: 'tsconfig.jest.json',
 			},
 		],

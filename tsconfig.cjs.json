@@ -1,7 +1,10 @@
 {
 	"compilerOptions": {
 		"module": "CommonJS",
-		"outDir": "dist/cjs"
+		"outDir": "dist/cjs",
+		"tsBuildInfoFile": "dist/cjs/.tsbuildinfo",
+		"rootDir": "src"
 	},
+	"include": ["src/**/*.ts"],
 	"extends": "./tsconfig.json"
 }

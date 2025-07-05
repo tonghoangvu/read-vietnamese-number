@@ -1,39 +1,37 @@
 {
 	"name": "read-vietnamese-number",
+	"description": "Convert numbers to text in Vietnamese",
 	"version": "2.2.1",
-	"description": "Đọc số thành chữ trong Tiếng Việt",
-	"private": false,
 	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
+	"scripts": {
+		"format": "prettier -w --ignore-path .gitignore .",
+		"lint": "prettier -c --ignore-path .gitignore . && eslint --max-warnings 0 --ignore-path .gitignore .",
+		"test": "jest",
+		"clean": "del-cli -v dist/ coverage/ *.tgz",
+		"build": "tsc -b && cpy package-cjs.json dist/cjs --rename=package.json",
+		"dryrun": "npm publish --dry-run && npm pack -q"
 	},
-	"homepage": "https://rvn.tonghoangvu.id.vn",
-	"author": {
-		"name": "Vu Tong",
-		"email": "tonghoangvu@outlook.com",
-		"url": "https://github.com/tonghoangvu"
+	"devDependencies": {
+		"@jest/globals": "^29.4.2",
+		"@typescript-eslint/eslint-plugin": "^8.35.0",
+		"@typescript-eslint/parser": "^8.35.0",
+		"cpy-cli": "^5.0.0",
+		"del-cli": "^5.0.0",
+		"eslint": "^8.8.0",
+		"eslint-config-prettier": "^9.0.0",
+		"jest": "^29.4.2",
+		"prettier": "^3.0.3",
+		"ts-jest": "^29.0.5",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2"
 	},
-	"funding": "https://github.com/sponsors/tonghoangvu",
-	"keywords": [
-		"vn",
-		"vietnam",
-		"vietnamese",
-		"convert",
-		"read",
-		"number",
-		"digit",
-		"text",
-		"language",
-		"rvn",
-		"vnd",
-		"currency",
-		"money"
-	],
 	"files": [
-		"dist"
+		"dist",
+		"!*.tsbuildinfo"
 	],
 	"type": "module",
+	"types": "./dist/cjs/index.d.ts",
+	"main": "./dist/cjs/index.js",
 	"exports": {
 		".": {
 			"import": {
@@ -51,30 +49,27 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"types": "./dist/cjs/index.d.ts",
-	"main": "./dist/cjs/index.js",
-	"scripts": {
-		"lint": "prettier -c --no-editorconfig --ignore-unknown --cache --cache-location .cache/.prettiercache --cache-strategy metadata . && eslint --max-warnings 0 --cache --cache-location .cache/.eslintcache --cache-strategy metadata .",
-		"test": "jest",
-		"clean": "del-cli -v dist/ coverage/ .cache/ *.tgz",
-		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cpy package-cjs.json dist/cjs --rename=package.json",
-		"dryrun": "npm publish --dry-run && npm pack -q",
-		"prepare": "husky install"
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
 	},
-	"devDependencies": {
-		"@jest/globals": "^29.4.2",
-		"@typescript-eslint/eslint-plugin": "^8.35.0",
-		"@typescript-eslint/parser": "^8.35.0",
-		"cpy-cli": "^5.0.0",
-		"del-cli": "^5.0.0",
-		"eslint": "^8.8.0",
-		"eslint-config-prettier": "^9.0.0",
-		"husky": "^8.0.3",
-		"jest": "^29.4.2",
-		"lint-staged": "^15.0.2",
-		"prettier": "^3.0.3",
-		"ts-jest": "^29.0.5",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.2.2"
-	}
+	"homepage": "https://rvn.tonghoangvu.id.vn",
+	"author": {
+		"name": "Vu Tong",
+		"email": "tonghoangvu@outlook.com",
+		"url": "https://github.com/tonghoangvu"
+	},
+	"funding": "https://github.com/sponsors/tonghoangvu",
+	"keywords": [
+		"convert",
+		"read",
+		"number",
+		"text",
+		"vn",
+		"vietnam",
+		"vietnamese",
+		"currency",
+		"money",
+		"vnd"
+	]
 }

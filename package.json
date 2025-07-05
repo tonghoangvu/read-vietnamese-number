@@ -31,7 +31,8 @@
 		"money"
 	],
 	"files": [
-		"dist"
+		"dist",
+		"!*.tsbuildinfo"
 	],
 	"type": "module",
 	"exports": {
@@ -58,7 +59,7 @@
 		"lint": "prettier -c --ignore-path .gitignore . && eslint --max-warnings 0 --ignore-path .gitignore .",
 		"test": "jest",
 		"clean": "del-cli -v dist/ coverage/ *.tgz",
-		"build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && cpy package-cjs.json dist/cjs --rename=package.json",
+		"build": "tsc -b && cpy package-cjs.json dist/cjs --rename=package.json",
 		"dryrun": "npm publish --dry-run && npm pack -q"
 	},
 	"devDependencies": {

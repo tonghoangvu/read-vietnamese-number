@@ -16,7 +16,6 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"noPropertyAccessFromIndexSignature": true,
-		"exactOptionalPropertyTypes": true,
 		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["tsconfig.esm.json", "tsconfig.cjs.json"],

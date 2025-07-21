@@ -13,11 +13,6 @@ body {
 	padding: 5vw 0;
 }
 
-img {
-	margin-left: auto;
-	margin-right: auto;
-}
-
 b,
 strong {
 	font-weight: 600;
@@ -31,6 +26,15 @@ strong {
 	user-select: none;
 }
 
+#number-label {
+	padding-top: 0;
+}
+
 #number {
 	display: unset;
+}
+
+#logo {
+	margin-left: auto;
+	margin-right: auto;
 }

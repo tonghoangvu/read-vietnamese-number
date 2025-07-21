@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>read-vietnamese-number</title>
+		<title>Read Vietnamese Number</title>
 		<link rel="icon" href="./favicon.png" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,39 +19,37 @@
 			<h3 class="text-secondary margin">Live demo</h3>
 			<main class="row flex-center tabs">
 				<!-- Tabs -->
-				<input type="radio" id="tab1" name="tabs" checked />
+				<input id="tab1" type="radio" name="tabs" checked />
 				<label for="tab1">Demo</label>
-				<input type="radio" id="tab2" name="tabs" disabled />
+				<input id="tab2" type="radio" name="tabs" disabled />
 				<label for="tab2" class="disabled">Options</label>
-				<input type="radio" id="tab3" name="tabs" />
+				<input id="tab3" type="radio" name="tabs" />
 				<label for="tab3">About</label>
 				<!-- Demo page -->
-				<div class="content" id="content1">
+				<div id="content1" class="content">
 					<div class="row flex-center">
 						<div class="col">
 							<div>
-								<label for="number">Enter a number</label>
+								<label id="number-label" for="number">Enter a number</label>
 								<!-- Don't use numeric input -->
 								<input id="number" placeholder="How about -3.14" autofocus />
 							</div>
-							<div class="margin-top margin-bottom-none alert alert-muted">
-								Please enter a number
-							</div>
+							<div id="result" class="margin-top margin-bottom-none alert" hidden></div>
 						</div>
 					</div>
 				</div>
 				<!-- Options page -->
-				<div class="content" id="content2"></div>
+				<div id="content2" class="content"></div>
 				<!-- About page -->
-				<div class="content" id="content3">
+				<div id="content3" class="content">
 					<div class="row flex-center">
 						<div class="col">
 							<figure class="margin-none">
-								<img src="./favicon.png" alt="Read Vietnamese Number logo" />
+								<img id="logo" src="./favicon.png" alt="Read Vietnamese Number logo" />
 							</figure>
 							<h4 class="margin-top margin-bottom">Read Vietnamese Number</h4>
 							<p>
-								Convert numbers to words in Vietnamese<br />
+								Convert numbers to text in Vietnamese<br />
 								Support JavaScript & TypeScript
 							</p>
 							<div>

@@ -1,0 +1,37 @@
+* {
+	font-family: 'Mali', cursive !important; /* Override PaperCSS font */
+	font-size: 18px;
+}
+
+html {
+	background-color: var(--main-background); /* Fix PaperCSS doesn't have background color */
+	scroll-behavior: smooth;
+	scrollbar-gutter: stable; /* Prevent content jumping */
+}
+
+body {
+	padding: 5vw 0;
+	user-select: none;
+}
+
+b,
+strong {
+	font-weight: 600;
+}
+
+.row {
+	margin-bottom: unset;
+}
+
+#number-label {
+	padding-top: 0;
+}
+
+#number {
+	display: unset;
+}
+
+#logo {
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -12,7 +12,7 @@ Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năn
 Hỗ trợ TypeScript, tương thích với JavaScript từ ES6 trở lên.
 Hoạt động với các module system như ESM và CommonJS.
 
-Live demo tại https://rvn.tonghoangvu.id.vn.
+Live demo tại https://tonghoangvu.github.io/read-vietnamese-number/.
 
 ## Installation
 

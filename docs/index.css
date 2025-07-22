@@ -11,6 +11,7 @@ html {
 
 body {
 	padding: 5vw 0;
+	user-select: none;
 }
 
 b,
@@ -20,10 +21,6 @@ strong {
 
 .row {
 	margin-bottom: unset;
-}
-
-.disable-selection {
-	user-select: none;
 }
 
 #number-label {

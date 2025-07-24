@@ -14,6 +14,13 @@ Hoạt động với các module system như ESM và CommonJS.
 
 Live demo tại https://tonghoangvu.github.io/read-vietnamese-number/.
 
+Bạn cũng có thể test nhanh thư viện với `npx` command mà không cần cài đặt.
+
+```bash
+npx read-vietnamese-number 3.14
+# ba chấm mười bốn đơn vị
+```
+
 ## Installation
 
 Cài đặt thư viện với NPM, Yarn hoặc các package manager khác.

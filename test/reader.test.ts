@@ -278,6 +278,7 @@ describe('Do read number function', () => {
 	it('Should return integer value', () => {
 		expect(doReadNumber(config, '02')).toBe('hai')
 		expect(doReadNumber(config, '15')).toBe('mười lăm')
+		expect(doReadNumber(config, '321')).toBe('ba trăm hai mươi mốt')
 		expect(doReadNumber(config, '4065')).toBe('bốn nghìn không trăm sáu mươi lăm')
 		expect(doReadNumber(config, '06000')).toBe('sáu nghìn')
 		expect(doReadNumber(config, '1000024')).toBe('một triệu không trăm hai mươi tư')

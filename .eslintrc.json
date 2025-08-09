@@ -10,6 +10,8 @@
 		"plugin:@typescript-eslint/strict",
 		"plugin:@typescript-eslint/stylistic",
 		"plugin:jsdoc/recommended-typescript",
+		"plugin:jest/recommended",
+		"plugin:jest/style",
 		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
@@ -17,7 +19,7 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint", "jsdoc"],
+	"plugins": ["@typescript-eslint", "jsdoc", "jest"],
 	"rules": {
 		"eqeqeq": "warn",
 		"no-console": "warn",

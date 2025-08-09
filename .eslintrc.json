@@ -9,6 +9,7 @@
 		"eslint:recommended",
 		"plugin:@typescript-eslint/strict",
 		"plugin:@typescript-eslint/stylistic",
+		"plugin:jsdoc/recommended-typescript",
 		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
@@ -16,10 +17,27 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint"],
+	"plugins": ["@typescript-eslint", "jsdoc"],
 	"rules": {
 		"eqeqeq": "warn",
 		"no-console": "warn",
+		"jsdoc/require-description": "warn",
+		"jsdoc/require-jsdoc": [
+			"warn",
+			{
+				"publicOnly": true,
+				"require": {
+					"ArrowFunctionExpression": true,
+					"ClassDeclaration": true,
+					"ClassExpression": true,
+					"FunctionDeclaration": true,
+					"FunctionExpression": true,
+					"MethodDefinition": true
+				}
+			}
+		],
+		"jsdoc/require-throws": "warn",
+		"jsdoc/tag-lines": ["warn", "any", { "startLines": 1 }],
 		"no-debugger": "error",
 		"curly": "error"
 	}

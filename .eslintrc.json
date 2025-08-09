@@ -21,8 +21,10 @@
 	},
 	"plugins": ["@typescript-eslint", "jsdoc", "jest"],
 	"rules": {
+		"curly": "warn",
 		"eqeqeq": "warn",
 		"no-console": "warn",
+		"sort-imports": "warn",
 		"jsdoc/require-description": "warn",
 		"jsdoc/require-jsdoc": [
 			"warn",
@@ -39,8 +41,15 @@
 			}
 		],
 		"jsdoc/require-throws": "warn",
-		"jsdoc/tag-lines": ["warn", "any", { "startLines": 1 }],
-		"no-debugger": "error",
-		"curly": "error"
-	}
+		"jsdoc/sort-tags": "warn",
+		"jsdoc/tag-lines": ["warn", "any", { "startLines": 1 }]
+	},
+	"overrides": [
+		{
+			"files": ["*.ts", "*.mts", "*.cts", "*.tsx"],
+			"rules": {
+				"@typescript-eslint/explicit-function-return-type": "warn"
+			}
+		}
+	]
 }

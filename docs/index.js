@@ -1,7 +1,7 @@
 import {
-	doReadNumber,
-	ReadingConfig,
 	InvalidNumberError,
+	ReadingConfig,
+	doReadNumber,
 } from 'https://unpkg.com/read-vietnamese-number'
 
 const number = document.getElementById('number')

@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect } from '@jest/globals'
-
 import { InvalidFormatError, InvalidNumberError, NumberData, ReadingConfig } from '../src/type.js'
 import {
+	addLeadingZerosToFitPeriod,
+	doReadNumber,
+	parseNumberData,
+	readFractionalPart,
+	readIntegralPart,
 	readLastTwoDigits,
 	readThreeDigits,
 	removeThousandsSeparators,
 	trimRedundantZeros,
-	addLeadingZerosToFitPeriod,
 	zipIntegralPeriods,
-	parseNumberData,
-	readIntegralPart,
-	readFractionalPart,
-	doReadNumber,
 } from '../src/reader.js'
+import { describe, expect, it } from '@jest/globals'
 
 describe('Read the last two digits function', () => {
 	const config = new ReadingConfig()
@@ -148,9 +147,9 @@ describe('Parse number data function', () => {
 	config.unit = []
 
 	it('Should throw InvalidNumberError', () => {
-		expect(() => parseNumberData(config, '-1.23xy')).toThrowError(InvalidNumberError)
-		expect(() => parseNumberData(config, '-12..3')).toThrowError(InvalidNumberError)
-		expect(() => parseNumberData(config, '--12.34')).toThrowError(InvalidNumberError)
+		expect(() => parseNumberData(config, '-1.23xy')).toThrow(InvalidNumberError)
+		expect(() => parseNumberData(config, '-12..3')).toThrow(InvalidNumberError)
+		expect(() => parseNumberData(config, '--12.34')).toThrow(InvalidNumberError)
 	})
 
 	it('Should return empty data', () => {
@@ -251,19 +250,19 @@ describe('Do read number function', () => {
 	config.unit = []
 
 	it('Should throw InvalidFormatError', () => {
-		expect(() => doReadNumber(config, null as any as string)).toThrowError(InvalidFormatError)
-		expect(() => doReadNumber(config, -0.12345 as any as string)).toThrowError(InvalidFormatError)
+		expect(() => doReadNumber(config, null as any as string)).toThrow(InvalidFormatError)
+		expect(() => doReadNumber(config, -0.12345 as any as string)).toThrow(InvalidFormatError)
 		expect(() =>
 			// eslint-disable-next-line no-loss-of-precision
 			doReadNumber(config, -1234567890123456789012 as any as string)
-		).toThrowError(InvalidFormatError)
+		).toThrow(InvalidFormatError)
 	})
 
 	it('Should throw InvalidNumberError', () => {
-		expect(() => doReadNumber(config, '1..23')).toThrowError(InvalidNumberError)
-		expect(() => doReadNumber(config, '--1.23')).toThrowError(InvalidNumberError)
-		expect(() => doReadNumber(config, '12_3')).toThrowError(InvalidNumberError)
-		expect(() => doReadNumber(config, 'abc123')).toThrowError(InvalidNumberError)
+		expect(() => doReadNumber(config, '1..23')).toThrow(InvalidNumberError)
+		expect(() => doReadNumber(config, '--1.23')).toThrow(InvalidNumberError)
+		expect(() => doReadNumber(config, '12_3')).toThrow(InvalidNumberError)
+		expect(() => doReadNumber(config, 'abc123')).toThrow(InvalidNumberError)
 	})
 
 	it('Should return zero', () => {

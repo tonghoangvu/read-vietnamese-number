@@ -266,7 +266,7 @@ export function readNumber(config: ReadingConfig, numberData: NumberData): strin
  * @param number the input number
  * @returns a string representation of the number
  */
-export function doReadNumber(config: ReadingConfig, number: InputNumber) {
+export function doReadNumber(config: ReadingConfig, number: InputNumber): string {
 	const validatedNumber = validateNumber(number)
 	const numberData = parseNumberData(config, validatedNumber)
 	return readNumber(config, numberData)

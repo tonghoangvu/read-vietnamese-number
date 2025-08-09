@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it } from '@jest/globals'
-
-import { InvalidFormatError } from '../src/type.js'
 import { splitToDigits, trimLeft, trimRight, validateNumber } from '../src/util.js'
+import { InvalidFormatError } from '../src/type.js'
 
 describe('Trim left function', () => {
 	it('Should return empty', () => {
@@ -56,8 +55,8 @@ describe('Split to digits function', () => {
 	})
 
 	it('Should return null', () => {
-		expect(splitToDigits('123x')).toEqual(null)
-		expect(splitToDigits('12 34x5')).toEqual(null)
+		expect(splitToDigits('123x')).toBeNull()
+		expect(splitToDigits('12 34x5')).toBeNull()
 	})
 })
 
@@ -72,12 +71,12 @@ describe('Validate number function', () => {
 	})
 
 	it('Should throw InvalidFormatError', () => {
-		expect(() => validateNumber(1 as any as string)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber({} as string)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(null as any as string)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(undefined as any as string)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(false as any as bigint)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber(Symbol('test') as any as bigint)).toThrowError(InvalidFormatError)
-		expect(() => validateNumber((() => 'test') as any as bigint)).toThrowError(InvalidFormatError)
+		expect(() => validateNumber(1 as any as string)).toThrow(InvalidFormatError)
+		expect(() => validateNumber({} as string)).toThrow(InvalidFormatError)
+		expect(() => validateNumber(null as any as string)).toThrow(InvalidFormatError)
+		expect(() => validateNumber(undefined as any as string)).toThrow(InvalidFormatError)
+		expect(() => validateNumber(false as any as bigint)).toThrow(InvalidFormatError)
+		expect(() => validateNumber(Symbol('test') as any as bigint)).toThrow(InvalidFormatError)
+		expect(() => validateNumber((() => 'test') as any as bigint)).toThrow(InvalidFormatError)
 	})
 })

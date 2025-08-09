@@ -4,6 +4,7 @@
 		"moduleResolution": "node",
 		"declaration": true,
 		"sourceMap": false,
+		"removeComments": false,
 		"listEmittedFiles": true,
 		"importHelpers": false,
 		"skipLibCheck": true,

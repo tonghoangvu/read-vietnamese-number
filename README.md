@@ -96,16 +96,3 @@ Nên nâng cấp lên version này để tránh các vấn đề khi đọc số
 Với các version cũ hơn, thư viện sẽ ném `NotEnoughUnitError` nếu cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
 Nên giới hạn độ lớn số nhập vào cho phù hợp với các đơn vị hiện có (mặc định hỗ trợ đến `tỉ tỉ`).
 Ngoài ra có thể xử lý bằng cách thêm các đơn vị lớn hơn vào cấu hình (không khuyến khích).
-
-## Contributing
-
-Muốn đóng góp cho project?
-Đừng ngại mở một Issue mới khi bạn có thắc mắc, đề xuất hoặc muốn báo cáo vấn đề.
-
-Pull request phù hợp sẽ được xem xét và hợp nhất:
-
-- Có mô tả rõ ràng
-- Tính năng phù hợp với dự án
-- Pass được CI pipeline khi tạo Pull request
-
-Cho tớ một sao 🌟 hoặc click vào nút Sponsor 😍 nếu project hữu ích với bạn nhé.

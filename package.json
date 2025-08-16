@@ -55,9 +55,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number.git"
+		"url": "git+https://github.com/tonghoangvu/read-vietnamese-number-js.git"
 	},
-	"homepage": "https://tonghoangvu.github.io/read-vietnamese-number/",
+	"homepage": "https://tonghoangvu.github.io/read-vietnamese-number-js/",
 	"author": {
 		"name": "Vu Tong",
 		"email": "tonghoangvu@outlook.com",

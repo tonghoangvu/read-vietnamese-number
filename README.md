@@ -1,7 +1,7 @@
 # read-vietnamese-number
 
-[![Check code](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/check-code.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/check-code.yml)
-[![Publish package](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/publish-package.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number/actions/workflows/publish-package.yml)
+[![Check code](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml)
+[![Publish package](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml)
 
 Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năng:
 
@@ -12,7 +12,7 @@ Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năn
 Hỗ trợ TypeScript, tương thích với JavaScript từ ES6 trở lên.
 Hoạt động với các module system như ESM và CommonJS.
 
-Live demo tại https://tonghoangvu.github.io/read-vietnamese-number/.
+Live demo tại https://tonghoangvu.github.io/read-vietnamese-number-js/.
 
 Bạn cũng có thể test nhanh thư viện với `npx` command mà không cần cài đặt.
 
@@ -91,7 +91,7 @@ Hàm `doReadNumber()` chấp nhận input là `string` và `bigint`, ném `Inval
 Hành vi này liên quan đến các vấn đề định dạng số của JavaScript (tràn số, mất độ chính xác,...).
 
 Từ version 2.2.0, thư viện hỗ trợ đọc số với độ lớn không giới hạn.
-Nên nâng cấp lên version này để tránh các vấn đề khi đọc số lớn (issue [#38](https://github.com/tonghoangvu/read-vietnamese-number/issues/38)).
+Nên nâng cấp lên version này để tránh các vấn đề khi đọc số lớn (issue [#38](https://github.com/tonghoangvu/read-vietnamese-number-js/issues/38)).
 
 Với các version cũ hơn, thư viện sẽ ném `NotEnoughUnitError` nếu cấu hình đọc số không có đủ số lượng đơn vị phù hợp.
 Nên giới hạn độ lớn số nhập vào cho phù hợp với các đơn vị hiện có (mặc định hỗ trợ đến `tỉ tỉ`).

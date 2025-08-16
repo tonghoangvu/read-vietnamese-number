@@ -1,7 +1,8 @@
 # read-vietnamese-number
 
-[![Check code](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml)
-[![Publish package](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml)
+[![Check Code](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/check-code.yml)
+[![Publish Package](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/publish-package.yml)
+[![Deploy Site](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/deploy-site.yml/badge.svg)](https://github.com/tonghoangvu/read-vietnamese-number-js/actions/workflows/deploy-site.yml)
 
 Thư viện đọc số thành chữ trong Tiếng Việt, với các tính năng:
 

@@ -1,4 +1,4 @@
-name: Check code
+name: Check Code
 
 on:
   push:
@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run lint
-        run: npm run lint
+        run: npm run lint --if-present
       - name: Run test
-        run: npm run test
+        run: npm run test --if-present
       - name: Run build
-        run: npm run build
+        run: npm run build --if-present
